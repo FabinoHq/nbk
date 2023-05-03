@@ -18,6 +18,21 @@
     <ClCompile Include="System\Win\SysMessage.cpp">
       <Filter>System\Win</Filter>
     </ClCompile>
+    <ClCompile Include="Network\Win\IPAddress4.cpp">
+      <Filter>Network\Win</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Win\IPAddress6.cpp">
+      <Filter>Network\Win</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Win\NetworkInit.cpp">
+      <Filter>Network\Win</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Win\TCPSocket.cpp">
+      <Filter>Network\Win</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Win\UDPSocket.cpp">
+      <Filter>Network\Win</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nbk.h" />
@@ -90,6 +105,30 @@
     <ClInclude Include="Math\Vector4i.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="Network\IPAddress4.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\IPAddress6.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\TCPSocket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\UDPSocket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Win\IPAddress4.h">
+      <Filter>Network\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Win\IPAddress6.h">
+      <Filter>Network\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Win\TCPSocket.h">
+      <Filter>Network\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Win\UDPSocket.h">
+      <Filter>Network\Win</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
@@ -100,6 +139,12 @@
     </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{94f3a280-3e44-4884-9628-461764b055ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{ca6d8d56-2aee-4680-ac95-e30b591d6fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network\Win">
+      <UniqueIdentifier>{7836c1f2-3e86-4fa2-9851-74da790689b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
