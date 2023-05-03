@@ -1,0 +1,27 @@
+# Ignore everything, except listed files
+*
+
+# Global files
+!.gitignore
+!.gitattributes
+!README.md
+!LICENSE
+
+# Projects files
+!Makefile
+!NBK.sln
+!NBK.vcxproj
+!NBK.vcxproj.filters
+!NBK.vcxproj.user
+
+# Batch files
+!batch/
+!batch/nbk_mem.sh
+!batch/nbk_thr.sh
+!batch/NBK.bat
+!batch/NBK_mem.bat
+
+# Sources files
+!main.cpp
+!Nbk.h
+!Nbk.cpp
