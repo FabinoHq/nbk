@@ -54,6 +54,8 @@
 !Network/IPAddress6.h
 !Network/TCPSocket.h
 !Network/UDPSocket.h
+!Network/Http.h
+!Network/Http.cpp
 !Network/Lin/
 !Network/Lin/IPAddress4.h
 !Network/Lin/IPAddress4.cpp

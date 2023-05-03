@@ -208,6 +208,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Nbk.cpp" />
+    <ClCompile Include="Network\Http.cpp" />
     <ClCompile Include="Network\Win\IPAddress4.cpp" />
     <ClCompile Include="Network\Win\IPAddress6.cpp" />
     <ClCompile Include="Network\Win\NetworkInit.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Math\Vector4i.h" />
     <ClInclude Include="Nbk.h" />
+    <ClInclude Include="Network\Http.h" />
     <ClInclude Include="Network\IPAddress4.h" />
     <ClInclude Include="Network\IPAddress6.h" />
     <ClInclude Include="Network\TCPSocket.h" />

@@ -52,7 +52,8 @@ NBK: main.o \
 	System/SysThread.o System/SysClock.o System/SysCPU.o \
 	System/Lin/SysMessage.o System/SysSettings.o \
 	Network/Lin/IPAddress4.o Network/Lin/IPAddress6.o \
-	Network/Lin/TCPSocket.o Network/Lin/UDPSocket.o
+	Network/Lin/TCPSocket.o Network/Lin/UDPSocket.o \
+	Network/Http.o
 
 	$(CC) -o NBK \
 	Nbk.o \
@@ -60,6 +61,7 @@ NBK: main.o \
 	System/Lin/SysMessage.o System/SysSettings.o \
 	Network/Lin/IPAddress4.o Network/Lin/IPAddress6.o \
 	Network/Lin/TCPSocket.o Network/Lin/UDPSocket.o \
+	Network/Http.o \
 	main.o $(LDFLAGS)
 
 
@@ -98,11 +100,15 @@ Network/Lin/TCPSocket.o: Network/Lin/TCPSocket.cpp
 Network/Lin/UDPSocket.o: Network/Lin/UDPSocket.cpp
 	$(CC) -o Network/Lin/UDPSocket.o -c Network/Lin/UDPSocket.cpp $(CFLAGS)
 
+Network/Http.o: Network/Http.cpp
+	$(CC) -o Network/Http.o -c Network/Http.cpp $(CFLAGS)
+
 
 clean:
 	rm -rf *.o
 	rm -rf System/*.o
 	rm -rf System/Lin/*.o
+	rm -rf Network/*.o
 	rm -rf Network/Lin/*.o
 
 mrproper: clean
