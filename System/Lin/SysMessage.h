@@ -37,66 +37,74 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     System/Lin/SysMessage.h : System Message for Linux                     //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
+#ifndef NBK_SYSTEM_LIN_SYSMESSAGE_HEADER
+#define NBK_SYSTEM_LIN_SYSMESSAGE_HEADER
 
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
+    #include "../System.h"
+    #include "../SysMutex.h"
 
-    #include <cstddef>
-    #include <cstdint>
-    #include <new>
+    #include <iostream>
+    #include <string>
+    #include <sstream>
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
+    //  SysMessage class definition                                           //
     ////////////////////////////////////////////////////////////////////////////
-    class Nbk
+    class SysMessage
     {
+        private:
+            ////////////////////////////////////////////////////////////////////
+            //  SysMessage private constructor                                //
+            ////////////////////////////////////////////////////////////////////
+            SysMessage();
+
         public:
             ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
+            //  Get the system message global singleton instance              //
+            //  return : SysMessage singleton instance                        //
             ////////////////////////////////////////////////////////////////////
-            Nbk();
+            static SysMessage& box();
 
             ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
+            //  Display the system message                                    //
             ////////////////////////////////////////////////////////////////////
-            ~Nbk();
-
-
-            ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
-            ////////////////////////////////////////////////////////////////////
-            bool launch();
+            void display();
 
             ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
+            //  Add a system message                                          //
+            //  return : Reference to the SysMessage instance                 //
             ////////////////////////////////////////////////////////////////////
-            void run();
-
-
-        private:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
-            ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
-
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
-            ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
+            template<typename T> SysMessage& operator<<(const T& t)
+            {
+                // Add to system message
+                m_mutex.lock();
+                m_message << t;
+                m_display = true;
+                m_mutex.unlock();
+                return *this;
+            }
 
 
         private:
+            ////////////////////////////////////////////////////////////////////
+            //  SysMessage private copy constructor : Not copyable            //
+            ////////////////////////////////////////////////////////////////////
+            SysMessage(const SysMessage&) = delete;
+
+            ////////////////////////////////////////////////////////////////////
+            //  SysMessage private copy operator : Not copyable               //
+            ////////////////////////////////////////////////////////////////////
+            SysMessage& operator=(const SysMessage&) = delete;
+
+
+        private:
+            SysMutex                m_mutex;    // System message mutex
+            bool                    m_display;  // Display the system message
+            std::ostringstream      m_message;  // Message to display
     };
 
 
-#endif // NBK_NBK_HEADER
+#endif // NBK_SYSTEM_LIN_SYSMESSAGE_HEADER

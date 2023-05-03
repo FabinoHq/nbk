@@ -208,9 +208,37 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Nbk.cpp" />
+    <ClCompile Include="System\SysClock.cpp" />
+    <ClCompile Include="System\SysCPU.cpp" />
+    <ClCompile Include="System\SysSettings.cpp" />
+    <ClCompile Include="System\SysThread.cpp" />
+    <ClCompile Include="System\Win\SysMessage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="Math\Matrix4x4.h" />
+    <ClInclude Include="Math\MultiInt.h" />
+    <ClInclude Include="Math\Transform2.h" />
+    <ClInclude Include="Math\Transform3.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector2i.h" />
+    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Math\Vector3i.h" />
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Math\Vector4i.h" />
     <ClInclude Include="Nbk.h" />
+    <ClInclude Include="System\SysClock.h" />
+    <ClInclude Include="System\SysCPU.h" />
+    <ClInclude Include="System\SysCRC.h" />
+    <ClInclude Include="System\SysMessage.h" />
+    <ClInclude Include="System\SysMutex.h" />
+    <ClInclude Include="System\SysMutexLocker.h" />
+    <ClInclude Include="System\SysSettings.h" />
+    <ClInclude Include="System\SysSleep.h" />
+    <ClInclude Include="System\System.h" />
+    <ClInclude Include="System\SysThread.h" />
+    <ClInclude Include="System\Win\SysCPU.h" />
+    <ClInclude Include="System\Win\SysMessage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

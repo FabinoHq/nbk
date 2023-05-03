@@ -37,66 +37,21 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     System/SysMessage.h : System Message management wrapper                //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
+#ifndef NBK_SYSTEM_SYSMESSAGE_HEADER
+#define NBK_SYSTEM_SYSMESSAGE_HEADER
 
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
-
-    #include <cstddef>
-    #include <cstdint>
-    #include <new>
+    #include "System.h"
 
 
-    ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
-    ////////////////////////////////////////////////////////////////////////////
-    class Nbk
-    {
-        public:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
-            ////////////////////////////////////////////////////////////////////
-            Nbk();
+    #ifdef NBK_WINDOWS
+        #include "Win/SysMessage.h"
+    #endif // NBK_WINDOWS
 
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
-            ////////////////////////////////////////////////////////////////////
-            ~Nbk();
+    #ifdef NBK_LINUX
+        #include "Lin/SysMessage.h"
+    #endif // NBK_LINUX
 
 
-            ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
-            ////////////////////////////////////////////////////////////////////
-            bool launch();
-
-            ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
-            ////////////////////////////////////////////////////////////////////
-            void run();
-
-
-        private:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
-            ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
-
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
-            ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
-
-
-        private:
-    };
-
-
-#endif // NBK_NBK_HEADER
+#endif // NBK_SYSTEM_SYSMESSAGE_HEADER

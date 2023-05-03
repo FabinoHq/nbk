@@ -37,66 +37,86 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     System/SysThread.h : System Thread management                          //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
+#ifndef NBK_SYSTEM_SYSTHREAD_HEADER
+#define NBK_SYSTEM_SYSTHREAD_HEADER
 
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
+    #include "System.h"
+    #include "SysSleep.h"
+    #include "SysMutex.h"
 
-    #include <cstddef>
-    #include <cstdint>
+    #include <thread>
     #include <new>
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
+    //  SysThread standby sleep time : 10 ms                                  //
     ////////////////////////////////////////////////////////////////////////////
-    class Nbk
+    const double SysThreadStandbySleepTime = 0.01;
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  SysThread class definition                                            //
+    ////////////////////////////////////////////////////////////////////////////
+    class SysThread
     {
         public:
             ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
+            //  SysThread default constructor                                 //
             ////////////////////////////////////////////////////////////////////
-            Nbk();
+            SysThread();
 
             ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
+            //  SysThread virtual destructor                                  //
             ////////////////////////////////////////////////////////////////////
-            ~Nbk();
+            virtual ~SysThread();
 
 
             ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
+            //  Start the thread                                              //
             ////////////////////////////////////////////////////////////////////
-            bool launch();
+            bool start();
 
             ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
+            //  Stop the thread                                               //
+            ////////////////////////////////////////////////////////////////////
+            void stop();
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set the thread's standby mode                                 //
+            ////////////////////////////////////////////////////////////////////
+            void standby(bool standbyMode);
+
+            ////////////////////////////////////////////////////////////////////
+            //  Thread virtual process                                        //
+            ////////////////////////////////////////////////////////////////////
+            virtual void process();
+
+
+        private:
+            ////////////////////////////////////////////////////////////////////
+            //  SysThread private copy constructor : Not copyable             //
+            ////////////////////////////////////////////////////////////////////
+            SysThread(const SysThread&) = delete;
+
+            ////////////////////////////////////////////////////////////////////
+            //  SysThread private copy operator : Not copyable                //
+            ////////////////////////////////////////////////////////////////////
+            SysThread& operator=(const SysThread&) = delete;
+
+            ////////////////////////////////////////////////////////////////////
+            //  SysThread subroutine                                          //
             ////////////////////////////////////////////////////////////////////
             void run();
 
 
         private:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
-            ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
-
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
-            ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
-
-
-        private:
+            std::thread*    m_thread;       // System thread
+            SysMutex        m_mutex;        // Thread states mutex
+            bool            m_running;      // Thread running state
+            bool            m_standby;      // Thread standby mode
     };
 
 
-#endif // NBK_NBK_HEADER
+#endif // NBK_SYSTEM_SYSTHREAD_HEADER

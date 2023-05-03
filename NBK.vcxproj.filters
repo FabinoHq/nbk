@@ -3,8 +3,103 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Nbk.cpp" />
+    <ClCompile Include="System\SysClock.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="System\SysCPU.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="System\SysSettings.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="System\SysThread.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Win\SysMessage.cpp">
+      <Filter>System\Win</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nbk.h" />
+    <ClInclude Include="System\SysClock.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\SysCPU.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\SysCRC.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\SysMessage.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\SysMutex.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\SysMutexLocker.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\SysSettings.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\SysSleep.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\System.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\SysThread.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Win\SysCPU.h">
+      <Filter>System\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Win\SysMessage.h">
+      <Filter>System\Win</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix4x4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MultiInt.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Transform2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Transform3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2i.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3i.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4i.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="System">
+      <UniqueIdentifier>{c9e960e5-c2b3-4b91-8081-e944490856a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Win">
+      <UniqueIdentifier>{b4b3544b-c538-49a1-b727-14aca8b7d7bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{94f3a280-3e44-4884-9628-461764b055ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

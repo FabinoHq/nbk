@@ -37,66 +37,63 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     System/SysSettings.h : System Settings management                      //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
+#ifndef NBK_SYSTEM_SYSSETTINGS_HEADER
+#define NBK_SYSTEM_SYSSETTINGS_HEADER
 
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
-
-    #include <cstddef>
-    #include <cstdint>
-    #include <new>
+    #include "System.h"
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
+    //  SysSettings class definition                                          //
     ////////////////////////////////////////////////////////////////////////////
-    class Nbk
+    class SysSettings
     {
         public:
             ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
+            //  SysSettings default constructor                               //
             ////////////////////////////////////////////////////////////////////
-            Nbk();
+            SysSettings();
 
             ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
+            //  SysSettings destructor                                        //
             ////////////////////////////////////////////////////////////////////
-            ~Nbk();
+            ~SysSettings();
 
 
             ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
+            //  Load system settings                                          //
+            //  return : True if system settings are successfully loaded      //
             ////////////////////////////////////////////////////////////////////
-            bool launch();
+            bool loadSettings();
 
             ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
+            //  Adjust system settings according to device properties         //
             ////////////////////////////////////////////////////////////////////
-            void run();
+            void adjustSettings();
 
 
         private:
             ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
+            //  SysSettings private copy constructor : Not copyable           //
             ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
+            SysSettings(const SysSettings&) = delete;
 
             ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
+            //  SysSettings private copy operator : Not copyable              //
             ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
+            SysSettings& operator=(const SysSettings&) = delete;
 
 
         private:
     };
 
 
-#endif // NBK_NBK_HEADER
+    ////////////////////////////////////////////////////////////////////////////
+    //  SysSettings global instance                                           //
+    ////////////////////////////////////////////////////////////////////////////
+    extern SysSettings GSysSettings;
+
+
+#endif // NBK_SYSTEM_SYSSETTINGS_HEADER

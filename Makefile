@@ -48,10 +48,14 @@ LDFLAGS=-pthread
 all: NBK
 
 NBK: main.o \
-	Nbk.o
+	Nbk.o \
+	System/SysThread.o System/SysClock.o System/SysCPU.o \
+	System/Lin/SysMessage.o System/SysSettings.o
 
 	$(CC) -o NBK \
 	Nbk.o \
+	System/SysThread.o System/SysClock.o System/SysCPU.o \
+	System/Lin/SysMessage.o System/SysSettings.o \
 	main.o $(LDFLAGS)
 
 
@@ -62,8 +66,26 @@ Nbk.o: Nbk.cpp
 	$(CC) -o Nbk.o -c Nbk.cpp $(CFLAGS)
 
 
+System/SysThread.o: System/SysThread.cpp
+	$(CC) -o System/SysThread.o -c System/SysThread.cpp $(CFLAGS)
+
+System/SysClock.o: System/SysClock.cpp
+	$(CC) -o System/SysClock.o -c System/SysClock.cpp $(CFLAGS)
+
+System/SysCPU.o: System/SysCPU.cpp
+	$(CC) -o System/SysCPU.o -c System/SysCPU.cpp $(CFLAGS)
+
+System/Lin/SysMessage.o: System/Lin/SysMessage.cpp
+	$(CC) -o System/Lin/SysMessage.o -c System/Lin/SysMessage.cpp $(CFLAGS)
+
+System/SysSettings.o: System/SysSettings.cpp
+	$(CC) -o System/SysSettings.o -c System/SysSettings.cpp $(CFLAGS)
+
+
 clean:
 	rm -rf *.o
+	rm -rf System/*.o
+	rm -rf System/Lin/*.o
 
 mrproper: clean
 	rm -rf NBK

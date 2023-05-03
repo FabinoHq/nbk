@@ -15,7 +15,6 @@
 !NBK.vcxproj.user
 
 # Batch files
-!batch/
 !batch/nbk_mem.sh
 !batch/nbk_thr.sh
 !batch/NBK.bat
@@ -25,3 +24,42 @@
 !main.cpp
 !Nbk.h
 !Nbk.cpp
+
+# System
+!System/
+!System/System.h
+!System/SysMessage.h
+!System/SysCPU.h
+!System/SysCPU.cpp
+!System/SysCRC.h
+!System/SysSleep.h
+!System/SysThread.h
+!System/SysThread.cpp
+!System/SysMutex.h
+!System/SysMutexLocker.h
+!System/SysClock.h
+!System/SysClock.cpp
+!System/SysSettings.h
+!System/SysSettings.cpp
+!System/Lin/
+!System/Lin/SysMessage.h
+!System/Lin/SysMessage.cpp
+!System/Lin/SysCPU.h
+!System/Win/
+!System/Win/SysMessage.h
+!System/Win/SysMessage.cpp
+!System/Win/SysCPU.h
+
+# Math
+!Math/
+!Math/Math.h
+!Math/MultiInt.h
+!Math/Vector2.h
+!Math/Vector2i.h
+!Math/Vector3.h
+!Math/Vector3i.h
+!Math/Vector4.h
+!Math/Vector4i.h
+!Math/Matrix4x4.h
+!Math/Transform2.h
+!Math/Transform3.h

@@ -37,66 +37,57 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     System/SysMutexLocker.h : System Mutex locker management               //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
+#ifndef NBK_SYSTEM_SYSMUTEXLOCKER_HEADER
+#define NBK_SYSTEM_SYSMUTEXLOCKER_HEADER
 
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
+    #include "System.h"
+    #include "SysMutex.h"
 
-    #include <cstddef>
-    #include <cstdint>
-    #include <new>
+    #include <thread>
+    #include <mutex>
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
+    //  SysMutexLocker class definition                                       //
     ////////////////////////////////////////////////////////////////////////////
-    class Nbk
+    class SysMutexLocker
     {
         public:
             ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
+            //  SysMutexLocker constructor : Lock the associated mutex        //
             ////////////////////////////////////////////////////////////////////
-            Nbk();
+            inline SysMutexLocker(SysMutex& mutex) :
+            m_mutex(mutex)
+            {
+                m_mutex.lock();
+            }
 
             ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
+            //  SysMutexLocker destructor : Unlock the associated mutex       //
             ////////////////////////////////////////////////////////////////////
-            ~Nbk();
-
-
-            ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
-            ////////////////////////////////////////////////////////////////////
-            bool launch();
-
-            ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
-            ////////////////////////////////////////////////////////////////////
-            void run();
+            inline ~SysMutexLocker()
+            {
+                m_mutex.unlock();
+            }
 
 
         private:
             ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
+            //  SysMutexLocker private copy constructor : Not copyable        //
             ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
+            SysMutexLocker(const SysMutexLocker&) = delete;
 
             ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
+            //  SysMutexLocker private copy operator : Not copyable           //
             ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
+            SysMutexLocker& operator=(const SysMutexLocker&) = delete;
 
 
         private:
+            SysMutex&           m_mutex;            // Associated mutex
     };
 
 
-#endif // NBK_NBK_HEADER
+#endif // NBK_SYSTEM_SYSMUTEXLOCKER_HEADER

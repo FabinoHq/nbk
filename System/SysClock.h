@@ -37,66 +37,89 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     System/SysClock.h : System Clock management                            //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
+#ifndef NBK_SYSTEM_SYSCLOCK_HEADER
+#define NBK_SYSTEM_SYSCLOCK_HEADER
 
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
+    #include "System.h"
 
-    #include <cstddef>
-    #include <cstdint>
-    #include <new>
+    #include <chrono>
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
+    //  SysClock class definition                                             //
     ////////////////////////////////////////////////////////////////////////////
-    class Nbk
+    class SysClock
     {
         public:
             ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
+            //  SysClock default constructor                                  //
             ////////////////////////////////////////////////////////////////////
-            Nbk();
+            SysClock();
 
             ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
+            //  SysClock destructor                                           //
             ////////////////////////////////////////////////////////////////////
-            ~Nbk();
+            ~SysClock();
 
 
             ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
+            //  Reset the clock                                               //
             ////////////////////////////////////////////////////////////////////
-            bool launch();
+            inline void reset()
+            {
+                m_start = std::chrono::steady_clock::now();
+            }
 
             ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
+            //  Get elapsed time since last reset in seconds                  //
             ////////////////////////////////////////////////////////////////////
-            void run();
+            inline double getElapsedTime() const
+            {
+                return (std::chrono::duration_cast<std::chrono::nanoseconds>(
+                        std::chrono::steady_clock::now()-m_start
+                    ).count()*0.000000001
+                );
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get elapsed time since last reset in seconds                  //
+            ////////////////////////////////////////////////////////////////////
+            inline float getElapsedTimeF() const
+            {
+                return (std::chrono::duration_cast<std::chrono::nanoseconds>(
+                        std::chrono::steady_clock::now()-m_start
+                    ).count()*0.000000001f
+                );
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get elapsed time in seconds and reset the clock               //
+            ////////////////////////////////////////////////////////////////////
+            double getAndReset();
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get elapsed time in seconds and reset the clock               //
+            ////////////////////////////////////////////////////////////////////
+            float getAndResetF();
 
 
         private:
             ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
+            //  SysClock private copy constructor : Not copyable              //
             ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
+            SysClock(const SysClock&) = delete;
 
             ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
+            //  SysClock private copy operator : Not copyable                 //
             ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
+            SysClock& operator=(const SysClock&) = delete;
 
 
         private:
+            std::chrono::time_point<std::chrono::steady_clock>  m_start;
     };
 
 
-#endif // NBK_NBK_HEADER
+#endif // NBK_SYSTEM_SYSCLOCK_HEADER

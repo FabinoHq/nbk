@@ -37,66 +37,77 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     System/Win/SysCPU.h : System CPU management for Windows                //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
+#ifndef NBK_SYSTEM_WIN_SYSCPU_HEADER
+#define NBK_SYSTEM_WIN_SYSCPU_HEADER
 
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
+    #include "../System.h"
 
     #include <cstddef>
     #include <cstdint>
-    #include <new>
+    #include <cstdlib>
+    #include <intrin.h>
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
+    //  Swap 2 bytes unsigned integer endianness                              //
+    //  return : Swapped 2 bytes unsigned integer                             //
     ////////////////////////////////////////////////////////////////////////////
-    class Nbk
+    #define SysByteSwap16 _byteswap_ushort
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  Swap 4 bytes unsigned integer endianness                              //
+    //  return : Swapped 4 bytes unsigned integer                             //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysByteSwap32 _byteswap_ulong
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  Swap 8 bytes unsigned integer endianness                              //
+    //  return : Swapped 8 bytes unsigned integer                             //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysByteSwap64 _byteswap_uint64
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 32 bits scan forward                                          //
+    //  return : Computed 32 bits scan forward                                //
+    ////////////////////////////////////////////////////////////////////////////
+    inline uint32_t SysBitScanForward32(uint32_t bits)
     {
-        public:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
-            ////////////////////////////////////////////////////////////////////
-            Nbk();
+        _BitScanForward((unsigned long*)&bits, bits);
+        return bits;
+    }
 
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
-            ////////////////////////////////////////////////////////////////////
-            ~Nbk();
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 32 bits scan reverse                                          //
+    //  return : Computed 32 bits scan reverse                                //
+    ////////////////////////////////////////////////////////////////////////////
+    inline uint32_t SysBitScanReverse32(uint32_t bits)
+    {
+        _BitScanReverse((unsigned long*)&bits, bits);
+        return bits;
+    }
 
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 64 bits scan forward                                          //
+    //  return : Computed 64 bits scan forward                                //
+    ////////////////////////////////////////////////////////////////////////////
+    inline uint64_t SysBitScanForward64(uint64_t bits)
+    {
+        _BitScanForward64((unsigned long*)&bits, bits);
+        return bits;
+    }
 
-            ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
-            ////////////////////////////////////////////////////////////////////
-            bool launch();
-
-            ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
-            ////////////////////////////////////////////////////////////////////
-            void run();
-
-
-        private:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
-            ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
-
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
-            ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
-
-
-        private:
-    };
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 64 bits scan reverse                                          //
+    //  return : Computed 64 bits scan reverse                                //
+    ////////////////////////////////////////////////////////////////////////////
+    inline uint64_t SysBitScanReverse64(uint64_t bits)
+    {
+        _BitScanReverse64((unsigned long*)&bits, bits);
+        return bits;
+    }
 
 
-#endif // NBK_NBK_HEADER
+#endif // NBK_SYSTEM_WIN_SYSCPU_HEADER

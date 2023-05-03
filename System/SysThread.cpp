@@ -37,52 +37,121 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.cpp : NBK Main class management                                    //
+//     System/SysThread.cpp : System Thread management                        //
 ////////////////////////////////////////////////////////////////////////////////
-#include "Nbk.h"
+#include "SysThread.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
-//  Nbk default constructor                                                   //
+//  SysThread default constructor                                             //
 ////////////////////////////////////////////////////////////////////////////////
-Nbk::Nbk()
+SysThread::SysThread() :
+m_thread(0),
+m_mutex(),
+m_running(false),
+m_standby(false)
 {
 
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-//  Nbk destructor                                                            //
+//  SysThread virtual destructor                                              //
 ////////////////////////////////////////////////////////////////////////////////
-Nbk::~Nbk()
+SysThread::~SysThread()
 {
-
+    // Stop eventual running thread
+    stop();
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////
-//  Launch NBK                                                                //
-//  return : True if NBK successfully started, false otherwise                //
+//  Start the thread                                                          //
 ////////////////////////////////////////////////////////////////////////////////
-bool Nbk::launch()
+bool SysThread::start()
 {
-    // Check system CPU
-    if (!SysCPUCheck())
-    {
-        // Invalid system CPU
-        return false;
-    }
+    // Stop eventual running thread
+    stop();
 
-    // Run NBK
-    run();
+    // Start the thread
+    m_thread = new (std::nothrow) std::thread(&SysThread::run, this);
+    if (!m_thread) return false;
 
-    // NBK successfully terminated
+    // Thread successfully started
     return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-//  Run NBK                                                                   //
+//  Stop the thread                                                           //
 ////////////////////////////////////////////////////////////////////////////////
-void Nbk::run()
+void SysThread::stop()
 {
-    
+    if (m_thread)
+    {
+        // Request thread stop
+        m_mutex.lock();
+        m_running = false;
+        m_mutex.unlock();
+
+        // Wait for the thread to stop
+        m_thread->join();
+
+        // Clear thread memory
+        delete m_thread;
+        m_thread = 0;
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//  Set the thread's standby mode                                             //
+////////////////////////////////////////////////////////////////////////////////
+void SysThread::standby(bool standbyMode)
+{
+    m_mutex.lock();
+    m_standby = standbyMode;
+    m_mutex.unlock();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//  Thread virtual process                                                    //
+////////////////////////////////////////////////////////////////////////////////
+void SysThread::process()
+{
+    // Default process : Standby thread
+    SysSleep(SysThreadStandbySleepTime);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+//  Thread subroutine                                                         //
+////////////////////////////////////////////////////////////////////////////////
+void SysThread::run()
+{
+    // Set running and standby state
+    bool running = false;
+    bool standby = false;
+
+    m_mutex.lock();
+    m_running = running = true;
+    m_standby = standby = false;
+    m_mutex.unlock();
+
+    // Run the thread
+    while (running)
+    {
+        if (standby)
+        {
+            // Thread standby mode
+            SysSleep(SysThreadStandbySleepTime);
+        }
+        else
+        {
+            // Thread process
+            process();
+        }
+
+        // Update running and standby states
+        m_mutex.lock();
+        running = m_running;
+        standby = m_standby;
+        m_mutex.unlock();
+    }
 }

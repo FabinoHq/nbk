@@ -53,12 +53,12 @@ int main()
     if (!nbk.launch())
     {
         // NBK error occured
-        //SysMessage::box().display();
+        SysMessage::box().display();
         return 1;
     }
 
     // Display system message if any
-    //SysMessage::box().display();
+    SysMessage::box().display();
 
     // Program successfully executed
     return 0;

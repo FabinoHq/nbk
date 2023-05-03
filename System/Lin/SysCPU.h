@@ -37,66 +37,59 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     System/Lin/SysCPU.h : System CPU management for Linux                  //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
+#ifndef NBK_SYSTEM_LIN_SYSCPU_HEADER
+#define NBK_SYSTEM_LIN_SYSCPU_HEADER
 
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
+    #include "../System.h"
 
     #include <cstddef>
     #include <cstdint>
-    #include <new>
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
+    //  Swap 2 bytes unsigned integer endianness                              //
+    //  return : Swapped 2 bytes unsigned integer                             //
     ////////////////////////////////////////////////////////////////////////////
-    class Nbk
-    {
-        public:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
-            ////////////////////////////////////////////////////////////////////
-            Nbk();
+    #define SysByteSwap16 __builtin_bswap16
 
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
-            ////////////////////////////////////////////////////////////////////
-            ~Nbk();
+    ////////////////////////////////////////////////////////////////////////////
+    //  Swap 4 bytes unsigned integer endianness                              //
+    //  return : Swapped 4 bytes unsigned integer                             //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysByteSwap32 __builtin_bswap32
 
-
-            ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
-            ////////////////////////////////////////////////////////////////////
-            bool launch();
-
-            ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
-            ////////////////////////////////////////////////////////////////////
-            void run();
+    ////////////////////////////////////////////////////////////////////////////
+    //  Swap 8 bytes unsigned integer endianness                              //
+    //  return : Swapped 8 bytes unsigned integer                             //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysByteSwap64 __builtin_bswap64
 
 
-        private:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
-            ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 32 bits scan forward                                          //
+    //  return : Computed 32 bits scan forward                                //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysBitScanForward32(bits) (__builtin_ctz(bits))
 
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
-            ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 32 bits scan reverse                                          //
+    //  return : Computed 32 bits scan reverse                                //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysBitScanReverse32(bits) (0x1F - __builtin_clz(bits))
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 64 bits scan forward                                          //
+    //  return : Computed 64 bits scan forward                                //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysBitScanForward64(bits) (__builtin_ctzll(bits))
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 64 bits scan reverse                                          //
+    //  return : Computed 64 bits scan reverse                                //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysBitScanReverse64(bits) (0x3F - __builtin_clzll(bits))
 
 
-        private:
-    };
-
-
-#endif // NBK_NBK_HEADER
+#endif // NBK_SYSTEM_LIN_SYSCPU_HEADER

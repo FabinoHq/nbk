@@ -37,66 +37,36 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     System/SysSleep.h : System thread sleep management                     //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
+#ifndef NBK_SYSTEM_SYSSLEEP_HEADER
+#define NBK_SYSTEM_SYSSLEEP_HEADER
 
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
+    #include "System.h"
 
-    #include <cstddef>
-    #include <cstdint>
-    #include <new>
+    #include <thread>
+    #include <chrono>
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
+    //  Put current thread to sleep for given time in seconds                 //
     ////////////////////////////////////////////////////////////////////////////
-    class Nbk
+    inline void SysSleep(double seconds)
     {
-        public:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
-            ////////////////////////////////////////////////////////////////////
-            Nbk();
+        std::this_thread::sleep_for(std::chrono::microseconds(
+            static_cast<long long int>(seconds*1000000)
+        ));
+    }
 
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
-            ////////////////////////////////////////////////////////////////////
-            ~Nbk();
-
-
-            ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
-            ////////////////////////////////////////////////////////////////////
-            bool launch();
-
-            ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
-            ////////////////////////////////////////////////////////////////////
-            void run();
+    ////////////////////////////////////////////////////////////////////////////
+    //  Put current thread to sleep for given time in seconds                 //
+    ////////////////////////////////////////////////////////////////////////////
+    inline void SysSleep(float seconds)
+    {
+        std::this_thread::sleep_for(std::chrono::microseconds(
+            static_cast<long long int>(seconds*1000000)
+        ));
+    }
 
 
-        private:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
-            ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
-
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
-            ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
-
-
-        private:
-    };
-
-
-#endif // NBK_NBK_HEADER
+#endif // NBK_SYSTEM_SYSSLEEP_HEADER

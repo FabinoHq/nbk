@@ -37,66 +37,38 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     System/System.h : NBK System management wrapper                        //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
-
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
-
-    #include <cstddef>
-    #include <cstdint>
-    #include <new>
+#ifndef NBK_SYSTEM_SYSTEM_HEADER
+#define NBK_SYSTEM_SYSTEM_HEADER
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
+    //  Operating system configuration                                        //
     ////////////////////////////////////////////////////////////////////////////
-    class Nbk
-    {
-        public:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
-            ////////////////////////////////////////////////////////////////////
-            Nbk();
+    #if defined(_WIN32) || defined(_WIN64) || defined(__MINGW32__)
+        #define NBK_WINDOWS
+    #endif // Windows
 
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
-            ////////////////////////////////////////////////////////////////////
-            ~Nbk();
+    #if defined(__APPLE__)
+        #define NBK_MACOS
+    #endif // MacOS
 
-
-            ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
-            ////////////////////////////////////////////////////////////////////
-            bool launch();
-
-            ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
-            ////////////////////////////////////////////////////////////////////
-            void run();
+    #if defined(__linux__)
+        #define NBK_LINUX
+    #endif // Linux
 
 
-        private:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
-            ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
-
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
-            ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
-
-
-        private:
-    };
+    ////////////////////////////////////////////////////////////////////////////
+    //  64bits or 32bits configuration                                        //
+    ////////////////////////////////////////////////////////////////////////////
+    #if defined(__x86_64__) || defined(_WIN64) || defined(__LP64__) || \
+        defined(__ia64) || defined(_M_X64) || defined(_M_IA64) || \
+        defined(__aarch64__) || defined(__powerpc64__)
+        #define NBK_64BITS
+    #else
+        #define NBK_32BITS
+    #endif
 
 
-#endif // NBK_NBK_HEADER
+#endif // NBK_SYSTEM_SYSTEM_HEADER
