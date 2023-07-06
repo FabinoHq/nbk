@@ -15,6 +15,8 @@
 !NBK.vcxproj.user
 
 # Batch files
+!nbk.sh
+!nbk.bat
 !batch/nbk_mem.sh
 !batch/nbk_thr.sh
 !batch/NBK.bat
