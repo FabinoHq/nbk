@@ -149,7 +149,7 @@
             ////////////////////////////////////////////////////////////////////
             //  Receive data over TCP                                         //
             ////////////////////////////////////////////////////////////////////
-            bool receiveData(char* data, size_t size);
+            bool receiveData(char* data, size_t& size);
 
 
         private:

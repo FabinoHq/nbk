@@ -124,13 +124,13 @@
             ////////////////////////////////////////////////////////////////////
             //  Receive data over UDP (IPv4)                                  //
             ////////////////////////////////////////////////////////////////////
-            bool receiveData(char* data, size_t size,
+            bool receiveData(char* data, size_t& size,
                 IPAddress4& ipaddress, uint16_t port);
 
             ////////////////////////////////////////////////////////////////////
             //  Receive data over UDP (IPv6)                                  //
             ////////////////////////////////////////////////////////////////////
-            bool receiveData(char* data, size_t size,
+            bool receiveData(char* data, size_t& size,
                 IPAddress6& ipaddress, uint16_t port);
 
 

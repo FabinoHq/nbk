@@ -320,13 +320,14 @@ bool UDPSocket::sendData(const char* data, size_t size,
 ////////////////////////////////////////////////////////////////////////////////
 //  Receive data over UDP (IPv4)                                              //
 ////////////////////////////////////////////////////////////////////////////////
-bool UDPSocket::receiveData(char* data, size_t size,
+bool UDPSocket::receiveData(char* data, size_t& size,
     IPAddress4& ipaddress, uint16_t port)
 {
     // Check socket handle
     if (m_handle == UDPSocketInvalid)
     {
         // Invalid socket handle
+        size = 0;
         return false;
     }
 
@@ -334,6 +335,7 @@ bool UDPSocket::receiveData(char* data, size_t size,
     if (m_ipversion != UDPSOCKET_IPV4)
     {
         // Invalid IP version
+        size = 0;
         return false;
     }
 
@@ -341,6 +343,7 @@ bool UDPSocket::receiveData(char* data, size_t size,
     if (!data || (size <= 0))
     {
         // Invalid data
+        size = 0;
         return false;
     }
 
@@ -360,40 +363,36 @@ bool UDPSocket::receiveData(char* data, size_t size,
     socklen_t addr4Size = sizeof(addr4);
 
     // Receive data
-    size_t dataReceived = 0;
-    int result = 0;
-    do
+    int result = recvfrom(m_handle, data,
+        static_cast<int>(sizeof(char)*size),
+        0, (sockaddr*)&addr4, &addr4Size
+    );
+    if (result <= 0)
     {
-        result = recvfrom(
-            m_handle, &data[dataReceived],
-            static_cast<int>(sizeof(char)*(size-dataReceived)),
-            0, (sockaddr*)&addr4, &addr4Size
-        );
-        if (result <= 0)
-        {
-            // Unable to receive data
-            return false;
-        }
-        dataReceived += static_cast<size_t>(result);
-    } while (dataReceived < size);
+        // Unable to receive data
+        size = 0;
+        return false;
+    }
 
     // Copy remote IP address
     ipaddress.setAddress(addr4.sin_addr);
 
     // Data successfully received
+    size = result;
     return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //  Receive data over UDP (IPv6)                                              //
 ////////////////////////////////////////////////////////////////////////////////
-bool UDPSocket::receiveData(char* data, size_t size,
+bool UDPSocket::receiveData(char* data, size_t& size,
     IPAddress6& ipaddress, uint16_t port)
 {
     // Check socket handle
     if (m_handle == UDPSocketInvalid)
     {
         // Invalid socket handle
+        size = 0;
         return false;
     }
 
@@ -401,6 +400,7 @@ bool UDPSocket::receiveData(char* data, size_t size,
     if (m_ipversion != UDPSOCKET_IPV6)
     {
         // Invalid IP version
+        size = 0;
         return false;
     }
 
@@ -408,6 +408,7 @@ bool UDPSocket::receiveData(char* data, size_t size,
     if (!data || (size <= 0))
     {
         // Invalid data
+        size = 0;
         return false;
     }
 
@@ -428,26 +429,21 @@ bool UDPSocket::receiveData(char* data, size_t size,
     socklen_t addr6Size = sizeof(addr6);
 
     // Receive data
-    size_t dataReceived = 0;
-    int result = 0;
-    do
+    int result = recvfrom(m_handle, data,
+        static_cast<int>(sizeof(char)*size),
+        0, (sockaddr*)&addr6, &addr6Size
+    );
+    if (result <= 0)
     {
-        result = recvfrom(
-            m_handle, &data[dataReceived],
-            static_cast<int>(sizeof(char)*(size-dataReceived)),
-            0, (sockaddr*)&addr6, &addr6Size
-        );
-        if (result <= 0)
-        {
-            // Unable to receive data
-            return false;
-        }
-        dataReceived += static_cast<size_t>(result);
-    } while (dataReceived < size);
+        // Unable to receive data
+        size = 0;
+        return false;
+    }
 
     // Copy remote IP address
     ipaddress.setAddress(addr6.sin6_addr);
 
     // Data successfully received
+    size = result;
     return true;
 }

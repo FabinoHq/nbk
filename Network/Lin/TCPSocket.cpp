@@ -459,12 +459,13 @@ bool TCPSocket::sendData(const char* data, size_t size)
 ////////////////////////////////////////////////////////////////////////////////
 //  Receive data over TCP                                                     //
 ////////////////////////////////////////////////////////////////////////////////
-bool TCPSocket::receiveData(char* data, size_t size)
+bool TCPSocket::receiveData(char* data, size_t& size)
 {
     // Check socket handle
     if (m_handle == TCPSocketInvalid)
     {
         // Invalid socket handle
+        size = 0;
         return false;
     }
 
@@ -472,27 +473,20 @@ bool TCPSocket::receiveData(char* data, size_t size)
     if (!data || (size <= 0))
     {
         // Invalid data
+        size = 0;
         return false;
     }
 
     // Receive data
-    size_t dataReceived = 0;
-    int result = 0;
-    do
+    int result = recv(m_handle, data, static_cast<int>(sizeof(char)*size), 0);
+    if (result <= 0)
     {
-        result = recv(
-            m_handle, &data[dataReceived],
-            static_cast<int>(sizeof(char)*(size-dataReceived)),
-            0
-        );
-        if (result <= 0)
-        {
-            // Unable to receive data
-            return false;
-        }
-        dataReceived += static_cast<size_t>(result);
-    } while (dataReceived < size);
+        // Unable to receive data
+        size = 0;
+        return false;
+    }
 
     // Data successfully received
+    size = result;
     return true;
 }
