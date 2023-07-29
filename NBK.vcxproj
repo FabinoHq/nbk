@@ -211,6 +211,7 @@
     <ClCompile Include="Network\IPAddress.cpp" />
     <ClCompile Include="Network\Network.cpp" />
     <ClCompile Include="Network\TCPSocket.cpp" />
+    <ClCompile Include="Network\UDPSocket.cpp" />
     <ClCompile Include="System\SysClock.cpp" />
     <ClCompile Include="System\SysCPU.cpp" />
     <ClCompile Include="System\SysSettings.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="Network\IPAddress.h" />
     <ClInclude Include="Network\Network.h" />
     <ClInclude Include="Network\TCPSocket.h" />
+    <ClInclude Include="Network\UDPSocket.h" />
     <ClInclude Include="System\SysClock.h" />
     <ClInclude Include="System\SysCPU.h" />
     <ClInclude Include="System\SysCRC.h" />

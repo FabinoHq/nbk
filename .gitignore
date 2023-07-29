@@ -58,6 +58,8 @@
 !Network/IPAddress.cpp
 !Network/TCPSocket.h
 !Network/TCPSocket.cpp
+!Network/UDPSocket.h
+!Network/UDPSocket.cpp
 
 # Math
 !Math/

@@ -27,6 +27,9 @@
     <ClCompile Include="Network\TCPSocket.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="Network\UDPSocket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nbk.h" />
@@ -106,6 +109,9 @@
       <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="Network\TCPSocket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\UDPSocket.h">
       <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>

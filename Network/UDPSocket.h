@@ -37,10 +37,10 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Network/TCPSocket.h : TCP Socket management                            //
+//     Network/UDPSocket.h : UDP Socket management                            //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NETWORK_TCPSOCKET_HEADER
-#define NBK_NETWORK_TCPSOCKET_HEADER
+#ifndef NBK_NETWORK_UDPSOCKET_HEADER
+#define NBK_NETWORK_UDPSOCKET_HEADER
 
     #include "Network.h"
     #include "IPAddress.h"
@@ -51,102 +51,88 @@
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  TCPSocket invalid socket constant                                     //
+    //  UDPSocket invalid socket constant                                     //
     ////////////////////////////////////////////////////////////////////////////
     #ifdef NBK_WINDOWS
-        const SocketHandle TCPSocketInvalid = INVALID_SOCKET;
+        const SocketHandle UDPSocketInvalid = INVALID_SOCKET;
     #endif // NBK_WINDOWS
     #ifdef NBK_LINUX
-        const SocketHandle TCPSocketInvalid = -1;
+        const SocketHandle UDPSocketInvalid = -1;
     #endif // NBK_LINUX
 
     ////////////////////////////////////////////////////////////////////////////
-    //  TCPSocket maximum back log (pending connections queue length)         //
+    //  UDPSocket maximum back log (pending connections queue length)         //
     ////////////////////////////////////////////////////////////////////////////
-    const int TCPSocketMaxBackLog = SOMAXCONN;
+    const int UDPSocketMaxBackLog = SOMAXCONN;
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  TCPSocket class definition                                            //
+    //  UDPSocket class definition                                            //
     ////////////////////////////////////////////////////////////////////////////
-    class TCPSocket
+    class UDPSocket
     {
         public:
             ////////////////////////////////////////////////////////////////////
-            //  TCPSocket default constructor                                 //
+            //  UDPSocket default constructor                                 //
             ////////////////////////////////////////////////////////////////////
-            TCPSocket();
+            UDPSocket();
 
             ////////////////////////////////////////////////////////////////////
-            //  TCPSocket destructor                                          //
+            //  UDPSocket destructor                                          //
             ////////////////////////////////////////////////////////////////////
-            ~TCPSocket();
+            ~UDPSocket();
 
 
             ////////////////////////////////////////////////////////////////////
-            //  Create TCP Socket                                             //
+            //  Create UDP Socket                                             //
             ////////////////////////////////////////////////////////////////////
             bool createSocket(bool blocking = true);
 
             ////////////////////////////////////////////////////////////////////
-            //  Close TCP Socket                                              //
+            //  Close UDP Socket                                              //
             ////////////////////////////////////////////////////////////////////
             void closeSocket();
 
 
             ////////////////////////////////////////////////////////////////////
-            //  Bind TCP Socket to any IP address                             //
+            //  Bind UDP Socket to any IP address                             //
             ////////////////////////////////////////////////////////////////////
             bool bindSocket(uint16_t port);
 
             ////////////////////////////////////////////////////////////////////
-            //  Bind TCP Socket to IP address                                 //
+            //  Bind UDP Socket to IP address                                 //
             ////////////////////////////////////////////////////////////////////
             bool bindSocket(IPAddress& ipaddress, uint16_t port);
 
-            ////////////////////////////////////////////////////////////////////
-            //  Listen bound port                                             //
-            ////////////////////////////////////////////////////////////////////
-            bool listenPort();
 
             ////////////////////////////////////////////////////////////////////
-            //  Accept incoming connection                                    //
+            //  Send data over UDP                                            //
             ////////////////////////////////////////////////////////////////////
-            bool acceptConnection(TCPSocket& socket, IPAddress& ipaddress);
-
-
-            ////////////////////////////////////////////////////////////////////
-            //  Connect TCP socket to IP address                              //
-            ////////////////////////////////////////////////////////////////////
-            bool connectSocket(IPAddress& ipaddress, uint16_t port);
-
+            bool sendData(const char* data, size_t size,
+                IPAddress& ipaddress, uint16_t port);
 
             ////////////////////////////////////////////////////////////////////
-            //  Send data over TCP                                            //
+            //  Receive data over UDP                                         //
             ////////////////////////////////////////////////////////////////////
-            bool sendData(const char* data, size_t size);
-
-            ////////////////////////////////////////////////////////////////////
-            //  Receive data over TCP                                         //
-            ////////////////////////////////////////////////////////////////////
-            bool receiveData(char* data, size_t& size);
+            bool receiveData(char* data, size_t& size,
+                IPAddress& ipaddress, uint16_t port);
 
 
         private:
             ////////////////////////////////////////////////////////////////////
-            //  TCPSocket private copy constructor : Not copyable             //
+            //  UDPSocket private copy constructor : Not copyable             //
             ////////////////////////////////////////////////////////////////////
-            TCPSocket(const TCPSocket&) = delete;
+            UDPSocket(const UDPSocket&) = delete;
 
             ////////////////////////////////////////////////////////////////////
-            //  TCPSocket private copy operator : Not copyable                //
+            //  UDPSocket private copy operator : Not copyable                //
             ////////////////////////////////////////////////////////////////////
-            TCPSocket& operator=(const TCPSocket&) = delete;
+            UDPSocket& operator=(const UDPSocket&) = delete;
 
 
         private:
-            SocketHandle            m_handle;       // TCPSocket handle
+            SocketHandle            m_handle;       // UDPSocket handle
     };
 
 
-#endif // NBK_NETWORK_TCPSOCKET_HEADER
+#endif // NBK_NETWORK_UDPSOCKET_HEADER
