@@ -151,7 +151,7 @@ bool TCPSocket::bindSocket(uint16_t port)
         sockaddr_in addr4;
         addr4.sin_family = AF_INET;
         addr4.sin_port = htons(port);
-        addr4.sin_addr.s_addr = 0;
+        addr4.sin_addr.s_addr = htonl(INADDR_ANY);
         addr4.sin_zero[0] = 0;
         addr4.sin_zero[1] = 0;
         addr4.sin_zero[2] = 0;
@@ -178,14 +178,7 @@ bool TCPSocket::bindSocket(uint16_t port)
         addr6.sin6_family = AF_INET6;
         addr6.sin6_port = htons(port);
         addr6.sin6_flowinfo = 0;
-        addr6.sin6_addr.u.Word[0] = 0;
-        addr6.sin6_addr.u.Word[1] = 0;
-        addr6.sin6_addr.u.Word[2] = 0;
-        addr6.sin6_addr.u.Word[3] = 0;
-        addr6.sin6_addr.u.Word[4] = 0;
-        addr6.sin6_addr.u.Word[5] = 0;
-        addr6.sin6_addr.u.Word[6] = 0;
-        addr6.sin6_addr.u.Word[7] = 0;
+        addr6.sin6_addr = in6addr_any;
         addr6.sin6_scope_id = 0;
 
         // Bind socket
@@ -201,6 +194,74 @@ bool TCPSocket::bindSocket(uint16_t port)
 
     // Could not bind TCP Socket
     return false;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//  Bind TCP Socket to IP address (IPv4)                                      //
+////////////////////////////////////////////////////////////////////////////////
+bool TCPSocket::bindSocket(IPAddress4& ipaddress, uint16_t port)
+{
+    // Check socket handle
+    if (m_handle == TCPSocketInvalid)
+    {
+        // Invalid socket handle
+        return false;
+    }
+
+    // IPv4
+    sockaddr_in addr4;
+    addr4.sin_family = AF_INET;
+    addr4.sin_port = htons(port);
+    addr4.sin_addr = ipaddress.getAddress();
+    addr4.sin_zero[0] = 0;
+    addr4.sin_zero[1] = 0;
+    addr4.sin_zero[2] = 0;
+    addr4.sin_zero[3] = 0;
+    addr4.sin_zero[4] = 0;
+    addr4.sin_zero[5] = 0;
+    addr4.sin_zero[6] = 0;
+    addr4.sin_zero[7] = 0;
+
+    // Bind socket
+    if (bind(m_handle, (SOCKADDR*)&addr4, sizeof(addr4)) != 0)
+    {
+        // Could not bind socket
+        return false;
+    }
+
+    // TCP Socket successfully bound
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//  Bind TCP Socket to IP address (IPv6)                                      //
+////////////////////////////////////////////////////////////////////////////////
+bool TCPSocket::bindSocket(IPAddress6& ipaddress, uint16_t port)
+{
+    // Check socket handle
+    if (m_handle == TCPSocketInvalid)
+    {
+        // Invalid socket handle
+        return false;
+    }
+
+    // IPv6
+    sockaddr_in6 addr6;
+    addr6.sin6_family = AF_INET6;
+    addr6.sin6_port = htons(port);
+    addr6.sin6_flowinfo = 0;
+    addr6.sin6_addr = ipaddress.getAddress();
+    addr6.sin6_scope_id = 0;
+
+    // Bind socket
+    if (bind(m_handle, (SOCKADDR*)&addr6, sizeof(addr6)) != 0)
+    {
+        // Could not bind socket
+        return false;
+    }
+
+    // TCP Socket successfully bound
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
