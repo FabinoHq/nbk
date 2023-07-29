@@ -51,13 +51,13 @@ NBK: main.o \
 	Nbk.o \
 	System/SysThread.o System/SysClock.o System/SysCPU.o \
 	System/Lin/SysMessage.o System/SysSettings.o \
-	Network/IPAddress.o
+	Network/IPAddress.o Network/TCPSocket.o
 
 	$(CC) -o NBK \
 	Nbk.o \
 	System/SysThread.o System/SysClock.o System/SysCPU.o \
 	System/Lin/SysMessage.o System/SysSettings.o \
-	Network/IPAddress.o \
+	Network/IPAddress.o Network/TCPSocket.o \
 	main.o $(LDFLAGS)
 
 
@@ -86,6 +86,9 @@ System/SysSettings.o: System/SysSettings.cpp
 
 Network/IPAddress.o: Network/IPAddress.cpp
 	$(CC) -o Network/IPAddress.o -c Network/IPAddress.cpp $(CFLAGS)
+
+Network/TCPSocket.o: Network/TCPSocket.cpp
+	$(CC) -o Network/TCPSocket.o -c Network/TCPSocket.cpp $(CFLAGS)
 
 
 clean:
