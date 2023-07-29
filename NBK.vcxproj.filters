@@ -18,6 +18,9 @@
     <ClCompile Include="System\Win\SysMessage.cpp">
       <Filter>System\Win</Filter>
     </ClCompile>
+    <ClCompile Include="Network\Network.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nbk.h" />
@@ -89,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="Math\Vector4i.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Network.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
