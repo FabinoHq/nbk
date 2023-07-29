@@ -54,6 +54,8 @@
 !Network/
 !Network/Network.h
 !Network/Network.cpp
+!Network/IPAddress.h
+!Network/IPAddress.cpp
 
 # Math
 !Math/

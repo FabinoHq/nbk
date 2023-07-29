@@ -208,6 +208,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Nbk.cpp" />
+    <ClCompile Include="Network\IPAddress.cpp" />
     <ClCompile Include="Network\Network.cpp" />
     <ClCompile Include="System\SysClock.cpp" />
     <ClCompile Include="System\SysCPU.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Math\Vector4i.h" />
     <ClInclude Include="Nbk.h" />
+    <ClInclude Include="Network\IPAddress.h" />
     <ClInclude Include="Network\Network.h" />
     <ClInclude Include="System\SysClock.h" />
     <ClInclude Include="System\SysCPU.h" />
