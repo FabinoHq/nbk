@@ -201,6 +201,13 @@ bool UDPSocket::bindSocket(IPAddress4& ipaddress, uint16_t port)
         return false;
     }
 
+    // Check IP version
+    if (m_ipversion != UDPSOCKET_IPV4)
+    {
+        // Invalid IP version
+        return false;
+    }
+
     // IPv4
     sockaddr_in addr4;
     addr4.sin_family = AF_INET;
@@ -235,6 +242,13 @@ bool UDPSocket::bindSocket(IPAddress6& ipaddress, uint16_t port)
     if (m_handle == UDPSocketInvalid)
     {
         // Invalid socket handle
+        return false;
+    }
+
+    // Check IP version
+    if (m_ipversion != UDPSOCKET_IPV6)
+    {
+        // Invalid IP version
         return false;
     }
 
