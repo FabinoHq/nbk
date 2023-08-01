@@ -91,8 +91,22 @@ void Nbk::run()
     String4096 str4096;
 
     // Display maximum array size
-    std::cout << "str : " << str.getMaxSize() << '\n';
-    std::cout << "str32 : " << str32.getMaxSize() << '\n';
-    std::cout << "str256 : " << str256.getMaxSize() << '\n';
-    std::cout << "str4096 : " << str4096.getMaxSize() << '\n';
+    std::cout << "str : " << str.maxSize() << '\n';
+    std::cout << "str32 : " << str32.maxSize() << '\n';
+    std::cout << "str256 : " << str256.maxSize() << '\n';
+    std::cout << "str4096 : " << str4096.maxSize() << '\n';
+
+    // Test strings
+    String origin("Test string one");
+    String test(origin);
+    std::cout << "MaxSize : " << test.maxSize() << '\n';
+    char* data = test.data();
+    std::cout << "Length : " << strlen(data) << " " << test.length() << '\n';
+    std::cout << data << '\n';
+    String test2;
+    test2 = test;
+    data = test2.data();
+    std::cout << "Length2 : " << strlen(data) << " " << test2.length() << '\n';
+    std::cout << data << '\n';
+    std::cout << '\n';
 }

@@ -55,38 +55,83 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib default constructor                                 //
             ////////////////////////////////////////////////////////////////////
-            StringLib() { }
+            StringLib() :
+            m_string(),
+            m_size(0)
+            {
+                m_string[0] = 0;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  StringLib string constructor                                  //
+            ////////////////////////////////////////////////////////////////////
+            StringLib(const StringLib& string) :
+            m_string(),
+            m_size(0)
+            {
+                memcpy(m_string, string.m_string, (m_size = string.m_size));
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  StringLib array constructor                                   //
+            ////////////////////////////////////////////////////////////////////
+            StringLib(const char* array) :
+            m_string(),
+            m_size(0)
+            {
+                while (((m_string[m_size] = array[m_size]) != 0) &&
+                    (m_size < (StringSize-2))) { ++ m_size; }
+                m_string[(StringSize-1)] = 0;
+            }
 
             ////////////////////////////////////////////////////////////////////
             //  StringLib destructor                                          //
             ////////////////////////////////////////////////////////////////////
-            ~StringLib() { }
+            ~StringLib()
+            {
 
+            }
+
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get string data array                                         //
+            ////////////////////////////////////////////////////////////////////
+            inline char* data()
+            {
+                return m_string;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get string length                                             //
+            ////////////////////////////////////////////////////////////////////
+            inline int32_t length()
+            {
+                return m_size;
+            }
 
             ////////////////////////////////////////////////////////////////////
             //  Get maximum allowed size (internal array size)                //
             ////////////////////////////////////////////////////////////////////
-            inline uint16_t getMaxSize()
+            inline int32_t maxSize()
             {
                 return StringSize;
             }
 
 
-        private:
+        public:
             ////////////////////////////////////////////////////////////////////
-            //  StringLib private copy constructor : Not copyable             //
+            //  StringLib copy operator                                       //
             ////////////////////////////////////////////////////////////////////
-            StringLib(const StringLib&) = delete;
-
-            ////////////////////////////////////////////////////////////////////
-            //  StringLib private copy operator : Not copyable                //
-            ////////////////////////////////////////////////////////////////////
-            StringLib& operator=(const StringLib&) = delete;
+            StringLib& operator=(const StringLib& string)
+            {
+                memcpy(m_string, string.m_string, (m_size = string.m_size));
+                return *this;
+            }
 
 
         private:
             char            m_string[StringSize];       // String array
-            uint16_t        m_size;                     // String size
+            int32_t         m_size;                     // String size
     };
 
 
