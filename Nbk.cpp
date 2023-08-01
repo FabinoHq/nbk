@@ -84,5 +84,15 @@ bool Nbk::launch()
 ////////////////////////////////////////////////////////////////////////////////
 void Nbk::run()
 {
-    
+    // String test
+    String str;
+    String32 str32;
+    String256 str256;
+    String4096 str4096;
+
+    // Display maximum array size
+    std::cout << "str : " << str.getMaxSize() << '\n';
+    std::cout << "str32 : " << str32.getMaxSize() << '\n';
+    std::cout << "str256 : " << str256.getMaxSize() << '\n';
+    std::cout << "str4096 : " << str4096.getMaxSize() << '\n';
 }

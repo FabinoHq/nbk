@@ -114,6 +114,12 @@
     <ClInclude Include="Network\UDPSocket.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="Stdlib\String.h">
+      <Filter>Stdlib</Filter>
+    </ClInclude>
+    <ClInclude Include="Stdlib\StringLib.h">
+      <Filter>Stdlib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
@@ -127,6 +133,9 @@
     </Filter>
     <Filter Include="Network">
       <UniqueIdentifier>{ca6d8d56-2aee-4680-ac95-e30b591d6fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stdlib">
+      <UniqueIdentifier>{142f4ec3-28e7-43eb-9999-2e5cea98cfa9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

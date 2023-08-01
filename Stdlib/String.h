@@ -37,67 +37,41 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     Stdlib/String.h : String classes wrapper                               //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
-
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
-    #include "Stdlib/String.h"
-
-    #include <cstddef>
-    #include <cstdint>
-    #include <new>
+#ifndef NBK_STDLIB_STRING_HEADER
+#define NBK_STDLIB_STRING_HEADER
 
 
-    ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
-    ////////////////////////////////////////////////////////////////////////////
-    class Nbk
-    {
-        public:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
-            ////////////////////////////////////////////////////////////////////
-            Nbk();
+    // Default 32 characters string
+    #undef NBK_STDLIB_STRINGLIB_HEADER
+    #undef StringLib
+    #undef StringSize
+    #define StringLib String32
+    #define StringSize 32
+    #include "StringLib.h"
 
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
-            ////////////////////////////////////////////////////////////////////
-            ~Nbk();
+    // Line 256 characters string
+    #undef NBK_STDLIB_STRINGLIB_HEADER
+    #undef StringLib
+    #undef StringSize
+    #define StringLib String256
+    #define StringSize 256
+    #include "StringLib.h"
 
-
-            ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
-            ////////////////////////////////////////////////////////////////////
-            bool launch();
-
-            ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
-            ////////////////////////////////////////////////////////////////////
-            void run();
+    // Large 4096 characters string
+    #undef NBK_STDLIB_STRINGLIB_HEADER
+    #undef StringLib
+    #undef StringSize
+    #define StringLib String4096
+    #define StringSize 4096
+    #include "StringLib.h"
 
 
-        private:
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
-            ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
-
-            ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
-            ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
+    // Default string
+    #undef StringLib
+    #undef StringSize
+    #define String String32
 
 
-        private:
-    };
-
-
-#endif // NBK_NBK_HEADER
+#endif // NBK_STDLIB_STRING_HEADER

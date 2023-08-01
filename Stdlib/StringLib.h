@@ -37,67 +37,57 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Nbk.h : NBK Main class management                                      //
+//     Stdlib/StringLib.h : Macro template string library                     //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NBK_HEADER
-#define NBK_NBK_HEADER
-
-    #include "System/System.h"
-    #include "System/SysMessage.h"
-    #include "System/SysCPU.h"
-    #include "System/SysClock.h"
-    #include "System/SysSleep.h"
-    #include "System/SysSettings.h"
-    #include "Stdlib/String.h"
+#ifndef NBK_STDLIB_STRINGLIB_HEADER
+#define NBK_STDLIB_STRINGLIB_HEADER
 
     #include <cstddef>
     #include <cstdint>
-    #include <new>
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  NBK main class definition                                             //
+    //  StringLib class definition                                            //
     ////////////////////////////////////////////////////////////////////////////
-    class Nbk
+    class StringLib
     {
         public:
             ////////////////////////////////////////////////////////////////////
-            //  Nbk default constructor                                       //
+            //  StringLib default constructor                                 //
             ////////////////////////////////////////////////////////////////////
-            Nbk();
+            StringLib() { }
 
             ////////////////////////////////////////////////////////////////////
-            //  Nbk destructor                                                //
+            //  StringLib destructor                                          //
             ////////////////////////////////////////////////////////////////////
-            ~Nbk();
+            ~StringLib() { }
 
 
             ////////////////////////////////////////////////////////////////////
-            //  Launch NBK                                                    //
-            //  return : True if NBK successfully started, false otherwise    //
+            //  Get maximum allowed size (internal array size)                //
             ////////////////////////////////////////////////////////////////////
-            bool launch();
-
-            ////////////////////////////////////////////////////////////////////
-            //  Run NBK                                                       //
-            ////////////////////////////////////////////////////////////////////
-            void run();
+            inline uint16_t getMaxSize()
+            {
+                return StringSize;
+            }
 
 
         private:
             ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy constructor : Not copyable                   //
+            //  StringLib private copy constructor : Not copyable             //
             ////////////////////////////////////////////////////////////////////
-            Nbk(const Nbk&) = delete;
+            StringLib(const StringLib&) = delete;
 
             ////////////////////////////////////////////////////////////////////
-            //  Nbk private copy operator : Not copyable                      //
+            //  StringLib private copy operator : Not copyable                //
             ////////////////////////////////////////////////////////////////////
-            Nbk& operator=(const Nbk&) = delete;
+            StringLib& operator=(const StringLib&) = delete;
 
 
         private:
+            char            m_string[StringSize];       // String array
+            uint16_t        m_size;                     // String size
     };
 
 
-#endif // NBK_NBK_HEADER
+#endif // NBK_STDLIB_STRINGLIB_HEADER
