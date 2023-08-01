@@ -94,19 +94,38 @@ void Nbk::run()
     std::cout << "str : " << str.maxSize() << '\n';
     std::cout << "str32 : " << str32.maxSize() << '\n';
     std::cout << "str256 : " << str256.maxSize() << '\n';
-    std::cout << "str4096 : " << str4096.maxSize() << '\n';
+    std::cout << "str4096 : " << str4096.maxSize() << '\n' << '\n';
 
     // Test strings
-    String origin("Test string one");
-    String test(origin);
-    std::cout << "MaxSize : " << test.maxSize() << '\n';
-    char* data = test.data();
-    std::cout << "Length : " << strlen(data) << " " << test.length() << '\n';
-    std::cout << data << '\n';
-    String test2;
-    test2 = test;
-    data = test2.data();
-    std::cout << "Length2 : " << strlen(data) << " " << test2.length() << '\n';
-    std::cout << data << '\n';
+    String test("test string");
+    std::cout << test.length() << ' ' << test.data() << '\n';
+    String mystr("mystr");
+    std::cout << mystr.length() << ' ' << mystr.data() << '\n' << '\n';
+
+    String concat;
+    concat = test;
+    std::cout << concat.length() << ' ' << concat.data() << '\n';
+    concat += mystr;
+    concat += "123";
+    std::cout << concat.length() << ' ' << concat.data() << '\n';
+    concat = "";
+    std::cout << concat.length() << ' ' << concat.data() << '\n';
+    concat = (test + " " + mystr);
+    std::cout << concat.length() << ' ' << concat.data() << '\n' << '\n';
+
+    for (int i = 0; i < test.maxSize(); ++i)
+    {
+        std::cout << (int)test.data()[i] << ' ';
+    }
+    std::cout << '\n';
+    for (int i = 0; i < mystr.maxSize(); ++i)
+    {
+        std::cout << (int)mystr.data()[i] << ' ';
+    }
+    std::cout << '\n';
+    for (int i = 0; i < concat.maxSize(); ++i)
+    {
+        std::cout << (int)concat.data()[i] << ' ';
+    }
     std::cout << '\n';
 }

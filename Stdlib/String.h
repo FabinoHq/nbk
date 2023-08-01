@@ -44,7 +44,7 @@
 
 
     // Default 32 characters string
-    #undef NBK_STDLIB_STRINGLIB_HEADER
+    #define NBK_STDLIB_STRINGLIB_HEADER
     #undef StringLib
     #undef StringSize
     #define StringLib String32
@@ -52,7 +52,7 @@
     #include "StringLib.h"
 
     // Line 256 characters string
-    #undef NBK_STDLIB_STRINGLIB_HEADER
+    #define NBK_STDLIB_STRINGLIB_HEADER
     #undef StringLib
     #undef StringSize
     #define StringLib String256
@@ -60,7 +60,7 @@
     #include "StringLib.h"
 
     // Large 4096 characters string
-    #undef NBK_STDLIB_STRINGLIB_HEADER
+    #define NBK_STDLIB_STRINGLIB_HEADER
     #undef StringLib
     #undef StringSize
     #define StringLib String4096
