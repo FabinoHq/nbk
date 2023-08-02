@@ -417,8 +417,8 @@
                 // Write number digit by digit
                 for (int32_t i = Math::log10(value); i >= 0; --i)
                 {
-                    m_string[m_size] = static_cast<char>(48 + Math::clamp(
-                        ((value/Math::power10(i))%10), 0, 9)
+                    m_string[m_size] = static_cast<char>(
+                        48 + ((value / Math::power10(i)) % 10)
                     );
                     m_size = Math::min(m_size+1, (StringSize-1));
                 }
