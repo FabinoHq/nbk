@@ -308,8 +308,7 @@
             inline StringLib operator+(const StringLib& string) const
             {
                 StringLib result(*this);
-                result += string;
-                return result;
+                return (result << string);
             }
 
             ////////////////////////////////////////////////////////////////////
@@ -318,8 +317,7 @@
             inline StringLib operator+(const char* array) const
             {
                 StringLib result(*this);
-                result += array;
-                return result;
+                return (result << array);
             }
 
             ////////////////////////////////////////////////////////////////////
@@ -328,8 +326,7 @@
             inline StringLib operator+(const char character) const
             {
                 StringLib result(*this);
-                result += character;
-                return result;
+                return (result << character);
             }
 
             ////////////////////////////////////////////////////////////////////
@@ -337,10 +334,7 @@
             ////////////////////////////////////////////////////////////////////
             inline StringLib& operator+=(const StringLib& string)
             {
-                int32_t sz = Math::min(string.m_size, (StringSize-m_size-1));
-                memcpy(&m_string[m_size], string.m_string, sz);
-                m_string[m_size += sz] = 0;
-                return *this;
+                return ((*this) << string);
             }
 
             ////////////////////////////////////////////////////////////////////
@@ -348,11 +342,7 @@
             ////////////////////////////////////////////////////////////////////
             inline StringLib& operator+=(const char* array)
             {
-                int32_t i = 0;
-                while (((m_string[m_size] = array[i++]) != 0) &&
-                    (m_size < (StringSize-1))) { ++m_size; }
-                m_string[(StringSize-1)] = 0;
-                return *this;
+                return ((*this) << array);
             }
 
             ////////////////////////////////////////////////////////////////////
@@ -360,10 +350,7 @@
             ////////////////////////////////////////////////////////////////////
             inline StringLib& operator+=(const char character)
             {
-                m_string[m_size] = character;
-                m_size = Math::min(m_size+1, (StringSize-1));
-                m_string[m_size] = 0;
-                return *this;
+                return ((*this) << character);
             }
 
 
