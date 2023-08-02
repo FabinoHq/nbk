@@ -59,8 +59,8 @@
             //  StringLib default constructor                                 //
             ////////////////////////////////////////////////////////////////////
             StringLib() :
-            m_string(),
-            m_size(0)
+            m_size(0),
+            m_string()
             {
                 m_string[0] = 0;
             }
@@ -69,8 +69,8 @@
             //  StringLib string constructor                                  //
             ////////////////////////////////////////////////////////////////////
             StringLib(const StringLib& string) :
-            m_string(),
-            m_size(0)
+            m_size(0),
+            m_string()
             {
                 memcpy(m_string, string.m_string, (m_size = string.m_size)+1);
             }
@@ -79,8 +79,8 @@
             //  StringLib array constructor                                   //
             ////////////////////////////////////////////////////////////////////
             StringLib(const char* array) :
-            m_string(),
-            m_size(0)
+            m_size(0),
+            m_string()
             {
                 while (((m_string[m_size] = array[m_size]) != 0) &&
                     (m_size < (StringSize-1))) { ++m_size; }
@@ -93,6 +93,26 @@
             ~StringLib()
             {
 
+            }
+
+
+            ////////////////////////////////////////////////////////////////////
+            //  Match a subpart of this string with another string            //
+            ////////////////////////////////////////////////////////////////////
+            inline bool match(int32_t offset, const StringLib& string)
+            {
+                (void)offset;
+                (void)string;
+                return false;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Find a string occurence within this string                    //
+            ////////////////////////////////////////////////////////////////////
+            inline int32_t find(const StringLib& string)
+            {
+                (void)string;
+                return -1;
             }
 
 
@@ -143,6 +163,7 @@
                 return *this;
             }
 
+
             ////////////////////////////////////////////////////////////////////
             //  StringLib addition operator                                   //
             ////////////////////////////////////////////////////////////////////
@@ -188,12 +209,31 @@
 
 
             ////////////////////////////////////////////////////////////////////
+            //  StringLib array subscript operator []                         //
+            ////////////////////////////////////////////////////////////////////
+            inline char& operator[](int32_t index)
+            {
+                return m_string[Math::clamp(index, 0, (StringSize-1))];
+            }
+
+
+            ////////////////////////////////////////////////////////////////////
             //  StringLib equal to operator                                   //
             ////////////////////////////////////////////////////////////////////
             inline bool operator==(const StringLib& string) const
             {
                 if (m_size != string.m_size) { return false; }
                 return (memcmp(m_string, string.m_string, m_size) == 0);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  StringLib array equal to operator                             //
+            ////////////////////////////////////////////////////////////////////
+            inline bool operator==(const char* array) const
+            {
+                int32_t i = 0;
+                while ((m_string[i] == array[i]) && (i <= m_size)) { ++i; }
+                return (i == (m_size+1));
             }
 
             ////////////////////////////////////////////////////////////////////
@@ -205,10 +245,20 @@
                 return (memcmp(m_string, string.m_string, m_size) != 0);
             }
 
+            ////////////////////////////////////////////////////////////////////
+            //  StringLib array not equal to operator                         //
+            ////////////////////////////////////////////////////////////////////
+            inline bool operator!=(const char* array) const
+            {
+                int32_t i = 0;
+                while ((m_string[i] == array[i]) && (i <= m_size)) { ++i; }
+                return (i != (m_size+1));
+            }
+
 
         private:
-            char            m_string[StringSize];       // String array
             int32_t         m_size;                     // String size
+            char            m_string[StringSize];       // String array
     };
 
 

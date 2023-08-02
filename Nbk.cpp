@@ -111,7 +111,49 @@ void Nbk::run()
     concat = "";
     std::cout << concat.length() << ' ' << concat.data() << '\n';
     concat = (test + " " + mystr);
+    std::cout << "concat[2] : " << concat[2] << '\n';
+    concat[3] = 3;
     std::cout << concat.length() << ' ' << concat.data() << '\n' << '\n';
+
+    String equalop = "test";
+    bool equalres = (equalop == "tes");
+    bool equalres2 = (equalop == "test");
+    bool equalres3 = (equalop == "testa");
+    std::cout << "tes : " << (equalres?"true":"false") << '\n';
+    std::cout << "test : " << (equalres2?"true":"false") << '\n';
+    std::cout << "testa : " << (equalres3?"true":"false") << '\n' << '\n';
+
+    int testInt = 0;
+    if (testInt <= 0) { testInt = 0; }
+    if (testInt >= 12) { testInt = 12; }
+    if (testInt>= 12) { testInt = 12; }
+    if (testInt >=12) { testInt = 12; }
+    if (testInt>=12) { testInt = 12; }
+
+    String findmatch = "This is a test string";
+    String match = "test";
+    String match2 = "tes";
+    String match3 = "testa";
+    std::cout << (findmatch.find(match2)) << '\n';
+    std::cout << (findmatch.find(match)) << '\n';
+    std::cout << (findmatch.find(match3)) << '\n';
+    std::cout << (findmatch.find("tes")) << '\n';
+    std::cout << (findmatch.find("test")) << '\n';
+    std::cout << (findmatch.find("testa")) << '\n';
+    std::cout << '\n';
+    std::cout << (findmatch.match(9, match)) << '\n';
+    std::cout << (findmatch.match(10, match)) << '\n';
+    std::cout << (findmatch.match(11, match)) << '\n';
+    std::cout << (findmatch.match(10, match2)) << '\n';
+    std::cout << (findmatch.match(10, match)) << '\n';
+    std::cout << (findmatch.match(10, match3)) << '\n';
+    std::cout << (findmatch.match(9, "test")) << '\n';
+    std::cout << (findmatch.match(10, "test")) << '\n';
+    std::cout << (findmatch.match(11, "test")) << '\n';
+    std::cout << (findmatch.match(10, "tes")) << '\n';
+    std::cout << (findmatch.match(10, "test")) << '\n';
+    std::cout << (findmatch.match(10, "testa")) << '\n';
+    std::cout << '\n';
 
     for (int i = 0; i < test.maxSize(); ++i)
     {

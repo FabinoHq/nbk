@@ -51,7 +51,7 @@
     #define StringSize 32
     #include "StringLib.h"
 
-    // Line 256 characters string
+    // Medium 256 characters string
     #define NBK_STDLIB_STRINGLIB_HEADER
     #undef StringLib
     #undef StringSize
