@@ -47,6 +47,8 @@
 
     #include <cstdint>
     #include <cmath>
+    #undef min
+    #undef max
 
 
     namespace Math

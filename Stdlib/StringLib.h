@@ -231,6 +231,14 @@
 
 
             ////////////////////////////////////////////////////////////////////
+            //  Test if the string is empty                                   //
+            ////////////////////////////////////////////////////////////////////
+            inline bool isEmpty() const
+            {
+                return (m_size == 0);
+            }
+
+            ////////////////////////////////////////////////////////////////////
             //  Get first character of the string                             //
             ////////////////////////////////////////////////////////////////////
             inline char& front()
@@ -358,10 +366,45 @@
                 return *this;
             }
 
+
             ////////////////////////////////////////////////////////////////////
-            //  StringLib integer addition assignment operator                //
+            //  StringLib left shift operator                                 //
             ////////////////////////////////////////////////////////////////////
-            StringLib& operator+=(int32_t value)
+            inline StringLib& operator<<(const StringLib& string)
+            {
+                int32_t sz = Math::min(string.m_size, (StringSize-m_size-1));
+                memcpy(&m_string[m_size], string.m_string, sz);
+                m_string[m_size += sz] = 0;
+                return *this;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  StringLib array left shift operator                           //
+            ////////////////////////////////////////////////////////////////////
+            inline StringLib& operator<<(const char* array)
+            {
+                int32_t i = 0;
+                while (((m_string[m_size] = array[i++]) != 0) &&
+                    (m_size < (StringSize-1))) { ++m_size; }
+                m_string[(StringSize-1)] = 0;
+                return *this;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  StringLib character left shift operator                       //
+            ////////////////////////////////////////////////////////////////////
+            inline StringLib& operator<<(const char character)
+            {
+                m_string[m_size] = character;
+                m_size = Math::min(m_size+1, (StringSize-1));
+                m_string[m_size] = 0;
+                return *this;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  StringLib integer left shift operator                         //
+            ////////////////////////////////////////////////////////////////////
+            StringLib& operator<<(int32_t value)
             {
                 // Negative number
                 if (value < 0)

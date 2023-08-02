@@ -105,8 +105,8 @@ void Nbk::run()
     String concat;
     concat = test;
     std::cout << concat.length() << ' ' << concat.data() << '\n';
-    concat += mystr;
-    concat += "123";
+    concat << mystr;
+    concat << "123";
     std::cout << concat.length() << ' ' << concat.data() << '\n';
     concat = "";
     std::cout << concat.length() << ' ' << concat.data() << '\n';
@@ -156,9 +156,9 @@ void Nbk::run()
     std::cout << '\n';
 
     concat = "concat ";
-    concat += 123;
+    concat << 123;
     concat = concat + " ";
-    concat += -1381272486;
+    concat << -1381272486;
     std::cout << concat.data() << '\n';
 
     for (int i = 0; i < test.maxSize(); ++i)
