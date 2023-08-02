@@ -155,6 +155,12 @@ void Nbk::run()
     std::cout << (findmatch.match(10, "testa")) << '\n';
     std::cout << '\n';
 
+    concat = "concat ";
+    concat += 123;
+    concat = concat + " ";
+    concat += -1381272486;
+    std::cout << concat.data() << '\n';
+
     for (int i = 0; i < test.maxSize(); ++i)
     {
         std::cout << (int)test.data()[i] << ' ';

@@ -97,7 +97,66 @@
 
 
             ////////////////////////////////////////////////////////////////////
-            //  Match a subpart of this string with another string            //
+            //  Clear the string                                              //
+            ////////////////////////////////////////////////////////////////////
+            inline void clear()
+            {
+                m_size = 0;
+                m_string[0] = 0;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Erase a substring of the string                               //
+            ////////////////////////////////////////////////////////////////////
+            inline void erase(int32_t offset, int32_t length)
+            {
+                (void)offset;
+                (void)length;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Erase the last character of the string                        //
+            ////////////////////////////////////////////////////////////////////
+            inline void popback()
+            {
+                m_size = Math::max(m_size-1, 0);
+                m_string[m_size] = 0;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get a substring of the string                                 //
+            ////////////////////////////////////////////////////////////////////
+            inline StringLib substr(int32_t offset, int32_t length)
+            {
+                StringLib result;
+                (void)offset;
+                (void)length;
+                return result;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Insert a string within the string                             //
+            ////////////////////////////////////////////////////////////////////
+            inline void insert(int32_t offset, const StringLib& string)
+            {
+                (void)offset;
+                (void)string;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Insert a string within the string                             //
+            ////////////////////////////////////////////////////////////////////
+            inline void replace(int32_t offset, int32_t length,
+                const StringLib& string)
+            {
+                (void)offset;
+                (void)length;
+                (void)string;
+            }
+
+
+            ////////////////////////////////////////////////////////////////////
+            //  Match a subpart of the string with another string             //
             ////////////////////////////////////////////////////////////////////
             inline bool match(int32_t offset, const StringLib& string)
             {
@@ -107,7 +166,7 @@
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Find a string occurence within this string                    //
+            //  Find a string occurence within the string                     //
             ////////////////////////////////////////////////////////////////////
             inline int32_t find(const StringLib& string)
             {
@@ -115,6 +174,77 @@
                 return -1;
             }
 
+            ////////////////////////////////////////////////////////////////////
+            //  Find the last string occurence within the string              //
+            ////////////////////////////////////////////////////////////////////
+            inline int32_t rfind(const StringLib& string)
+            {
+                (void)string;
+                return -1;
+            }
+
+
+            ////////////////////////////////////////////////////////////////////
+            //  Extract a folder path from a path                             //
+            ////////////////////////////////////////////////////////////////////
+            inline StringLib folderPath()
+            {
+                StringLib result;
+                return result;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Extract a parent folder path from a path                      //
+            ////////////////////////////////////////////////////////////////////
+            inline StringLib parentFolderPath()
+            {
+                StringLib result;
+                return result;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Extract a folder name from a path                             //
+            ////////////////////////////////////////////////////////////////////
+            inline StringLib folderName()
+            {
+                StringLib result;
+                return result;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Extract a file name from a path                               //
+            ////////////////////////////////////////////////////////////////////
+            inline StringLib fileName()
+            {
+                StringLib result;
+                return result;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Extract a file extension from a path or a file name           //
+            ////////////////////////////////////////////////////////////////////
+            inline StringLib fileExt()
+            {
+                StringLib result;
+                return result;
+            }
+
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get first character of the string                             //
+            ////////////////////////////////////////////////////////////////////
+            inline char& front()
+            {
+                return m_string[0];
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get last character of the string (before \0)                  //
+            ////////////////////////////////////////////////////////////////////
+            inline char& back()
+            {
+                return m_string[m_size-1];
+            }
 
             ////////////////////////////////////////////////////////////////////
             //  Get string data array                                         //
@@ -185,6 +315,16 @@
             }
 
             ////////////////////////////////////////////////////////////////////
+            //  StringLib character addition operator                         //
+            ////////////////////////////////////////////////////////////////////
+            inline StringLib operator+(const char character) const
+            {
+                StringLib result(*this);
+                result += character;
+                return result;
+            }
+
+            ////////////////////////////////////////////////////////////////////
             //  StringLib addition assignment operator                        //
             ////////////////////////////////////////////////////////////////////
             inline StringLib& operator+=(const StringLib& string)
@@ -204,6 +344,44 @@
                 while (((m_string[m_size] = array[i++]) != 0) &&
                     (m_size < (StringSize-1))) { ++m_size; }
                 m_string[(StringSize-1)] = 0;
+                return *this;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  StringLib character addition assignment operator              //
+            ////////////////////////////////////////////////////////////////////
+            inline StringLib& operator+=(const char character)
+            {
+                m_string[m_size] = character;
+                m_size = Math::min(m_size+1, (StringSize-1));
+                m_string[m_size] = 0;
+                return *this;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  StringLib integer addition assignment operator                //
+            ////////////////////////////////////////////////////////////////////
+            StringLib& operator+=(int32_t value)
+            {
+                // Negative number
+                if (value < 0)
+                {
+                    value = -value;
+                    m_string[m_size] = '-';
+                    m_size = Math::min(m_size+1, (StringSize-1));
+                }
+
+                // Write number digit by digit
+                for (int32_t i = (Math::log10(value) + 1); i > 0; --i)
+                {
+                    m_string[m_size] = static_cast<char>(48 + Math::clamp(
+                        ((value/Math::power10(i-1))%10), 0, 9)
+                    );
+                    m_size = Math::min(m_size+1, (StringSize-1));
+                }
+
+                // Last nul character
+                m_string[m_size] = 0;
                 return *this;
             }
 
