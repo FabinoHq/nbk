@@ -50,6 +50,7 @@
     #include "System/SysSettings.h"
     #include "Stdlib/String.h"
     #include "Stdlib/Console.h"
+    #include "Stdlib/File.h"
 
     #include <cstddef>
     #include <cstdint>

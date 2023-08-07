@@ -37,10 +37,10 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Stdlib/Console.h : Console management                                  //
+//     Stdlib/File.h : File I/O management                                    //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_STDLIB_CONSOLE_HEADER
-#define NBK_STDLIB_CONSOLE_HEADER
+#ifndef NBK_STDLIB_FILE_HEADER
+#define NBK_STDLIB_FILE_HEADER
 
     #include "String.h"
 
@@ -53,131 +53,150 @@
 
         #include <fcntl.h>
         #include <io.h>
+        #include <sys/stat.h>
 
-        #define CONSOLE_INPUT_FILEDESC 0
-        #define CONSOLE_OUTPUT_FILEDESC 1
-        #define CONSOLE_ERROR_FILEDESC 2
+        #define FILE_OPEN _open
+        #define FILE_CLOSE _close
+        #define FILE_READ _read
+        #define FILE_WRITE _write
+        #define FILE_FLUSH _commit
 
-        #define CONSOLE_READ _read
-        #define CONSOLE_WRITE _write
-        #define CONSOLE_FLUSH _commit
+        #define FILE_FLAG_READONLY _O_RDONLY
+        #define FILE_FLAG_WRITEONLY _O_WRONLY
+        #define FILE_FLAG_CREATE _O_CREAT
+
+        #define FILE_MODE_READ _S_IREAD
+        #define FILE_MODE_WRITE _S_IWRITE
 
     #endif // NBK_WINDOWS
     #ifdef NBK_LINUX
 
         #include <unistd.h>
 
-        #define CONSOLE_INPUT_FILEDESC STDIN_FILENO
-        #define CONSOLE_OUTPUT_FILEDESC STDOUT_FILENO
-        #define CONSOLE_ERROR_FILEDESC STDERR_FILENO
+        #define FILE_OPEN open
+        #define FILE_CLOSE close
+        #define FILE_READ read
+        #define FILE_WRITE write
+        #define FILE_FLUSH fsync
 
-        #define CONSOLE_READ read
-        #define CONSOLE_WRITE write
-        #define CONSOLE_FLUSH fsync
+        #define FILE_FLAG_READONLY _O_RDONLY
+        #define FILE_FLAG_WRITEONLY _O_WRONLY
+        #define FILE_FLAG_CREATE _O_CREAT
+
+        #define FILE_MODE_READ 0
+        #define FILE_MODE_WRITE 0
 
     #endif // NBK_LINUX
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  Console class definition                                              //
+    //  File class definition                                                 //
     ////////////////////////////////////////////////////////////////////////////
-    class Console
+    class File
     {
         public:
             ////////////////////////////////////////////////////////////////////
-            //  Console default constructor                                   //
+            //  File default constructor                                      //
             ////////////////////////////////////////////////////////////////////
-            Console()
+            File() :
+            m_handle(-1)
             {
-                CONSOLE_FLUSH(CONSOLE_INPUT_FILEDESC);
-                CONSOLE_FLUSH(CONSOLE_OUTPUT_FILEDESC);
+
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Console destructor                                            //
+            //  File destructor                                               //
             ////////////////////////////////////////////////////////////////////
-            ~Console()
+            ~File()
             {
-                CONSOLE_FLUSH(CONSOLE_INPUT_FILEDESC);
-                CONSOLE_FLUSH(CONSOLE_OUTPUT_FILEDESC);
+                close();
             }
 
 
             ////////////////////////////////////////////////////////////////////
-            //  Flush console I/O                                             //
+            //  Open file                                                     //
+            ////////////////////////////////////////////////////////////////////
+            inline bool open(const String& path)
+            {
+                // Close eventual opened file
+                close();
+
+                // Open file
+                m_handle = FILE_OPEN(path.str(),
+                    (FILE_FLAG_WRITEONLY | FILE_FLAG_CREATE),
+                    FILE_MODE_WRITE
+                );
+                if (m_handle == -1)
+                {
+                    // Could not open file
+                    return false;
+                }
+
+                // File sucessfully opened
+                return true;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Close file                                                    //
+            ////////////////////////////////////////////////////////////////////
+            inline void close()
+            {
+                if (m_handle != -1) { FILE_CLOSE(m_handle); }
+                m_handle = -1;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Flush file I/O                                                //
             ////////////////////////////////////////////////////////////////////
             inline void flush()
             {
-                CONSOLE_FLUSH(CONSOLE_INPUT_FILEDESC);
-                CONSOLE_FLUSH(CONSOLE_OUTPUT_FILEDESC);
-            }
-
-            ////////////////////////////////////////////////////////////////////
-            //  Flush console input                                           //
-            ////////////////////////////////////////////////////////////////////
-            inline void flushInput()
-            {
-                CONSOLE_FLUSH(CONSOLE_INPUT_FILEDESC);
-            }
-
-            ////////////////////////////////////////////////////////////////////
-            //  Flush console ouput                                           //
-            ////////////////////////////////////////////////////////////////////
-            inline void flushOutput()
-            {
-                CONSOLE_FLUSH(CONSOLE_OUTPUT_FILEDESC);
+                FILE_FLUSH(m_handle);
             }
 
 
             ////////////////////////////////////////////////////////////////////
-            //  Console string left shift operator                            //
+            //  File string left shift operator                               //
             ////////////////////////////////////////////////////////////////////
-            inline Console& operator<<(String32& string)
+            inline File& operator<<(String32& string)
             {
-                CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC,
-                    string.data(), string.length()
-                );
+                FILE_WRITE(m_handle, string.data(), string.length());
                 return *this;
             }
-            inline Console& operator<<(String256& string)
+            inline File& operator<<(String256& string)
             {
-                CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC,
-                    string.data(), string.length()
-                );
+                FILE_WRITE(m_handle, string.data(), string.length());
                 return *this;
             }
-            inline Console& operator<<(String4096& string)
+            inline File& operator<<(String4096& string)
             {
-                CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC,
-                    string.data(), string.length()
-                );
+                FILE_WRITE(m_handle, string.data(), string.length());
                 return *this;
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Console character left shift operator                         //
+            //  File character left shift operator                         //
             ////////////////////////////////////////////////////////////////////
-            inline Console& operator<<(const char character)
+            inline File& operator<<(const char character)
             {
-                CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, &character, 1);
+                FILE_WRITE(m_handle, &character, 1);
                 return *this;
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Console array left shift operator                             //
+            //  File array left shift operator                             //
             ////////////////////////////////////////////////////////////////////
-            inline Console& operator<<(const char* array)
+            inline File& operator<<(const char* array)
             {
-                CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC,
+                FILE_WRITE(m_handle,
                     array, static_cast<unsigned int>(StringLength(array))
                 );
                 return *this;
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Console integer left shift operator                           //
+            //  File integer left shift operator                           //
             ////////////////////////////////////////////////////////////////////
-            inline Console& operator<<(int32_t value)
+            inline File& operator<<(int32_t value)
             {
                 // String buffer
                 char buf[12];
@@ -199,11 +218,11 @@
                 }
 
                 // Write buffer
-                CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, buf, cur);
+                FILE_WRITE(m_handle, buf, cur);
                 return *this;
             }
 
-            inline Console& operator<<(int64_t value)
+            inline File& operator<<(int64_t value)
             {
                 // String buffer
                 char buf[22];
@@ -225,33 +244,33 @@
                 }
 
                 // Write buffer
-                CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, buf, cur);
+                FILE_WRITE(m_handle, buf, cur);
                 return *this;
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Console right shift operator                                  //
+            //  File right shift operator                                     //
             ////////////////////////////////////////////////////////////////////
-            inline Console& operator>>(String32& string)
+            inline File& operator>>(String32& string)
             {
-                string.size() = CONSOLE_READ(
-                    CONSOLE_INPUT_FILEDESC, string.data(), string.maxSize()-1
+                string.size() = FILE_READ(
+                    m_handle, string.data(), string.maxSize()-1
                 );
                 string.sentinel() = '\0';
                 return *this;
             }
-            inline Console& operator>>(String256& string)
+            inline File& operator>>(String256& string)
             {
-                string.size() = CONSOLE_READ(
-                    CONSOLE_INPUT_FILEDESC, string.data(), string.maxSize()-1
+                string.size() = FILE_READ(
+                    m_handle, string.data(), string.maxSize()-1
                 );
                 string.sentinel() = '\0';
                 return *this;
             }
-            inline Console& operator>>(String4096& string)
+            inline File& operator>>(String4096& string)
             {
-                string.size() = CONSOLE_READ(
-                    CONSOLE_INPUT_FILEDESC, string.data(), string.maxSize()-1
+                string.size() = FILE_READ(
+                    m_handle, string.data(), string.maxSize()-1
                 );
                 string.sentinel() = '\0';
                 return *this;
@@ -260,24 +279,19 @@
 
         private:
             ////////////////////////////////////////////////////////////////////
-            //  Console private copy constructor : Not copyable               //
+            //  File private copy constructor : Not copyable                  //
             ////////////////////////////////////////////////////////////////////
-            Console(const Console&) = delete;
+            File(const File&) = delete;
 
             ////////////////////////////////////////////////////////////////////
-            //  Console private copy operator : Not copyable                  //
+            //  File private copy operator : Not copyable                     //
             ////////////////////////////////////////////////////////////////////
-            Console& operator=(const Console&) = delete;
+            File& operator=(const File&) = delete;
 
 
         private:
+            int         m_handle;       // File handle
     };
 
 
-    ////////////////////////////////////////////////////////////////////////////
-    //  Console global instance                                               //
-    ////////////////////////////////////////////////////////////////////////////
-    extern Console GConsole;
-
-
-#endif // NBK_STDLIB_CONSOLE_HEADER
+#endif // NBK_STDLIB_FILE_HEADER

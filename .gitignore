@@ -9,6 +9,7 @@
 
 # Projects files
 !Makefile
+!make.bat
 !NBK.sln
 !NBK.vcxproj
 !NBK.vcxproj.filters
@@ -56,6 +57,7 @@
 !Stdlib/StringLib.h
 !Stdlib/Console.h
 !Stdlib/Console.cpp
+!Stdlib/File.h
 
 # Network
 !Network/

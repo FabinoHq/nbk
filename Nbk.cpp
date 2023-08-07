@@ -179,4 +179,31 @@ void Nbk::run()
 
     GConsole << '\n' << '\n';
     GConsole << "------------------------------------\n\n";
+
+    /*String testIn;
+    GConsole >> testIn;
+    GConsole << "1 : " << testIn << '\n';
+    GConsole.flush();
+    testIn.clear();
+    GConsole >> testIn;
+    GConsole << "2 : " << testIn << '\n';
+
+    GConsole << '\n' << '\n';
+    GConsole << "------------------------------------\n\n";
+    GConsole.flush();*/
+
+    File file;
+    if (file.open("test.txt"))
+    {
+        GConsole << "test.txt opened\n";
+    }
+    else
+    {
+        GConsole << "Could not open file\n";
+        return;
+    }
+
+    file << "test\n";
+
+    file.close();
 }

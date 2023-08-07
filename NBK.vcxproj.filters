@@ -126,6 +126,9 @@
     <ClInclude Include="Stdlib\Console.h">
       <Filter>Stdlib</Filter>
     </ClInclude>
+    <ClInclude Include="Stdlib\File.h">
+      <Filter>Stdlib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">

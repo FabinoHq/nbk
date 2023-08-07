@@ -237,6 +237,7 @@
     <ClInclude Include="Network\TCPSocket.h" />
     <ClInclude Include="Network\UDPSocket.h" />
     <ClInclude Include="Stdlib\Console.h" />
+    <ClInclude Include="Stdlib\File.h" />
     <ClInclude Include="Stdlib\String.h" />
     <ClInclude Include="Stdlib\StringLib.h" />
     <ClInclude Include="System\SysClock.h" />
