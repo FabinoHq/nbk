@@ -7,8 +7,8 @@
 //         // .       |//    / // .   _________/  // .       __/              //
 //        // .   /|   |/    / // .   /  \\    \  // .        \                //
 //       // .   /||        / // .    \__//    / // .   /\     \               //
-//      // .   / ||       / //  .            / // .   /  \     \              //
-//     //_____/  ||______/  \\______________/ //_____/    \____/              //
+//      // .   / ||       / //  .            / // .   / \\     \              //
+//     //_____/  ||______/  \\______________/ //_____/   \\____/              //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 //   This is free and unencumbered software released into the public domain.  //
@@ -42,6 +42,14 @@
 #ifndef NBK_STDLIB_STRING_HEADER
 #define NBK_STDLIB_STRING_HEADER
 
+    #include <cstddef>
+    #include <cstdint>
+    #include <cstring>
+
+
+    // ASCII string type
+    #undef StringType
+    #define StringType char
 
     // Default 32 characters string
     #define NBK_STDLIB_STRINGLIB_HEADER
@@ -72,6 +80,41 @@
     #undef StringLib
     #undef StringSize
     #define String String32
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  StringLength character array                                          //
+    ////////////////////////////////////////////////////////////////////////////
+    inline int32_t StringLength(const char* array)
+    {
+        int i = -1;
+        while (array[++i]);
+        return i;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  StringLength String32                                                 //
+    ////////////////////////////////////////////////////////////////////////////
+    inline int32_t StringLength(const String32& string)
+    {
+        return string.length();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  StringLength String256                                                //
+    ////////////////////////////////////////////////////////////////////////////
+    inline int32_t StringLength(const String256& string)
+    {
+        return string.length();
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  StringLength String4096                                               //
+    ////////////////////////////////////////////////////////////////////////////
+    inline int32_t StringLength(const String4096& string)
+    {
+        return string.length();
+    }
 
 
 #endif // NBK_STDLIB_STRING_HEADER

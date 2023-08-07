@@ -7,8 +7,8 @@
 //         // .       |//    / // .   _________/  // .       __/              //
 //        // .   /|   |/    / // .   /  \\    \  // .        \                //
 //       // .   /||        / // .    \__//    / // .   /\     \               //
-//      // .   / ||       / //  .            / // .   /  \     \              //
-//     //_____/  ||______/  \\______________/ //_____/    \____/              //
+//      // .   / ||       / //  .            / // .   / \\     \              //
+//     //_____/  ||______/  \\______________/ //_____/   \\____/              //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 //   This is free and unencumbered software released into the public domain.  //
@@ -91,37 +91,37 @@ void Nbk::run()
     String4096 str4096;
 
     // Display maximum array size
-    std::cout << "str : " << str.maxSize() << '\n';
-    std::cout << "str32 : " << str32.maxSize() << '\n';
-    std::cout << "str256 : " << str256.maxSize() << '\n';
-    std::cout << "str4096 : " << str4096.maxSize() << '\n' << '\n';
+    GConsole << "str : " << str.maxSize() << '\n';
+    GConsole << "str32 : " << str32.maxSize() << '\n';
+    GConsole << "str256 : " << str256.maxSize() << '\n';
+    GConsole << "str4096 : " << str4096.maxSize() << '\n' << '\n';
 
     // Test strings
     String test("test string");
-    std::cout << test.length() << ' ' << test.data() << '\n';
+    GConsole << test.length() << ' ' << test << '\n';
     String mystr("mystr");
-    std::cout << mystr.length() << ' ' << mystr.data() << '\n' << '\n';
+    GConsole << mystr.length() << ' ' << mystr << '\n' << '\n';
 
     String concat;
     concat = test;
-    std::cout << concat.length() << ' ' << concat.data() << '\n';
+    GConsole << concat.length() << ' ' << concat << '\n';
     concat << mystr;
     concat << "123";
-    std::cout << concat.length() << ' ' << concat.data() << '\n';
+    GConsole << concat.length() << ' ' << concat << '\n';
     concat = "";
-    std::cout << concat.length() << ' ' << concat.data() << '\n';
+    GConsole << concat.length() << ' ' << concat << '\n';
     concat = (test + " " + mystr);
-    std::cout << "concat[2] : " << concat[2] << '\n';
+    GConsole << "concat[2] : " << concat[2] << '\n';
     concat[3] = 3;
-    std::cout << concat.length() << ' ' << concat.data() << '\n' << '\n';
+    GConsole << concat.length() << ' ' << concat << '\n' << '\n';
 
     String equalop = "test";
     bool equalres = (equalop == "tes");
     bool equalres2 = (equalop == "test");
     bool equalres3 = (equalop == "testa");
-    std::cout << "tes : " << (equalres?"true":"false") << '\n';
-    std::cout << "test : " << (equalres2?"true":"false") << '\n';
-    std::cout << "testa : " << (equalres3?"true":"false") << '\n' << '\n';
+    GConsole << "tes : " << (equalres?"true":"false") << '\n';
+    GConsole << "test : " << (equalres2?"true":"false") << '\n';
+    GConsole << "testa : " << (equalres3?"true":"false") << '\n' << '\n';
 
     int testInt = 0;
     if (testInt <= 0) { testInt = 0; }
@@ -134,46 +134,49 @@ void Nbk::run()
     String match = "test";
     String match2 = "tes";
     String match3 = "testa";
-    std::cout << (findmatch.find(match2)) << '\n';
-    std::cout << (findmatch.find(match)) << '\n';
-    std::cout << (findmatch.find(match3)) << '\n';
-    std::cout << (findmatch.find("tes")) << '\n';
-    std::cout << (findmatch.find("test")) << '\n';
-    std::cout << (findmatch.find("testa")) << '\n';
-    std::cout << '\n';
-    std::cout << (findmatch.match(9, match)) << '\n';
-    std::cout << (findmatch.match(10, match)) << '\n';
-    std::cout << (findmatch.match(11, match)) << '\n';
-    std::cout << (findmatch.match(10, match2)) << '\n';
-    std::cout << (findmatch.match(10, match)) << '\n';
-    std::cout << (findmatch.match(10, match3)) << '\n';
-    std::cout << (findmatch.match(9, "test")) << '\n';
-    std::cout << (findmatch.match(10, "test")) << '\n';
-    std::cout << (findmatch.match(11, "test")) << '\n';
-    std::cout << (findmatch.match(10, "tes")) << '\n';
-    std::cout << (findmatch.match(10, "test")) << '\n';
-    std::cout << (findmatch.match(10, "testa")) << '\n';
-    std::cout << '\n';
+    GConsole << (findmatch.find(match2)) << '\n';
+    GConsole << (findmatch.find(match)) << '\n';
+    GConsole << (findmatch.find(match3)) << '\n';
+    GConsole << (findmatch.find("tes")) << '\n';
+    GConsole << (findmatch.find("test")) << '\n';
+    GConsole << (findmatch.find("testa")) << '\n';
+    GConsole << '\n';
+    GConsole << (findmatch.match(9, match)) << '\n';
+    GConsole << (findmatch.match(10, match)) << '\n';
+    GConsole << (findmatch.match(11, match)) << '\n';
+    GConsole << (findmatch.match(10, match2)) << '\n';
+    GConsole << (findmatch.match(10, match)) << '\n';
+    GConsole << (findmatch.match(10, match3)) << '\n';
+    GConsole << (findmatch.match(9, "test")) << '\n';
+    GConsole << (findmatch.match(10, "test")) << '\n';
+    GConsole << (findmatch.match(11, "test")) << '\n';
+    GConsole << (findmatch.match(10, "tes")) << '\n';
+    GConsole << (findmatch.match(10, "test")) << '\n';
+    GConsole << (findmatch.match(10, "testa")) << '\n';
+    GConsole << '\n';
 
     concat = "concat ";
     concat << 123;
     concat = concat + " ";
     concat << -1381272486;
-    std::cout << concat.data() << '\n';
+    GConsole << concat << '\n';
 
     for (int i = 0; i < test.maxSize(); ++i)
     {
-        std::cout << (int)test.data()[i] << ' ';
+        GConsole << (int)test[i] << ' ';
     }
-    std::cout << '\n';
+    GConsole << '\n';
     for (int i = 0; i < mystr.maxSize(); ++i)
     {
-        std::cout << (int)mystr.data()[i] << ' ';
+        GConsole << (int)mystr[i] << ' ';
     }
-    std::cout << '\n';
+    GConsole << '\n';
     for (int i = 0; i < concat.maxSize(); ++i)
     {
-        std::cout << (int)concat.data()[i] << ' ';
+        GConsole << (int)concat[i] << ' ';
     }
-    std::cout << '\n';
+    GConsole << '\n';
+
+    GConsole << '\n' << '\n';
+    GConsole << "------------------------------------\n\n";
 }

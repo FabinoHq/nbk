@@ -54,6 +54,8 @@
 !Stdlib/
 !Stdlib/String.h
 !Stdlib/StringLib.h
+!Stdlib/Console.h
+!Stdlib/Console.cpp
 
 # Network
 !Network/

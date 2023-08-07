@@ -7,8 +7,8 @@
 //         // .       |//    / // .   _________/  // .       __/              //
 //        // .   /|   |/    / // .   /  \\    \  // .        \                //
 //       // .   /||        / // .    \__//    / // .   /\     \               //
-//      // .   / ||       / //  .            / // .   /  \     \              //
-//     //_____/  ||______/  \\______________/ //_____/    \____/              //
+//      // .   / ||       / //  .            / // .   / \\     \              //
+//     //_____/  ||______/  \\______________/ //_____/   \\____/              //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 //   This is free and unencumbered software released into the public domain.  //
@@ -72,7 +72,7 @@ IPAddress::~IPAddress()
 ////////////////////////////////////////////////////////////////////////////////
 //  Resolve host name into IP address                                         //
 ////////////////////////////////////////////////////////////////////////////////
-bool IPAddress::resolveHostName(const std::string& hostName)
+bool IPAddress::resolveHostName(const String32& hostName)
 {
     addrinfo hints;
     hints.ai_flags = 0;
@@ -86,7 +86,7 @@ bool IPAddress::resolveHostName(const std::string& hostName)
 
     // Resolve host name
     addrinfo* result = 0;
-    if (getaddrinfo(hostName.c_str(), 0, &hints, &result) != 0)
+    if (getaddrinfo(hostName.str(), 0, &hints, &result) != 0)
     {
         // Could not resolve host name
         return false;
@@ -124,10 +124,10 @@ bool IPAddress::resolveHostName(const std::string& hostName)
 ////////////////////////////////////////////////////////////////////////////////
 //  Get IP address v4 string                                                  //
 ////////////////////////////////////////////////////////////////////////////////
-std::string IPAddress::getString() const
+String32 IPAddress::getString() const
 {
     char cstraddress[INET_ADDRSTRLEN] = {0};
-    std::string ipaddress;
+    String32 ipaddress;
     if (inet_ntop(
         AF_INET, &m_ipaddress, cstraddress, sizeof(char)*INET_ADDRSTRLEN))
     {

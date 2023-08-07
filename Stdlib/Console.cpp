@@ -37,43 +37,12 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     Network/Network.h : NBK Network management                             //
+//     Stdlib/Console.cpp : Console management                                //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_NETWORK_NETWORK_HEADER
-#define NBK_NETWORK_NETWORK_HEADER
-
-    #include "../System/System.h"
+#include "Console.h"
 
 
-    ////////////////////////////////////////////////////////////////////////////
-    //  Windows network management                                            //
-    ////////////////////////////////////////////////////////////////////////////
-    #ifdef NBK_WINDOWS
-
-        #include <winsock2.h>
-        #include <Ws2tcpip.h>
-
-        #define SocketHandle UINT_PTR
-
-    #endif // NBK_WINDOWS
-
-    ////////////////////////////////////////////////////////////////////////////
-    //  Linux network management                                              //
-    ////////////////////////////////////////////////////////////////////////////
-    #ifdef NBK_LINUX
-
-        #include <sys/socket.h>
-        #include <netinet/in.h>
-        #include <netinet/tcp.h>
-        #include <netinet/udp.h>
-        #include <arpa/inet.h>
-        #include <netdb.h>
-        #include <fcntl.h>
-        #include <unistd.h>
-
-        #define SocketHandle int
-
-    #endif // NBK_LINUX
-
-
-#endif // NBK_NETWORK_NETWORK_HEADER
+////////////////////////////////////////////////////////////////////////////////
+//  Console global instance                                                   //
+////////////////////////////////////////////////////////////////////////////////
+Console GConsole = Console();

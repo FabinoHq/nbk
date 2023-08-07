@@ -7,8 +7,8 @@
 //         // .       |//    / // .   _________/  // .       __/              //
 //        // .   /|   |/    / // .   /  \\    \  // .        \                //
 //       // .   /||        / // .    \__//    / // .   /\     \               //
-//      // .   / ||       / //  .            / // .   /  \     \              //
-//     //_____/  ||______/  \\______________/ //_____/    \____/              //
+//      // .   / ||       / //  .            / // .   / \\     \              //
+//     //_____/  ||______/  \\______________/ //_____/   \\____/              //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 //   This is free and unencumbered software released into the public domain.  //
@@ -53,12 +53,12 @@ int main()
     if (!nbk.launch())
     {
         // NBK error occured
-        SysMessage::box().display();
+        GSysMessage.display();
         return 1;
     }
 
     // Display system message if any
-    SysMessage::box().display();
+    GSysMessage.display();
 
     // Program successfully executed
     return 0;

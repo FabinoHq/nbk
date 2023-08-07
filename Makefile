@@ -51,12 +51,14 @@ NBK: main.o \
 	Nbk.o \
 	System/SysThread.o System/SysClock.o System/SysCPU.o \
 	System/Lin/SysMessage.o System/SysSettings.o \
+	Stdlib/Console.o \
 	Network/IPAddress.o Network/TCPSocket.o Network/UDPSocket.o
 
 	$(CC) -o NBK \
 	Nbk.o \
 	System/SysThread.o System/SysClock.o System/SysCPU.o \
 	System/Lin/SysMessage.o System/SysSettings.o \
+	Stdlib/Console.o \
 	Network/IPAddress.o Network/TCPSocket.o Network/UDPSocket.o \
 	main.o $(LDFLAGS)
 
@@ -84,6 +86,10 @@ System/SysSettings.o: System/SysSettings.cpp
 	$(CC) -o System/SysSettings.o -c System/SysSettings.cpp $(CFLAGS)
 
 
+Stdlib/Console.o: Stdlib/Console.cpp
+	$(CC) -o Stdlib/Console.o -c Stdlib/Console.cpp $(CFLAGS)
+
+
 Network/IPAddress.o: Network/IPAddress.cpp
 	$(CC) -o Network/IPAddress.o -c Network/IPAddress.cpp $(CFLAGS)
 
@@ -98,6 +104,7 @@ clean:
 	rm -rf *.o
 	rm -rf System/*.o
 	rm -rf System/Lin/*.o
+	rm -rf Stdlib/*.o
 	rm -rf Network/*.o
 
 mrproper: clean

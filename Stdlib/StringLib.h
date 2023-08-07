@@ -7,8 +7,8 @@
 //         // .       |//    / // .   _________/  // .       __/              //
 //        // .   /|   |/    / // .   /  \\    \  // .        \                //
 //       // .   /||        / // .    \__//    / // .   /\     \               //
-//      // .   / ||       / //  .            / // .   /  \     \              //
-//     //_____/  ||______/  \\______________/ //_____/    \____/              //
+//      // .   / ||       / //  .            / // .   / \\     \              //
+//     //_____/  ||______/  \\______________/ //_____/   \\____/              //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 //   This is free and unencumbered software released into the public domain.  //
@@ -78,7 +78,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib array constructor                                   //
             ////////////////////////////////////////////////////////////////////
-            StringLib(const char* array) :
+            StringLib(const StringType* array) :
             m_size(0),
             m_string()
             {
@@ -144,7 +144,7 @@
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Insert a string within the string                             //
+            //  Replace a subpart of the string by another string             //
             ////////////////////////////////////////////////////////////////////
             inline void replace(int32_t offset, int32_t length,
                 const StringLib& string)
@@ -166,7 +166,7 @@
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Find a string occurence within the string                     //
+            //  Find the first string occurence within the string             //
             ////////////////////////////////////////////////////////////////////
             inline int32_t find(const StringLib& string)
             {
@@ -181,6 +181,46 @@
             {
                 (void)string;
                 return -1;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Replace the first occurrence of a string by another string    //
+            ////////////////////////////////////////////////////////////////////
+            inline void findAndReplace(const StringLib& find,
+                const StringLib& string)
+            {
+                (void)find;
+                (void)string;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Replace first occurrence of a character by another character  //
+            ////////////////////////////////////////////////////////////////////
+            inline void findAndReplace(const StringType find,
+                const StringType character)
+            {
+                (void)find;
+                (void)character;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Replace the first occurrence of a string by another string    //
+            ////////////////////////////////////////////////////////////////////
+            inline void findAndReplaceAll(const StringLib& find,
+                const StringLib& string)
+            {
+                (void)find;
+                (void)string;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Replace first occurrence of a character by another character  //
+            ////////////////////////////////////////////////////////////////////
+            inline void findAndReplaceAll(const StringType find,
+                const StringType character)
+            {
+                (void)find;
+                (void)character;
             }
 
 
@@ -241,7 +281,7 @@
             ////////////////////////////////////////////////////////////////////
             //  Get first character of the string                             //
             ////////////////////////////////////////////////////////////////////
-            inline char& front()
+            inline StringType& front()
             {
                 return m_string[0];
             }
@@ -249,17 +289,49 @@
             ////////////////////////////////////////////////////////////////////
             //  Get last character of the string (before \0)                  //
             ////////////////////////////////////////////////////////////////////
-            inline char& back()
+            inline StringType& back()
             {
                 return m_string[m_size-1];
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Get string data array                                         //
+            //  Get sentinel character of the string (\0)                     //
             ////////////////////////////////////////////////////////////////////
-            inline char* data()
+            inline StringType& sentinel()
+            {
+                return m_string[m_size];
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get last character of the internal string array               //
+            ////////////////////////////////////////////////////////////////////
+            inline StringType& last()
+            {
+                return m_string[StringSize-1];
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get string internal string data array pointer                 //
+            ////////////////////////////////////////////////////////////////////
+            inline StringType* data()
             {
                 return m_string;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get string internal string array                              //
+            ////////////////////////////////////////////////////////////////////
+            inline const StringType* str() const
+            {
+                return m_string;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get string internal size reference                            //
+            ////////////////////////////////////////////////////////////////////
+            inline int32_t& size()
+            {
+                return m_size;
             }
 
             ////////////////////////////////////////////////////////////////////
@@ -292,7 +364,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib array copy operator                                 //
             ////////////////////////////////////////////////////////////////////
-            inline StringLib& operator=(const char* array)
+            inline StringLib& operator=(const StringType* array)
             {
                 m_size = 0;
                 while (((m_string[m_size] = array[m_size]) != 0) &&
@@ -314,7 +386,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib array addition operator                             //
             ////////////////////////////////////////////////////////////////////
-            inline StringLib operator+(const char* array) const
+            inline StringLib operator+(const StringType* array) const
             {
                 StringLib result(*this);
                 return (result << array);
@@ -323,7 +395,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib character addition operator                         //
             ////////////////////////////////////////////////////////////////////
-            inline StringLib operator+(const char character) const
+            inline StringLib operator+(const StringType character) const
             {
                 StringLib result(*this);
                 return (result << character);
@@ -340,7 +412,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib array addition assignment operator                  //
             ////////////////////////////////////////////////////////////////////
-            inline StringLib& operator+=(const char* array)
+            inline StringLib& operator+=(const StringType* array)
             {
                 return ((*this) << array);
             }
@@ -348,7 +420,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib character addition assignment operator              //
             ////////////////////////////////////////////////////////////////////
-            inline StringLib& operator+=(const char character)
+            inline StringLib& operator+=(const StringType character)
             {
                 return ((*this) << character);
             }
@@ -368,7 +440,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib array left shift operator                           //
             ////////////////////////////////////////////////////////////////////
-            inline StringLib& operator<<(const char* array)
+            inline StringLib& operator<<(const StringType* array)
             {
                 int32_t i = 0;
                 while (((m_string[m_size] = array[i++]) != 0) &&
@@ -380,7 +452,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib character left shift operator                       //
             ////////////////////////////////////////////////////////////////////
-            inline StringLib& operator<<(const char character)
+            inline StringLib& operator<<(const StringType character)
             {
                 m_string[m_size] = character;
                 m_size = Math::min(m_size+1, (StringSize-1));
@@ -404,7 +476,31 @@
                 // Write number digit by digit
                 for (int32_t i = Math::log10(value); i >= 0; --i)
                 {
-                    m_string[m_size] = static_cast<char>(
+                    m_string[m_size] = static_cast<StringType>(
+                        48 + ((value / Math::power10(i)) % 10)
+                    );
+                    m_size = Math::min(m_size+1, (StringSize-1));
+                }
+
+                // Last nul character
+                m_string[m_size] = 0;
+                return *this;
+            }
+
+            StringLib& operator<<(int64_t value)
+            {
+                // Negative number
+                if (value < 0)
+                {
+                    value = -value;
+                    m_string[m_size] = '-';
+                    m_size = Math::min(m_size+1, (StringSize-1));
+                }
+
+                // Write number digit by digit
+                for (int64_t i = Math::log10(value); i >= 0; --i)
+                {
+                    m_string[m_size] = static_cast<StringType>(
                         48 + ((value / Math::power10(i)) % 10)
                     );
                     m_size = Math::min(m_size+1, (StringSize-1));
@@ -419,7 +515,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib array subscript operator []                         //
             ////////////////////////////////////////////////////////////////////
-            inline char& operator[](int32_t index)
+            inline StringType& operator[](int32_t index)
             {
                 return m_string[Math::clamp(index, 0, (StringSize-1))];
             }
@@ -437,7 +533,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib array equal to operator                             //
             ////////////////////////////////////////////////////////////////////
-            inline bool operator==(const char* array) const
+            inline bool operator==(const StringType* array) const
             {
                 int32_t i = 0;
                 while ((m_string[i] == array[i]) && (i <= m_size)) { ++i; }
@@ -456,7 +552,7 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib array not equal to operator                         //
             ////////////////////////////////////////////////////////////////////
-            inline bool operator!=(const char* array) const
+            inline bool operator!=(const StringType* array) const
             {
                 int32_t i = 0;
                 while ((m_string[i] == array[i]) && (i <= m_size)) { ++i; }
@@ -466,7 +562,7 @@
 
         private:
             int32_t         m_size;                     // String size
-            char            m_string[StringSize];       // String array
+            StringType      m_string[StringSize];       // String array
     };
 
 

@@ -7,8 +7,8 @@
 //         // .       |//    / // .   _________/  // .       __/              //
 //        // .   /|   |/    / // .   /  \\    \  // .        \                //
 //       // .   /||        / // .    \__//    / // .   /\     \               //
-//      // .   / ||       / //  .            / // .   /  \     \              //
-//     //_____/  ||______/  \\______________/ //_____/    \____/              //
+//      // .   / ||       / //  .            / // .   / \\     \              //
+//     //_____/  ||______/  \\______________/ //_____/   \\____/              //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 //   This is free and unencumbered software released into the public domain.  //
@@ -44,10 +44,8 @@
 
     #include "../System.h"
     #include "../SysMutex.h"
-
-    #include <iostream>
-    #include <string>
-    #include <sstream>
+    #include "../../Stdlib/String.h"
+    #include "../../Stdlib/Console.h"
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -55,18 +53,17 @@
     ////////////////////////////////////////////////////////////////////////////
     class SysMessage
     {
-        private:
+        public:
             ////////////////////////////////////////////////////////////////////
-            //  SysMessage private constructor                                //
+            //  SysMessage default constructor                                //
             ////////////////////////////////////////////////////////////////////
             SysMessage();
 
-        public:
             ////////////////////////////////////////////////////////////////////
-            //  Get the system message global singleton instance              //
-            //  return : SysMessage singleton instance                        //
+            //  SysMessage destructor                                         //
             ////////////////////////////////////////////////////////////////////
-            static SysMessage& box();
+            ~SysMessage();
+
 
             ////////////////////////////////////////////////////////////////////
             //  Display the system message                                    //
@@ -101,10 +98,16 @@
 
 
         private:
-            SysMutex                m_mutex;    // System message mutex
-            bool                    m_display;  // Display the system message
-            std::ostringstream      m_message;  // Message to display
+            SysMutex            m_mutex;        // System message mutex
+            bool                m_display;      // Message display state
+            String256           m_message;      // Message to display
     };
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  SysMessage global instance                                            //
+    ////////////////////////////////////////////////////////////////////////////
+    extern SysMessage GSysMessage;
 
 
 #endif // NBK_SYSTEM_LIN_SYSMESSAGE_HEADER

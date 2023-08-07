@@ -30,6 +30,9 @@
     <ClCompile Include="Network\UDPSocket.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="Stdlib\Console.cpp">
+      <Filter>Stdlib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nbk.h" />
@@ -118,6 +121,9 @@
       <Filter>Stdlib</Filter>
     </ClInclude>
     <ClInclude Include="Stdlib\StringLib.h">
+      <Filter>Stdlib</Filter>
+    </ClInclude>
+    <ClInclude Include="Stdlib\Console.h">
       <Filter>Stdlib</Filter>
     </ClInclude>
   </ItemGroup>
