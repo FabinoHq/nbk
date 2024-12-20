@@ -75,7 +75,7 @@
             ////////////////////////////////////////////////////////////////////
             //  Vector2i components constructor                               //
             ////////////////////////////////////////////////////////////////////
-            Vector2i(int64_t x, int64_t y)
+            Vector2i(int32_t x, int32_t y)
             {
                 vec[0] = x;
                 vec[1] = y;
@@ -112,16 +112,25 @@
             ////////////////////////////////////////////////////////////////////
             //  Set Vector2i components from X and Y components               //
             ////////////////////////////////////////////////////////////////////
-            inline void set(int64_t x, int64_t y)
+            inline void set(int32_t x, int32_t y)
             {
                 vec[0] = x;
                 vec[1] = y;
             }
 
             ////////////////////////////////////////////////////////////////////
+            //  Set Vector2i components from a single value                   //
+            ////////////////////////////////////////////////////////////////////
+            inline void set(int32_t val)
+            {
+                vec[0] = val;
+                vec[1] = val;
+            }
+
+            ////////////////////////////////////////////////////////////////////
             //  Set Vector2i X component                                      //
             ////////////////////////////////////////////////////////////////////
-            inline void setX(int64_t x)
+            inline void setX(int32_t x)
             {
                 vec[0] = x;
             }
@@ -129,17 +138,236 @@
             ////////////////////////////////////////////////////////////////////
             //  Set Vector2i Y component                                      //
             ////////////////////////////////////////////////////////////////////
-            inline void setY(int64_t y)
+            inline void setY(int32_t y)
             {
                 vec[1] = y;
             }
 
             ////////////////////////////////////////////////////////////////////
+            //  Get Vector2i x component                                      //
+            //  return : X component of the vector                            //
+            ////////////////////////////////////////////////////////////////////
+            inline int32_t& x()
+            {
+                return vec[0];
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get Vector2i y component                                      //
+            //  return : Y component of the vector                            //
+            ////////////////////////////////////////////////////////////////////
+            inline int32_t& y()
+            {
+                return vec[1];
+            }
+
+
+            ////////////////////////////////////////////////////////////////////
+            //  Check if vector is equal to zero                              //
+            ////////////////////////////////////////////////////////////////////
+            inline bool isZero() const
+            {
+                return ((vec[0] == 0) && (vec[1] == 0));
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector absolute value                                     //
+            ////////////////////////////////////////////////////////////////////
+            inline void abs()
+            {
+                vec[0] = Math::abs(vec[0]);
+                vec[1] = Math::abs(vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get vector minimum value                                      //
+            ////////////////////////////////////////////////////////////////////
+            inline int32_t min()
+            {
+                return Math::min(vec[0], vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector minimum value between itself and min value         //
+            ////////////////////////////////////////////////////////////////////
+            inline void min(int32_t min)
+            {
+                vec[0] = Math::min(vec[0], min);
+                vec[1] = Math::min(vec[1], min);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector minimum value between itself and min vector        //
+            ////////////////////////////////////////////////////////////////////
+            inline void min(const Vector2i& min)
+            {
+                vec[0] = Math::min(vec[0], min.vec[0]);
+                vec[1] = Math::min(vec[1], min.vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector minimum value between itself and min X Y           //
+            ////////////////////////////////////////////////////////////////////
+            inline void min(int32_t minX, int32_t minY)
+            {
+                vec[0] = Math::min(vec[0], minX);
+                vec[1] = Math::min(vec[1], minY);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get vector maximum value                                      //
+            ////////////////////////////////////////////////////////////////////
+            inline int32_t max()
+            {
+                return Math::max(vec[0], vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector maximum value between itself and max value         //
+            ////////////////////////////////////////////////////////////////////
+            inline void max(int32_t max)
+            {
+                vec[0] = Math::max(vec[0], max);
+                vec[1] = Math::max(vec[1], max);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector maximum value between itself and max vector        //
+            ////////////////////////////////////////////////////////////////////
+            inline void max(const Vector2i& max)
+            {
+                vec[0] = Math::max(vec[0], max.vec[0]);
+                vec[1] = Math::max(vec[1], max.vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector maximum value between itself and max X Y           //
+            ////////////////////////////////////////////////////////////////////
+            inline void max(int32_t maxX, int32_t maxY)
+            {
+                vec[0] = Math::max(vec[0], maxX);
+                vec[1] = Math::max(vec[1], maxY);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector between min and max                              //
+            ////////////////////////////////////////////////////////////////////
+            inline void clamp(int32_t min, int32_t max)
+            {
+                vec[0] = Math::clamp(vec[0], min, max);
+                vec[1] = Math::clamp(vec[1], min, max);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector between min and max vectors                      //
+            ////////////////////////////////////////////////////////////////////
+            inline void clamp(const Vector2i& min, const Vector2i& max)
+            {
+                vec[0] = Math::clamp(vec[0], min.vec[0], max.vec[0]);
+                vec[1] = Math::clamp(vec[1], min.vec[1], max.vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector between min and max X Y components               //
+            ////////////////////////////////////////////////////////////////////
+            inline void clamp(
+                int32_t minX, int32_t minY, int32_t maxX, int32_t maxY)
+            {
+                vec[0] = Math::clamp(vec[0], minX, maxX);
+                vec[1] = Math::clamp(vec[1], minY, maxY);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector by absolute max value                            //
+            ////////////////////////////////////////////////////////////////////
+            inline void clampAbs(int32_t max)
+            {
+                vec[0] = Math::clampAbs(vec[0], max);
+                vec[1] = Math::clampAbs(vec[1], max);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector by absolute max vector                           //
+            ////////////////////////////////////////////////////////////////////
+            inline void clampAbs(const Vector2i& max)
+            {
+                vec[0] = Math::clampAbs(vec[0], max.vec[0]);
+                vec[1] = Math::clampAbs(vec[1], max.vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector by absolute max X Y components                   //
+            ////////////////////////////////////////////////////////////////////
+            inline void clampAbs(int32_t maxX, int32_t maxY)
+            {
+                vec[0] = Math::clampAbs(vec[0], maxX);
+                vec[1] = Math::clampAbs(vec[1], maxY);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Move components towards a specified value                     //
+            ////////////////////////////////////////////////////////////////////
+            inline void moveTowards(int32_t val, int32_t delta)
+            {
+                if (vec[0] > val)
+                {
+                    vec[0] = Math::max(vec[0]-delta, val);
+                }
+                else if (vec[0] < val)
+                {
+                    vec[0] = Math::min(vec[0]+delta, val);
+                }
+                if (vec[1] > val)
+                {
+                    vec[1] = Math::max(vec[1]-delta, val);
+                }
+                else if (vec[1] < val)
+                {
+                    vec[1] = Math::min(vec[1]+delta, val);
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Move X component towards a specified value                    //
+            ////////////////////////////////////////////////////////////////////
+            inline void moveXTowards(int32_t val, int32_t delta)
+            {
+                if (vec[0] > val)
+                {
+                    vec[0] = Math::max(vec[0]-delta, val);
+                }
+                else if (vec[0] < val)
+                {
+                    vec[0] = Math::min(vec[0]+delta, val);
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Move Y component towards a specified value                    //
+            ////////////////////////////////////////////////////////////////////
+            inline void moveYTowards(int32_t val, int32_t delta)
+            {
+                if (vec[1] > val)
+                {
+                    vec[1] = Math::max(vec[1]-delta, val);
+                }
+                else if (vec[1] < val)
+                {
+                    vec[1] = Math::min(vec[1]+delta, val);
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////
             //  Get the dot product of this vector and another                //
             ////////////////////////////////////////////////////////////////////
-            inline int64_t dotProduct(Vector2i& v) const
+            inline int64_t dotProduct(const Vector2i& v) const
             {
-                return ((vec[0]*v.vec[0]) + (vec[1]*v.vec[1]));
+                return (
+                    (static_cast<int64_t>(vec[0])*
+                    static_cast<int64_t>(v.vec[0]))+
+                    (static_cast<int64_t>(vec[1])*
+                    static_cast<int64_t>(v.vec[1]))
+                );
             }
 
             ////////////////////////////////////////////////////////////////////
@@ -147,7 +375,21 @@
             ////////////////////////////////////////////////////////////////////
             inline int64_t length() const
             {
-                return Math::sqrt((vec[0]*vec[0]) + (vec[1]*vec[1]));
+                return Math::sqrt(
+                    (static_cast<int64_t>(vec[0])*static_cast<int64_t>(vec[0]))+
+                    (static_cast<int64_t>(vec[1])*static_cast<int64_t>(vec[1]))
+                );
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get Vector2i squared length                                   //
+            ////////////////////////////////////////////////////////////////////
+            inline int64_t squaredLength() const
+            {
+                return (
+                    (static_cast<int64_t>(vec[0])*static_cast<int64_t>(vec[0]))+
+                    (static_cast<int64_t>(vec[1])*static_cast<int64_t>(vec[1]))
+                );
             }
 
             ////////////////////////////////////////////////////////////////////
@@ -158,29 +400,13 @@
                 int64_t len = length();
                 if (len != 0)
                 {
-                    // Normalize between 0 and Math::OneInt
-                    vec[0] = (vec[0] << Math::OneIntShift) / len;
-                    vec[1] = (vec[1] << Math::OneIntShift) / len;
+                    vec[0] = static_cast<int32_t>(
+                        (static_cast<int64_t>(vec[0])<<Math::OneIntShift) / len
+                    );
+                    vec[1] = static_cast<int32_t>(
+                        (static_cast<int64_t>(vec[1])<<Math::OneIntShift) / len
+                    );
                 }
-            }
-
-
-            ////////////////////////////////////////////////////////////////////
-            //  Get Vector2i x component                                      //
-            //  return : X component of the vector                            //
-            ////////////////////////////////////////////////////////////////////
-            inline int64_t& x()
-            {
-                return vec[0];
-            }
-
-            ////////////////////////////////////////////////////////////////////
-            //  Get Vector2i y component                                      //
-            //  return : Y component of the vector                            //
-            ////////////////////////////////////////////////////////////////////
-            inline int64_t& y()
-            {
-                return vec[1];
             }
 
 
@@ -194,7 +420,7 @@
                 return *this;
             }
 
-            inline Vector2i& operator=(int64_t val)
+            inline Vector2i& operator=(int32_t val)
             {
                 vec[0] = val;
                 vec[1] = val;
@@ -209,7 +435,7 @@
                 return Vector2i(vec[0]+vector.vec[0], vec[1]+vector.vec[1]);
             }
 
-            inline Vector2i operator+(int64_t val) const
+            inline Vector2i operator+(int32_t val) const
             {
                 return Vector2i(vec[0]+val, vec[1]+val);
             }
@@ -222,7 +448,7 @@
                 return Vector2i(vec[0]-vector.vec[0], vec[1]-vector.vec[1]);
             }
 
-            inline Vector2i operator-(int64_t val) const
+            inline Vector2i operator-(int32_t val) const
             {
                 return Vector2i(vec[0]-val, vec[1]-val);
             }
@@ -251,7 +477,7 @@
                 return Vector2i(vec[0]*vector.vec[0], vec[1]*vector.vec[1]);
             }
 
-            inline Vector2i operator*(int64_t val) const
+            inline Vector2i operator*(int32_t val) const
             {
                 return Vector2i(vec[0]*val, vec[1]*val);
             }
@@ -273,7 +499,7 @@
                 return result;
             }
 
-            inline Vector2i operator/(int64_t val) const
+            inline Vector2i operator/(int32_t val) const
             {
                 Vector2i result(*this);
                 if (val != 0)
@@ -330,7 +556,7 @@
                 return *this;
             }
 
-            inline Vector2i& operator+=(int64_t val)
+            inline Vector2i& operator+=(int32_t val)
             {
                 vec[0] += val;
                 vec[1] += val;
@@ -347,7 +573,7 @@
                 return *this;
             }
 
-            inline Vector2i& operator-=(int64_t val)
+            inline Vector2i& operator-=(int32_t val)
             {
                 vec[0] -= val;
                 vec[1] -= val;
@@ -364,7 +590,7 @@
                 return *this;
             }
 
-            inline Vector2i& operator*=(int64_t val)
+            inline Vector2i& operator*=(int32_t val)
             {
                 vec[0] *= val;
                 vec[1] *= val;
@@ -387,7 +613,7 @@
                 return *this;
             }
 
-            inline Vector2i& operator/=(int64_t val)
+            inline Vector2i& operator/=(int32_t val)
             {
                 if (val != 0)
                 {
@@ -415,7 +641,7 @@
 
 
         public:
-            int64_t     vec[2];     // 2 components int vector representation
+            int32_t     vec[2];     // 2 components int vector representation
     };
 
 

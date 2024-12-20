@@ -46,6 +46,7 @@
     #include "Math.h"
     #include "Vector2.h"
     #include "Matrix4x4.h"
+    #include "../Physics/PhysicsTransform2.h"
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -447,6 +448,20 @@
                 return m_shear.vec[1];
             }*/
 
+
+            ////////////////////////////////////////////////////////////////////
+            //  Precompute transformations                                    //
+            ////////////////////////////////////////////////////////////////////
+            inline void precomputeTransforms(
+                const PhysicsTransform2& transforms, float physicstime)
+            {
+                m_position.linearInterp(
+                    transforms.prevPos, transforms.pos, physicstime
+                );
+                m_angle = Math::angleLinearInterp(
+                    transforms.prevAngle, transforms.angle, physicstime
+                );
+            }
 
             ////////////////////////////////////////////////////////////////////
             //  Compute transformations                                       //

@@ -46,6 +46,7 @@
     #include "Math.h"
     #include "Vector3.h"
     #include "Matrix4x4.h"
+    #include "../Physics/PhysicsTransform3.h"
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -530,6 +531,20 @@
                 return m_size.vec[2];
             }
 
+
+            ////////////////////////////////////////////////////////////////////
+            //  Precompute transformations                                    //
+            ////////////////////////////////////////////////////////////////////
+            inline void precomputeTransforms(
+                const PhysicsTransform3& transforms, float physicstime)
+            {
+                m_position.linearInterp(
+                    transforms.prevPos, transforms.pos, physicstime
+                );
+                m_angles.angleLinearInterp(
+                    transforms.prevAngles, transforms.angles, physicstime
+                );
+            }
 
             ////////////////////////////////////////////////////////////////////
             //  Compute transformations                                       //

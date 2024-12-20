@@ -47,8 +47,6 @@
     #include <cstddef>
     #include <cstdint>
     #include <limits>
-    #undef min
-    #undef max
 
 
     ////////////////////////////////////////////////////////////////////////////

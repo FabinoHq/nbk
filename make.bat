@@ -51,8 +51,11 @@ call "%VCInstallationPath%\VC\Auxiliary\Build\vcvars64.bat"
 :: Build NBK
 call msbuild /p:Configuration=Release NBK.sln
 
+:: Delete previous binary
+del /q NBK.exe
+
 :: Copy output binary
 copy x64\Release\NBK.exe NBK.exe
 
-:: Delete build files
-rd /s /q x64
+:: System pause
+pause

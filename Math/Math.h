@@ -45,12 +45,15 @@
     #include "../System/System.h"
     #include "../System/SysCPU.h"
 
+    #include "Sinus.h"
+
     #include <cstdint>
     #include <cmath>
-    #undef min
-    #undef max
 
 
+    ////////////////////////////////////////////////////////////////////////////
+    //  Math functions and constants namespace                                //
+    ////////////////////////////////////////////////////////////////////////////
     namespace Math
     {
         // Float precision epsilon
@@ -75,16 +78,20 @@
 
         // Square roots constants
         const float SqrtTwo = 1.4142135623730950488016887242097f;
-        const float OneSqrtTwo = 0.7071067811865475244008443621048f;
+        const float InvSqrtTwo = 0.7071067811865475244008443621048f;
 
         // Integer constants
-        const int64_t OneIntShift = 20;
-        const int64_t OneInt = (1 << OneIntShift);
-        const int64_t PiInt = 3294198;
-        const int64_t TwoPiInt = 6588396;
-        const int64_t TwoPiThirdInt = 2196132;
-        const int64_t PiHalfInt = 1647099;
-        const int64_t PiThirdInt = 1098066;
+        const int32_t OneIntShift = 20;
+        const int32_t OneInt = (1 << OneIntShift);  // 1048576
+        const int32_t PiInt = 3294198;
+        const int32_t TwoPiInt = 6588396;
+        const int32_t TwoPiThirdInt = 2196132;
+        const int32_t PiHalfInt = 1647099;
+        const int32_t PiThirdInt = 1098066;
+        const int32_t PiFourthInt = 823550;
+        const int32_t PiEighthInt = 411775;
+        const int32_t SqrtTwoInt = 1482910;
+        const int32_t InvSqrtTwoInt = 741455;
 
         // 32bits powers of ten
         const int32_t MaxPowersOfTen32 = 10;
@@ -96,11 +103,11 @@
         // 64bits powers of ten
         const int64_t MaxPowersOfTen64 = 19;
         const int64_t PowersOfTen64[MaxPowersOfTen64] = {
-            1l, 10l, 100l, 1000l, 10000l, 100000l, 1000000l, 10000000l,
-            100000000l, 1000000000l, 10000000000l, 100000000000l,
-            1000000000000l, 10000000000000l, 100000000000000l,
-            1000000000000000l, 10000000000000000l, 100000000000000000l,
-            1000000000000000000l
+            1ll, 10ll, 100ll, 1000ll, 10000ll, 100000ll, 1000000ll, 10000000ll,
+            100000000ll, 1000000000ll, 10000000000ll, 100000000000ll,
+            1000000000000ll, 10000000000000ll, 100000000000000ll,
+            1000000000000000ll, 10000000000000000ll, 100000000000000000ll,
+            1000000000000000000ll
         };
 
 
@@ -202,6 +209,7 @@
 
         ////////////////////////////////////////////////////////////////////////
         //  Get the absolute value of x                                       //
+        //  param x : Value to get absolute of                                //
         //  return : Absolute value of x                                      //
         ////////////////////////////////////////////////////////////////////////
         inline int32_t abs(int32_t x)
@@ -225,7 +233,54 @@
         }
 
         ////////////////////////////////////////////////////////////////////////
+        //  round : Get the round value of x                                  //
+        //  param x : Value to get round value of                             //
+        //  Return : Round value of x                                         //
+        ////////////////////////////////////////////////////////////////////////
+        inline float round(float x)
+        {
+            return std::round(x);
+        }
+
+        inline double round(double x)
+        {
+            return std::round(x);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  floor : Get the floor value of x                                  //
+        //  param x : Value to get floor value of                             //
+        //  Return : Floor value of x                                         //
+        ////////////////////////////////////////////////////////////////////////
+        inline float floor(float x)
+        {
+            return std::floor(x);
+        }
+
+        inline double floor(double x)
+        {
+            return std::floor(x);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  ceil : Get the ceil value of x                                    //
+        //  param x : Value to get ceil value of                              //
+        //  Return : Ceil value of x                                          //
+        ////////////////////////////////////////////////////////////////////////
+        inline float ceil(float x)
+        {
+            return std::ceil(x);
+        }
+
+        inline double ceil(double x)
+        {
+            return std::ceil(x);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
         //  Compare two floating points values                                //
+        //  param x : First value to compare                                  //
+        //  param y : Second value to compare                                 //
         //  return : True if values are nearly equal, false otherwise         //
         ////////////////////////////////////////////////////////////////////////
         inline bool areEqual(float x, float y)
@@ -342,6 +397,34 @@
         }
 
         ////////////////////////////////////////////////////////////////////////
+        //  Clamp x value between -abs(max) and +abs(max)                     //
+        //  return : Clamped value between -abs(max) and +abs(max)            //
+        ////////////////////////////////////////////////////////////////////////
+        inline int32_t clampAbs(int32_t x, int32_t max)
+        {
+            max = Math::abs(max);
+            return ((x < max) ? ((x > -max) ? x : -max) : max);
+        }
+
+        inline int64_t clampAbs(int64_t x, int64_t max)
+        {
+            max = Math::abs(max);
+            return ((x < max) ? ((x > -max) ? x : -max) : max);
+        }
+
+        inline float clampAbs(float x, float max)
+        {
+            max = Math::abs(max);
+            return SysFloatClamp(x, -max, max);
+        }
+
+        inline double clampAbs(double x, double max)
+        {
+            max = Math::abs(max);
+            return SysDoubleClamp(x, -max, max);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
         //  Modulo                                                            //
         //  return : Modulo (x % n)                                           //
         ////////////////////////////////////////////////////////////////////////
@@ -400,9 +483,9 @@
         }
 
         ////////////////////////////////////////////////////////////////////////
-        //  Integer square root                                               //
-        //  param x : Integer to get square root of                           //
-        //  return : Integer square root (sqrt(x))                            //
+        //  Square root                                                       //
+        //  param x : Number to get square root of                            //
+        //  return : Square root (sqrt(x))                                    //
         ////////////////////////////////////////////////////////////////////////
         inline int32_t sqrt(int32_t x)
         {
@@ -412,6 +495,16 @@
         inline int64_t sqrt(int64_t x)
         {
             return (static_cast<int64_t>(std::sqrt(x)));
+        }
+
+        inline float sqrt(float x)
+        {
+            return std::sqrt(x);
+        }
+
+        inline double sqrt(double x)
+        {
+            return std::sqrt(x);
         }
 
         ////////////////////////////////////////////////////////////////////////
@@ -502,7 +595,162 @@
 
         inline int64_t power10(int64_t x)
         {
-            return PowersOfTen64[Math::clamp(x, 0l, (MaxPowersOfTen64-1l))];
+            return PowersOfTen64[Math::clamp(x, 0ll, (MaxPowersOfTen64-1ll))];
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  Sinus                                                             //
+        //  param x : Sinus argument                                          //
+        //  return : Sinus of x (sin(x))                                      //
+        ////////////////////////////////////////////////////////////////////////
+        inline int32_t sin(int32_t x)
+        {
+            return SinusTable[Math::clamp(
+                (Math::modulo(x, Math::TwoPiInt) >> SinusTableShift),
+                0, (SinusTableSize-1)
+            )];
+        }
+
+        inline int64_t sin(int64_t x)
+        {
+            return SinusTable[Math::clamp(
+                (Math::modulo(x, ((int64_t)Math::TwoPiInt)) >> SinusTableShift),
+                0ll, (SinusTableSize-1ll)
+            )];
+        }
+
+        inline float sin(float x)
+        {
+            return std::sin(x);
+        }
+
+        inline double sin(double x)
+        {
+            return std::sin(x);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  Cosinus                                                           //
+        //  param x : Cosinus argument                                        //
+        //  return : Cosinus of x (cos(x))                                    //
+        ////////////////////////////////////////////////////////////////////////
+        inline int32_t cos(int32_t x)
+        {
+            return SinusTable[Math::clamp(
+                (Math::modulo((x + Math::PiHalfInt),
+                    Math::TwoPiInt) >> SinusTableShift),
+                0, (SinusTableSize-1)
+            )];
+        }
+
+        inline int64_t cos(int64_t x)
+        {
+            return SinusTable[Math::clamp(
+                (Math::modulo((x + ((int64_t)Math::PiHalfInt)),
+                    ((int64_t)Math::TwoPiInt)) >> SinusTableShift),
+                0ll, (SinusTableSize-1ll)
+            )];
+        }
+
+        inline float cos(float x)
+        {
+            return std::cos(x);
+        }
+
+        inline double cos(double x)
+        {
+            return std::cos(x);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  Tangent                                                           //
+        //  param x : Tangent argument                                        //
+        //  return : Tangent of x (tan(x))                                    //
+        ////////////////////////////////////////////////////////////////////////
+        inline float tan(float x)
+        {
+            return std::tan(x);
+        }
+
+        inline double tan(double x)
+        {
+            return std::tan(x);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  Arc sinus                                                         //
+        //  param x : Arc sinus argument                                      //
+        //  return : Arc sinus of x (asin(x))                                 //
+        ////////////////////////////////////////////////////////////////////////
+        inline float asin(float x)
+        {
+            return std::asin(x);
+        }
+
+        inline double asin(double x)
+        {
+            return std::asin(x);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  Arc cosinus                                                       //
+        //  param x : Arc cosinus argument                                    //
+        //  return : Arc cosinus of x (acos(x))                               //
+        ////////////////////////////////////////////////////////////////////////
+        inline float acos(float x)
+        {
+            return std::acos(x);
+        }
+
+        inline double acos(double x)
+        {
+            return std::acos(x);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  Arc tangent                                                       //
+        //  param x : Arc tangent argument                                    //
+        //  return : Arc tangent of x (atan(x))                               //
+        ////////////////////////////////////////////////////////////////////////
+        inline float atan(float x)
+        {
+            return std::atan(x);
+        }
+
+        inline double atan(double x)
+        {
+            return std::atan(x);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  Full quadrants arc tangent                                        //
+        //  param x : Arc tangent x argument                                  //
+        //  param y : Arc tangent y argument                                  //
+        //  return : Full quadrants arc tangent of x/y (atan2(x, y))          //
+        ////////////////////////////////////////////////////////////////////////
+        inline float atan(float x, float y)
+        {
+            return std::atan2(x, y);
+        }
+
+        inline double atan(double x, float y)
+        {
+            return std::atan2(x, y);
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  Exponential                                                       //
+        //  param x : Exponential argument                                    //
+        //  return : Exponential of x (exp(x))                                //
+        ////////////////////////////////////////////////////////////////////////
+        inline float exp(float x)
+        {
+            return std::exp(x);
+        }
+
+        inline double exp(double x)
+        {
+            return std::exp(x);
         }
 
         ////////////////////////////////////////////////////////////////////////
@@ -516,6 +764,24 @@
 
         inline double linearInterp(double x, double y, double t)
         {
+            return (x + t*(y-x));
+        }
+
+        ////////////////////////////////////////////////////////////////////////
+        //  Angle linear interpolation                                        //
+        //  return : Interpolated angle value                                 //
+        ////////////////////////////////////////////////////////////////////////
+        inline float angleLinearInterp(float x, float y, float t)
+        {
+            if ((y-x) < -Math::Pi) { return (x + t*((y+Math::TwoPi)-x)); }
+            if ((y-x) > Math::Pi) { return (x + t*((y-Math::TwoPi)-x)); }
+            return (x + t*(y-x));
+        }
+
+        inline double angleLinearInterp(double x, double y, double t)
+        {
+            if ((y-x) < -Math::Pi) { return (x + t*((y+Math::TwoPi)-x)); }
+            if ((y-x) > Math::Pi) { return (x + t*((y-Math::TwoPi)-x)); }
             return (x + t*(y-x));
         }
 
@@ -540,7 +806,7 @@
         inline float hermitInterp(float w, float x, float y, float z, float t)
         {
             return (x + (t*t*(3.0f-2.0f*t))*(y-x) +
-                (0.5f*(x-w)+0.5f*(y-x))*(t*t*t-2.0f*t*t+t) +
+                (0.5f*(x-w)+0.5f*(y-x))*((t*t*t)-(2.0f*t*t+t)) +
                 (0.5f*(y-x)+0.5f*(z-y))*(t*t*t-t*t));
         }
 
@@ -548,7 +814,7 @@
             double w, double x, double y, double z, double t)
         {
             return (x + (t*t*(3.0-2.0*t))*(y-x) +
-                (0.5*(x-w)+0.5*(y-x))*(t*t*t-2.0*t*t+t) +
+                (0.5*(x-w)+0.5*(y-x))*((t*t*t)-(2.0*t*t+t)) +
                 (0.5*(y-x)+0.5*(z-y))*(t*t*t-t*t));
         }
 
@@ -568,12 +834,12 @@
 
         inline float distance(float x1, float y1, float x2, float y2)
         {
-            return (std::sqrt(((x2-x1)*(x2-x1))+((y2-y1)*(y2-y1))));
+            return (Math::sqrt(((x2-x1)*(x2-x1))+((y2-y1)*(y2-y1))));
         }
 
         inline double distance(double x1, double y1, double x2, double y2)
         {
-            return (std::sqrt(((x2-x1)*(x2-x1))+((y2-y1)*(y2-y1))));
+            return (Math::sqrt(((x2-x1)*(x2-x1))+((y2-y1)*(y2-y1))));
         }
     };
 

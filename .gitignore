@@ -10,6 +10,7 @@
 # Projects files
 !Makefile
 !make.bat
+!makeclean.bat
 !NBK.sln
 !NBK.vcxproj
 !NBK.vcxproj.filters
@@ -73,6 +74,7 @@
 # Math
 !Math/
 !Math/Math.h
+!Math/Sinus.h
 !Math/MultiInt.h
 !Math/Vector2.h
 !Math/Vector2i.h
@@ -83,3 +85,37 @@
 !Math/Matrix4x4.h
 !Math/Transform2.h
 !Math/Transform3.h
+
+# Physics
+!Physics/
+!Physics/Physics.h
+!Physics/Physics.cpp
+!Physics/PhysicsTransform2.h
+!Physics/PhysicsTransform2.cpp
+!Physics/PhysicsTransform3.h
+!Physics/PhysicsTransform3.cpp
+!Physics/Collision2.h
+!Physics/Collision2.cpp
+!Physics/MatrixChunk2.h
+!Physics/MatrixChunk2.cpp
+!Physics/MatrixStream2.h
+!Physics/MatrixStream2.cpp
+!Physics/BoundingSurfaces/
+!Physics/BoundingSurfaces/BoundingCircle.h
+!Physics/BoundingSurfaces/BoundingCircle.cpp
+!Physics/BoundingSurfaces/BoundingAlignRect.h
+!Physics/BoundingSurfaces/BoundingAlignRect.cpp
+!Physics/BoundingSurfaces/BoundingRect.h
+!Physics/BoundingSurfaces/BoundingRect.cpp
+
+# Resources
+!Resources/
+!Resources/Resources.h
+!Resources/Resources.cpp
+!Resources/MatrixColLoader.h
+!Resources/MatrixColLoader.cpp
+
+# Softwares
+!Softwares/
+!Softwares/Softwares.h
+!Softwares/Softwares.cpp

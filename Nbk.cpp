@@ -72,8 +72,27 @@ bool Nbk::launch()
         return false;
     }
 
+    // Start physics solver thread
+    GPhysics.start();
+
+    // Init NBK resources
+    if (!GResources.init())
+    {
+        // Unable to init NBK resources
+        return false;
+    }
+
+    // Launch physics solver
+    GPhysics.launch();
+
     // Run NBK
     run();
+
+    // Stop physics solver thread
+    GPhysics.stop();
+
+    // Destroy resources
+    GResources.destroyResources();
 
     // NBK successfully terminated
     return true;
@@ -85,7 +104,7 @@ bool Nbk::launch()
 void Nbk::run()
 {
     // String test
-    String str;
+    /*String str;
     String32 str32;
     String256 str256;
     String4096 str4096;
@@ -112,7 +131,7 @@ void Nbk::run()
     GConsole << concat.length() << ' ' << concat << '\n';
     concat = (test + " " + mystr);
     GConsole << "concat[2] : " << concat[2] << '\n';
-    concat[3] = 3;
+    concat[3] = 97;
     GConsole << concat.length() << ' ' << concat << '\n' << '\n';
 
     String equalop = "test";
@@ -178,7 +197,7 @@ void Nbk::run()
     GConsole << '\n';
 
     GConsole << '\n' << '\n';
-    GConsole << "------------------------------------\n\n";
+    GConsole << "------------------------------------\n\n";*/
 
     /*String testIn;
     GConsole >> testIn;
@@ -192,7 +211,7 @@ void Nbk::run()
     GConsole << "------------------------------------\n\n";
     GConsole.flush();*/
 
-    File file;
+    /*File file;
     if (file.open("test.txt"))
     {
         GConsole << "test.txt opened\n";
@@ -205,5 +224,5 @@ void Nbk::run()
 
     file << "test\n";
 
-    file.close();
+    file.close();*/
 }

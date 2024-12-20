@@ -117,6 +117,15 @@
             }
 
             ////////////////////////////////////////////////////////////////////
+            //  Set Vector2 components from a single value                    //
+            ////////////////////////////////////////////////////////////////////
+            inline void set(float val)
+            {
+                vec[0] = val;
+                vec[1] = val;
+            }
+
+            ////////////////////////////////////////////////////////////////////
             //  Set Vector2 X component                                       //
             ////////////////////////////////////////////////////////////////////
             inline void setX(float x)
@@ -131,69 +140,6 @@
             {
                 vec[1] = y;
             }
-
-            ////////////////////////////////////////////////////////////////////
-            //  Linear interpolation                                          //
-            ////////////////////////////////////////////////////////////////////
-            inline void linearInterp(Vector2& v1, Vector2& v2, float t)
-            {
-                vec[0] = v1.vec[0] + t*(v2.vec[0]-v1.vec[0]);
-                vec[1] = v1.vec[1] + t*(v2.vec[1]-v1.vec[1]);
-            }
-
-            ////////////////////////////////////////////////////////////////////
-            //  Cubic interpolation                                           //
-            ////////////////////////////////////////////////////////////////////
-            inline void cubicInterp(Vector2& v1, Vector2& v2, float t)
-            {
-                vec[0] = v1.vec[0] + (t*t*(3.0f-2.0f*t))*(v2.vec[0]-v1.vec[0]);
-                vec[1] = v1.vec[1] + (t*t*(3.0f-2.0f*t))*(v2.vec[1]-v1.vec[1]);
-            }
-
-            ////////////////////////////////////////////////////////////////////
-            //  Hermit interpolation                                          //
-            ////////////////////////////////////////////////////////////////////
-            inline void hermitInterp(
-                Vector2& v0, Vector2& v1, Vector2& v2, Vector2& v3, float t)
-            {
-                vec[0] = Math::hermitInterp(
-                    v0.vec[0], v1.vec[0], v2.vec[0], v3.vec[0], t
-                );
-                vec[1] = Math::hermitInterp(
-                    v0.vec[1], v1.vec[1], v2.vec[1], v3.vec[1], t
-                );
-            }
-
-            ////////////////////////////////////////////////////////////////////
-            //  Get the dot product of this vector and another                //
-            ////////////////////////////////////////////////////////////////////
-            inline float dotProduct(Vector2& v) const
-            {
-                return ((vec[0]*v.vec[0]) + (vec[1]*v.vec[1]));
-            }
-
-            ////////////////////////////////////////////////////////////////////
-            //  Get Vector2 length                                            //
-            ////////////////////////////////////////////////////////////////////
-            inline float length() const
-            {
-                return std::sqrt((vec[0]*vec[0]) + (vec[1]*vec[1]));
-            }
-
-            ////////////////////////////////////////////////////////////////////
-            //  Normalize Vector2                                             //
-            ////////////////////////////////////////////////////////////////////
-            inline void normalize()
-            {
-                float len = length();
-                if (len != 0.0f)
-                {
-                    float invLength = 1.0f/len;
-                    vec[0] *= invLength;
-                    vec[1] *= invLength;
-                }
-            }
-
 
             ////////////////////////////////////////////////////////////////////
             //  Get Vector2 x component                                       //
@@ -211,6 +157,287 @@
             inline float& y()
             {
                 return vec[1];
+            }
+
+
+            ////////////////////////////////////////////////////////////////////
+            //  Check if vector is equal to zero                              //
+            ////////////////////////////////////////////////////////////////////
+            inline bool isZero() const
+            {
+                return (
+                    Math::areEqual(vec[0], 0.0f) &&
+                    Math::areEqual(vec[1], 0.0f)
+                );
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector absolute value                                     //
+            ////////////////////////////////////////////////////////////////////
+            inline void abs()
+            {
+                vec[0] = Math::abs(vec[0]);
+                vec[1] = Math::abs(vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get vector minimum value                                      //
+            ////////////////////////////////////////////////////////////////////
+            inline float min()
+            {
+                return Math::min(vec[0], vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector minimum value between itself and min value         //
+            ////////////////////////////////////////////////////////////////////
+            inline void min(float min)
+            {
+                vec[0] = Math::min(vec[0], min);
+                vec[1] = Math::min(vec[1], min);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector minimum value between itself and min vector        //
+            ////////////////////////////////////////////////////////////////////
+            inline void min(const Vector2& min)
+            {
+                vec[0] = Math::min(vec[0], min.vec[0]);
+                vec[1] = Math::min(vec[1], min.vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector minimum value between itself and min X Y           //
+            ////////////////////////////////////////////////////////////////////
+            inline void min(float minX, float minY)
+            {
+                vec[0] = Math::min(vec[0], minX);
+                vec[1] = Math::min(vec[1], minY);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get vector maximum value                                      //
+            ////////////////////////////////////////////////////////////////////
+            inline float max()
+            {
+                return Math::max(vec[0], vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector maximum value between itself and max value         //
+            ////////////////////////////////////////////////////////////////////
+            inline void max(float max)
+            {
+                vec[0] = Math::max(vec[0], max);
+                vec[1] = Math::max(vec[1], max);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector maximum value between itself and max vector        //
+            ////////////////////////////////////////////////////////////////////
+            inline void max(const Vector2& max)
+            {
+                vec[0] = Math::max(vec[0], max.vec[0]);
+                vec[1] = Math::max(vec[1], max.vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Set vector maximum value between itself and max X Y           //
+            ////////////////////////////////////////////////////////////////////
+            inline void max(float maxX, float maxY)
+            {
+                vec[0] = Math::max(vec[0], maxX);
+                vec[1] = Math::max(vec[1], maxY);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector between min and max                              //
+            ////////////////////////////////////////////////////////////////////
+            inline void clamp(float min, float max)
+            {
+                vec[0] = Math::clamp(vec[0], min, max);
+                vec[1] = Math::clamp(vec[1], min, max);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector between min and max vectors                      //
+            ////////////////////////////////////////////////////////////////////
+            inline void clamp(const Vector2& min, const Vector2& max)
+            {
+                vec[0] = Math::clamp(vec[0], min.vec[0], max.vec[0]);
+                vec[1] = Math::clamp(vec[1], min.vec[1], max.vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector between min and max X Y components               //
+            ////////////////////////////////////////////////////////////////////
+            inline void clamp(float minX, float minY, float maxX, float maxY)
+            {
+                vec[0] = Math::clamp(vec[0], minX, maxX);
+                vec[1] = Math::clamp(vec[1], minY, maxY);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector by absolute max value                            //
+            ////////////////////////////////////////////////////////////////////
+            inline void clampAbs(float max)
+            {
+                vec[0] = Math::clampAbs(vec[0], max);
+                vec[1] = Math::clampAbs(vec[1], max);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector by absolute max vector                           //
+            ////////////////////////////////////////////////////////////////////
+            inline void clampAbs(const Vector2& max)
+            {
+                vec[0] = Math::clampAbs(vec[0], max.vec[0]);
+                vec[1] = Math::clampAbs(vec[1], max.vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Clamp vector by absolute max X Y components                   //
+            ////////////////////////////////////////////////////////////////////
+            inline void clampAbs(float maxX, float maxY)
+            {
+                vec[0] = Math::clampAbs(vec[0], maxX);
+                vec[1] = Math::clampAbs(vec[1], maxY);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Move components towards a specified value                     //
+            ////////////////////////////////////////////////////////////////////
+            inline void moveTowards(float val, float delta)
+            {
+                if (vec[0] > val)
+                {
+                    vec[0] = Math::max(vec[0]-delta, val);
+                }
+                else if (vec[0] < val)
+                {
+                    vec[0] = Math::min(vec[0]+delta, val);
+                }
+                if (vec[1] > val)
+                {
+                    vec[1] = Math::max(vec[1]-delta, val);
+                }
+                else if (vec[1] < val)
+                {
+                    vec[1] = Math::min(vec[1]+delta, val);
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Move X component towards a specified value                    //
+            ////////////////////////////////////////////////////////////////////
+            inline void moveXTowards(float val, float delta)
+            {
+                if (vec[0] > val)
+                {
+                    vec[0] = Math::max(vec[0]-delta, val);
+                }
+                else if (vec[0] < val)
+                {
+                    vec[0] = Math::min(vec[0]+delta, val);
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Move Y component towards a specified value                    //
+            ////////////////////////////////////////////////////////////////////
+            inline void moveYTowards(float val, float delta)
+            {
+                if (vec[1] > val)
+                {
+                    vec[1] = Math::max(vec[1]-delta, val);
+                }
+                else if (vec[1] < val)
+                {
+                    vec[1] = Math::min(vec[1]+delta, val);
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Linear interpolation                                          //
+            ////////////////////////////////////////////////////////////////////
+            inline void linearInterp(
+                const Vector2& v1, const Vector2& v2, float t)
+            {
+                vec[0] = v1.vec[0] + t*(v2.vec[0]-v1.vec[0]);
+                vec[1] = v1.vec[1] + t*(v2.vec[1]-v1.vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Angle linear interpolation                                    //
+            ////////////////////////////////////////////////////////////////////
+            inline void angleLinearInterp(
+                const Vector2& v1, const Vector2& v2, float t)
+            {
+                vec[0] = Math::angleLinearInterp(v1.vec[0], v2.vec[0], t);
+                vec[1] = Math::angleLinearInterp(v1.vec[1], v2.vec[1], t);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Cubic interpolation                                           //
+            ////////////////////////////////////////////////////////////////////
+            inline void cubicInterp(
+                const Vector2& v1, const Vector2& v2, float t)
+            {
+                vec[0] = v1.vec[0] + (t*t*(3.0f-2.0f*t))*(v2.vec[0]-v1.vec[0]);
+                vec[1] = v1.vec[1] + (t*t*(3.0f-2.0f*t))*(v2.vec[1]-v1.vec[1]);
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Hermit interpolation                                          //
+            ////////////////////////////////////////////////////////////////////
+            inline void hermitInterp(
+                const Vector2& v0, const Vector2& v1,
+                const Vector2& v2, const Vector2& v3, float t)
+            {
+                vec[0] = Math::hermitInterp(
+                    v0.vec[0], v1.vec[0], v2.vec[0], v3.vec[0], t
+                );
+                vec[1] = Math::hermitInterp(
+                    v0.vec[1], v1.vec[1], v2.vec[1], v3.vec[1], t
+                );
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get the dot product of this vector and another                //
+            ////////////////////////////////////////////////////////////////////
+            inline float dotProduct(const Vector2& v) const
+            {
+                return ((vec[0]*v.vec[0]) + (vec[1]*v.vec[1]));
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get Vector2 length                                            //
+            ////////////////////////////////////////////////////////////////////
+            inline float length() const
+            {
+                return Math::sqrt((vec[0]*vec[0]) + (vec[1]*vec[1]));
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Get Vector2 squared length                                    //
+            ////////////////////////////////////////////////////////////////////
+            inline float squaredLength() const
+            {
+                return ((vec[0]*vec[0]) + (vec[1]*vec[1]));
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Normalize Vector2                                             //
+            ////////////////////////////////////////////////////////////////////
+            inline void normalize()
+            {
+                float len = length();
+                if (len != 0.0f)
+                {
+                    float invLength = (1.0f / len);
+                    vec[0] *= invLength;
+                    vec[1] *= invLength;
+                }
             }
 
 

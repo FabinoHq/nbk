@@ -174,7 +174,7 @@
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  File character left shift operator                         //
+            //  File character left shift operator                            //
             ////////////////////////////////////////////////////////////////////
             inline File& operator<<(const char character)
             {
@@ -183,7 +183,7 @@
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  File array left shift operator                             //
+            //  File array left shift operator                                //
             ////////////////////////////////////////////////////////////////////
             inline File& operator<<(const char* array)
             {
@@ -194,7 +194,7 @@
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  File integer left shift operator                           //
+            //  File integer left shift operator                              //
             ////////////////////////////////////////////////////////////////////
             inline File& operator<<(int32_t value)
             {

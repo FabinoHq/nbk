@@ -33,6 +33,42 @@
     <ClCompile Include="Stdlib\Console.cpp">
       <Filter>Stdlib</Filter>
     </ClCompile>
+    <ClCompile Include="Physics\Collision2.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\MatrixChunk2.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\MatrixStream2.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Physics.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsTransform2.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsTransform3.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\BoundingSurfaces\BoundingAlignRect.cpp">
+      <Filter>Physics\BoundingSurfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\BoundingSurfaces\BoundingCircle.cpp">
+      <Filter>Physics\BoundingSurfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\BoundingSurfaces\BoundingRect.cpp">
+      <Filter>Physics\BoundingSurfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Softwares\Softwares.cpp">
+      <Filter>Softwares</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources\MatrixColLoader.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources\Resources.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nbk.h" />
@@ -129,6 +165,45 @@
     <ClInclude Include="Stdlib\File.h">
       <Filter>Stdlib</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\Collision2.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\MatrixChunk2.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\MatrixStream2.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Physics.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsTransform2.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsTransform3.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\BoundingSurfaces\BoundingAlignRect.h">
+      <Filter>Physics\BoundingSurfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\BoundingSurfaces\BoundingCircle.h">
+      <Filter>Physics\BoundingSurfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\BoundingSurfaces\BoundingRect.h">
+      <Filter>Physics\BoundingSurfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Sinus.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Softwares\Softwares.h">
+      <Filter>Softwares</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\MatrixColLoader.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources\Resources.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="System">
@@ -145,6 +220,18 @@
     </Filter>
     <Filter Include="Stdlib">
       <UniqueIdentifier>{142f4ec3-28e7-43eb-9999-2e5cea98cfa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{fd628d81-9b59-4909-b85a-c763108e8ac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physics\BoundingSurfaces">
+      <UniqueIdentifier>{f2d7fe5a-9230-449d-af0b-ac61ae9326cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Softwares">
+      <UniqueIdentifier>{e3567139-3ef6-4ee1-a6e3-32e9a6311217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{7d0359f2-fe45-4ef7-b752-56eb1929a05d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
