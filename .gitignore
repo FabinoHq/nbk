@@ -45,7 +45,6 @@
 !System/SysClock.cpp
 !System/SysSettings.h
 !System/SysSettings.cpp
-!System/Arm/
 !System/Arm/SysCPU.h
 !System/Lin/SysMessage.h
 !System/Lin/SysMessage.cpp
