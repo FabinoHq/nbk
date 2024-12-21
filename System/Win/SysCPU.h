@@ -75,8 +75,9 @@
     ////////////////////////////////////////////////////////////////////////////
     inline uint32_t SysBitScanForward32(uint32_t bits)
     {
-        _BitScanForward((unsigned long*)&bits, bits);
-        return bits;
+        unsigned long index;
+        _BitScanForward(&index, bits);
+        return index;
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -85,28 +86,31 @@
     ////////////////////////////////////////////////////////////////////////////
     inline uint32_t SysBitScanReverse32(uint32_t bits)
     {
-        _BitScanReverse((unsigned long*)&bits, bits);
-        return bits;
+        unsigned long index;
+        _BitScanReverse(&index, bits);
+        return index;
     }
 
     ////////////////////////////////////////////////////////////////////////////
     //  Compute 64 bits scan forward                                          //
     //  return : Computed 64 bits scan forward                                //
     ////////////////////////////////////////////////////////////////////////////
-    inline uint64_t SysBitScanForward64(uint64_t bits)
+    inline uint32_t SysBitScanForward64(uint64_t bits)
     {
-        _BitScanForward64((unsigned long*)&bits, bits);
-        return bits;
+        unsigned long index;
+        _BitScanForward64(&index, bits);
+        return index;
     }
 
     ////////////////////////////////////////////////////////////////////////////
     //  Compute 64 bits scan reverse                                          //
     //  return : Computed 64 bits scan reverse                                //
     ////////////////////////////////////////////////////////////////////////////
-    inline uint64_t SysBitScanReverse64(uint64_t bits)
+    inline uint32_t SysBitScanReverse64(uint64_t bits)
     {
-        _BitScanReverse64((unsigned long*)&bits, bits);
-        return bits;
+        unsigned long index;
+        _BitScanReverse64(&index, bits);
+        return index;
     }
 
 

@@ -43,6 +43,7 @@
 
 
 #ifdef NBK_WINDOWS
+
     ////////////////////////////////////////////////////////////////////////////
     //  NetworkInit struct definition                                         //
     ////////////////////////////////////////////////////////////////////////////
@@ -70,4 +71,5 @@
 
     // Network init global instance
     NetworkInit NetworkInitGlobal;
+
 #endif // NBK_WINDOWS

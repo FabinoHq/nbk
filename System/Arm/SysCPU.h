@@ -37,82 +37,103 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     System/SysCPU.h : System CPU management                                //
+//     System/Arm/SysCPU.h : System CPU management for ARM                    //
 ////////////////////////////////////////////////////////////////////////////////
-#ifndef NBK_SYSTEM_SYSCPU_HEADER
-#define NBK_SYSTEM_SYSCPU_HEADER
+#ifndef NBK_SYSTEM_ARM_SYSCPU_HEADER
+#define NBK_SYSTEM_ARM_SYSCPU_HEADER
 
-    #include "System.h"
+    #include "../System.h"
 
     #include <cstddef>
     #include <cstdint>
-    #include <limits>
+    #include <arm_neon.h>
 
 
     ////////////////////////////////////////////////////////////////////////////
-    //  Platform dependent CPU management                                     //
+    //  Swap 2 bytes unsigned integer endianness                              //
+    //  return : Swapped 2 bytes unsigned integer                             //
     ////////////////////////////////////////////////////////////////////////////
-    #ifdef NBK_WINDOWS
-        #include "Win/SysCPU.h"
-    #endif // NBK_WINDOWS
-
-    #ifdef NBK_LINUX
-        #ifdef NBK_X64
-            #include "Lin/SysCPU.h"
-        #endif
-        #ifdef NBK_ARM
-            #include "Arm/SysCPU.h"
-        #endif
-    #endif // NBK_LINUX
-
+    #define SysByteSwap16 __builtin_bswap16
 
     ////////////////////////////////////////////////////////////////////////////
-    //  Check system CPU                                                      //
-    //  return : True if the CPU is ready, false otherwise                    //
+    //  Swap 4 bytes unsigned integer endianness                              //
+    //  return : Swapped 4 bytes unsigned integer                             //
     ////////////////////////////////////////////////////////////////////////////
-    bool SysCPUCheck();
+    #define SysByteSwap32 __builtin_bswap32
 
     ////////////////////////////////////////////////////////////////////////////
-    //  Check system CPU char representation                                  //
-    //  return : True if the system CPU char representation is correct        //
+    //  Swap 8 bytes unsigned integer endianness                              //
+    //  return : Swapped 8 bytes unsigned integer                             //
     ////////////////////////////////////////////////////////////////////////////
-    bool SysCPUCheckChar();
-
-    ////////////////////////////////////////////////////////////////////////////
-    //  Check system CPU bool representation                                  //
-    //  return : True if the system CPU bool representation is correct        //
-    ////////////////////////////////////////////////////////////////////////////
-    bool SysCPUCheckBool();
-
-    ////////////////////////////////////////////////////////////////////////////
-    //  Check system CPU int representation                                   //
-    //  return : True if the system CPU int representation is correct         //
-    ////////////////////////////////////////////////////////////////////////////
-    bool SysCPUCheckInt();
-
-    ////////////////////////////////////////////////////////////////////////////
-    //  Check system CPU float representation                                 //
-    //  return : True if the system CPU float representation is correct       //
-    ////////////////////////////////////////////////////////////////////////////
-    bool SysCPUCheckFloat();
-
-    ////////////////////////////////////////////////////////////////////////////
-    //  Check system CPU double representation                                //
-    //  return : True if the system CPU double representation is correct      //
-    ////////////////////////////////////////////////////////////////////////////
-    bool SysCPUCheckDouble();
-
-    ////////////////////////////////////////////////////////////////////////////
-    //  Check system CPU endianness                                           //
-    //  return : True if the system CPU is little-endian                      //
-    ////////////////////////////////////////////////////////////////////////////
-    bool SysCPUCheckEndianness();
-
-    ////////////////////////////////////////////////////////////////////////////
-    //  Check system CPU maths representations                                //
-    //  return : True if the system CPU maths representations are correct     //
-    ////////////////////////////////////////////////////////////////////////////
-    bool SysCPUCheckMaths();
+    #define SysByteSwap64 __builtin_bswap64
 
 
-#endif // NBK_SYSTEM_SYSCPU_HEADER
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 32 bits scan forward                                          //
+    //  return : Computed 32 bits scan forward                                //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysBitScanForward32(bits) (__builtin_ctz(bits))
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 32 bits scan reverse                                          //
+    //  return : Computed 32 bits scan reverse                                //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysBitScanReverse32(bits) (0x1F - __builtin_clz(bits))
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 64 bits scan forward                                          //
+    //  return : Computed 64 bits scan forward                                //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysBitScanForward64(bits) (__builtin_ctzll(bits))
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  Compute 64 bits scan reverse                                          //
+    //  return : Computed 64 bits scan reverse                                //
+    ////////////////////////////////////////////////////////////////////////////
+    #define SysBitScanReverse64(bits) (0x3F - __builtin_clzll(bits))
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  NEON Branchless float minimum                                         //
+    //  return : Minimum value between x and y                                //
+    ////////////////////////////////////////////////////////////////////////////
+    inline float SysFloatMin(float x, float y)
+    {
+        return ((x < y) ? x : y);
+    }
+
+    inline double SysDoubleMin(double x, double y)
+    {
+        return ((x < y) ? x : y);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  NEON Branchless float maximum                                         //
+    //  return : Maximum value between x and y                                //
+    ////////////////////////////////////////////////////////////////////////////
+    inline float SysFloatMax(float x, float y)
+    {
+        return ((x > y) ? x : y);
+    }
+
+    inline double SysDoubleMax(double x, double y)
+    {
+        return ((x > y) ? x : y);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    //  NEON Branchless float clamping                                        //
+    //  return : Value clamped between min and max                            //
+    ////////////////////////////////////////////////////////////////////////////
+    inline float SysFloatClamp(float x, float min, float max)
+    {
+        return ((x < max) ? ((x > min) ? x : min) : max);
+    }
+
+    inline double SysDoubleClamp(double x, double min, double max)
+    {
+        return ((x < max) ? ((x > min) ? x : min) : max);
+    }
+
+
+#endif // NBK_SYSTEM_ARM_SYSCPU_HEADER

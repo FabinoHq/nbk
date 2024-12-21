@@ -42,6 +42,7 @@
 #ifndef NBK_STDLIB_FILE_HEADER
 #define NBK_STDLIB_FILE_HEADER
 
+    #include "../System/System.h"
     #include "String.h"
 
     #include <cstddef>
@@ -71,20 +72,22 @@
     #endif // NBK_WINDOWS
     #ifdef NBK_LINUX
 
+        #include <fcntl.h>
         #include <unistd.h>
+        #include <sys/stat.h>
 
-        #define FILE_OPEN open
-        #define FILE_CLOSE close
-        #define FILE_READ read
-        #define FILE_WRITE write
-        #define FILE_FLUSH fsync
+        #define FILE_OPEN ::open
+        #define FILE_CLOSE ::close
+        #define FILE_READ ::read
+        #define FILE_WRITE ::write
+        #define FILE_FLUSH ::fsync
 
-        #define FILE_FLAG_READONLY _O_RDONLY
-        #define FILE_FLAG_WRITEONLY _O_WRONLY
-        #define FILE_FLAG_CREATE _O_CREAT
+        #define FILE_FLAG_READONLY O_RDONLY
+        #define FILE_FLAG_WRITEONLY O_WRONLY
+        #define FILE_FLAG_CREATE O_CREAT
 
-        #define FILE_MODE_READ 0
-        #define FILE_MODE_WRITE 0
+        #define FILE_MODE_READ S_IREAD
+        #define FILE_MODE_WRITE S_IWRITE
 
     #endif // NBK_LINUX
 

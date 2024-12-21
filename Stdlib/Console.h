@@ -42,6 +42,7 @@
 #ifndef NBK_STDLIB_CONSOLE_HEADER
 #define NBK_STDLIB_CONSOLE_HEADER
 
+    #include "../System/System.h"
     #include "String.h"
 
     #include <cstddef>
@@ -139,6 +140,7 @@
                 );
                 return *this;
             }
+
             inline Console& operator<<(String256& string)
             {
                 CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC,
@@ -146,6 +148,7 @@
                 );
                 return *this;
             }
+
             inline Console& operator<<(String4096& string)
             {
                 CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC,
@@ -240,6 +243,7 @@
                 string.sentinel() = '\0';
                 return *this;
             }
+
             inline Console& operator>>(String256& string)
             {
                 string.size() = CONSOLE_READ(
@@ -248,6 +252,7 @@
                 string.sentinel() = '\0';
                 return *this;
             }
+
             inline Console& operator>>(String4096& string)
             {
                 string.size() = CONSOLE_READ(
