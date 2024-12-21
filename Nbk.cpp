@@ -223,6 +223,86 @@ void Nbk::run()
     }
 
     file << "test\n";
-
     file.close();*/
+
+    int8_t int8a = 8;
+    int8_t int8b = 72;
+    int8_t int8c = 108;
+    int8_t int8d = -117;
+    
+    uint8_t uint8a = 8;
+    uint8_t uint8b = 72;
+    uint8_t uint8c = 108;
+    uint8_t uint8d = 249;
+
+    int16_t int16a = 104;
+    int16_t int16b = 3975;
+    int16_t int16c = 27347;
+    int16_t int16d = -28971;
+
+    uint16_t uint16a = 104u;
+    uint16_t uint16b = 3975u;
+    uint16_t uint16c = 27347u;
+    uint16_t uint16d = 62378u;
+
+    int32_t int32a = 14l;
+    int32_t int32b = 7124l;
+    int32_t int32c = 1477945875l;
+    int32_t int32d = -2142342691l;
+
+    uint32_t uint32a = 14ul;
+    uint32_t uint32b = 7124ul;
+    uint32_t uint32c = 1477945875ul;
+    uint32_t uint32d = 3942342691ul;
+
+    int64_t int64a = 21ll;
+    int64_t int64b = 786382ll;
+    int64_t int64c = 79477945875ll;
+    int64_t int64d = -7126742073207541612ll;
+
+    uint64_t uint64a = 21ull;
+    uint64_t uint64b = 786382ull;
+    uint64_t uint64c = 79477945875ull;
+    uint64_t uint64d = 15438218372394254211ull;
+
+    GConsole << '\n';
+    GConsole << int8a << '\n';
+    GConsole << int8b << '\n';
+    GConsole << int8c << '\n';
+    GConsole << int8d << '\n';
+    GConsole << '\n';
+    GConsole << uint8a << '\n';
+    GConsole << uint8b << '\n';
+    GConsole << uint8c << '\n';
+    GConsole << uint8d << '\n';
+    GConsole << '\n';
+    GConsole << int16a << '\n';
+    GConsole << int16b << '\n';
+    GConsole << int16c << '\n';
+    GConsole << int16d << '\n';
+    GConsole << '\n';
+    GConsole << uint16a << '\n';
+    GConsole << uint16b << '\n';
+    GConsole << uint16c << '\n';
+    GConsole << uint16d << '\n';
+    GConsole << '\n';
+    GConsole << int32a << '\n';
+    GConsole << int32b << '\n';
+    GConsole << int32c << '\n';
+    GConsole << int32d << '\n';
+    GConsole << '\n';
+    GConsole << uint32a << '\n';
+    GConsole << uint32b << '\n';
+    GConsole << uint32c << '\n';
+    GConsole << uint32d << '\n';
+    GConsole << '\n';
+    GConsole << int64a << '\n';
+    GConsole << int64b << '\n';
+    GConsole << int64c << '\n';
+    GConsole << int64d << '\n';
+    GConsole << '\n';
+    GConsole << uint64a << '\n';
+    GConsole << uint64b << '\n';
+    GConsole << uint64c << '\n';
+    GConsole << uint64d << '\n';
 }
