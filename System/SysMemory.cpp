@@ -71,11 +71,6 @@ SysMemory::~SysMemory()
     for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
     {
         if (m_memory[i]) { std::free(m_memory[i]); }
-    }
-
-    // Reset memory arrays
-    for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
-    {
         m_memory[i] = 0;
         m_offset[i] = 0;
         m_usage[i] = 0;
@@ -109,7 +104,7 @@ bool SysMemory::init()
         {
             // Could not allocate system memory pool
             GSysMessage << "[0x1000] Could not allocate system memory pool\n";
-            GSysMessage << "Please update your graphics drivers";
+            GSysMessage << "Please check your system memory";
             return false;
         }
     }
@@ -127,11 +122,6 @@ void SysMemory::destroySysMemory()
     for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
     {
         if (m_memory[i]) { std::free(m_memory[i]); }
-    }
-
-    // Reset memory arrays
-    for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
-    {
         m_memory[i] = 0;
         m_offset[i] = 0;
         m_usage[i] = 0;
