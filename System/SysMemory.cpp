@@ -67,6 +67,12 @@ SysMemory::SysMemory()
 ////////////////////////////////////////////////////////////////////////////////
 SysMemory::~SysMemory()
 {
+    // Free memory arrays
+    for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
+    {
+        if (m_memory[i]) { std::free(m_memory[i]); }
+    }
+
     // Reset memory arrays
     for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
     {
