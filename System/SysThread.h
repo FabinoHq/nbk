@@ -43,7 +43,6 @@
 #define NBK_SYSTEM_SYSTHREAD_HEADER
 
     #include "System.h"
-    #include "SysMemory.h"
     #include "SysSleep.h"
     #include "SysMutex.h"
 

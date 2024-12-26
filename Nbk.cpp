@@ -239,7 +239,7 @@ void Nbk::run()
     int8_t int8b = 72;
     int8_t int8c = 108;
     int8_t int8d = -117;
-    
+
     uint8_t uint8a = 8;
     uint8_t uint8b = 72;
     uint8_t uint8c = 108;
