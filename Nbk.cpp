@@ -72,6 +72,13 @@ bool Nbk::launch()
         return false;
     }
 
+    // Init system memory
+    if (!GSysMemory.init())
+    {
+        // Unable to init system memory
+        return false;
+    }
+
     // Start physics solver thread
     GPhysics.start();
 
@@ -93,6 +100,9 @@ bool Nbk::launch()
 
     // Destroy resources
     GResources.destroyResources();
+
+    // Destroy system memory
+    GSysMemory.destroySysMemory();
 
     // NBK successfully terminated
     return true;
@@ -225,7 +235,7 @@ void Nbk::run()
     file << "test\n";
     file.close();*/
 
-    int8_t int8a = 8;
+    /*int8_t int8a = 8;
     int8_t int8b = 72;
     int8_t int8c = 108;
     int8_t int8d = -117;
@@ -304,5 +314,5 @@ void Nbk::run()
     GConsole << uint64a << '\n';
     GConsole << uint64b << '\n';
     GConsole << uint64c << '\n';
-    GConsole << uint64d << '\n';
+    GConsole << uint64d << '\n';*/
 }

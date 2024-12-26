@@ -45,6 +45,7 @@
     #include "System/System.h"
     #include "System/SysMessage.h"
     #include "System/SysCPU.h"
+    #include "System/SysMemory.h"
     #include "System/SysClock.h"
     #include "System/SysSleep.h"
     #include "System/SysSettings.h"

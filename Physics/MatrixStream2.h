@@ -43,6 +43,7 @@
 #define NBK_PHYSICS_MATRIXSTREAM2_HEADER
 
     #include "../System/System.h"
+    #include "../System/SysMemory.h"
     #include "../Math/Math.h"
     #include "../Resources/Resources.h"
     #include "../Resources/MatrixColLoader.h"

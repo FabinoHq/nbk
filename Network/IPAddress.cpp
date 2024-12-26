@@ -120,6 +120,102 @@ bool IPAddress::resolveHostName(const String32& hostName)
     return true;
 }
 
+bool IPAddress::resolveHostName(const String256& hostName)
+{
+    addrinfo hints;
+    hints.ai_flags = 0;
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = 0;
+    hints.ai_protocol = 0;
+    hints.ai_addrlen = 0;
+    hints.ai_canonname = 0;
+    hints.ai_addr = 0;
+    hints.ai_next = 0;
+
+    // Resolve host name
+    addrinfo* result = 0;
+    if (getaddrinfo(hostName.str(), 0, &hints, &result) != 0)
+    {
+        // Could not resolve host name
+        return false;
+    }
+    if (!result)
+    {
+        // Could not resolve host name
+        return false;
+    }
+
+    // Get IP address
+    sockaddr_in addr;
+    addr.sin_family = 0;
+    addr.sin_port = 0;
+    addr.sin_addr.s_addr = 0;
+    addr.sin_zero[0] = 0;
+    addr.sin_zero[1] = 0;
+    addr.sin_zero[2] = 0;
+    addr.sin_zero[3] = 0;
+    addr.sin_zero[4] = 0;
+    addr.sin_zero[5] = 0;
+    addr.sin_zero[6] = 0;
+    addr.sin_zero[7] = 0;
+    memcpy(&addr, result->ai_addr, sizeof(addr));
+    freeaddrinfo(result);
+
+    // Set IP address
+    m_ipaddress.s_addr = addr.sin_addr.s_addr;
+
+    // Host name resolved
+    return true;
+}
+
+bool IPAddress::resolveHostName(const String4096& hostName)
+{
+    addrinfo hints;
+    hints.ai_flags = 0;
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = 0;
+    hints.ai_protocol = 0;
+    hints.ai_addrlen = 0;
+    hints.ai_canonname = 0;
+    hints.ai_addr = 0;
+    hints.ai_next = 0;
+
+    // Resolve host name
+    addrinfo* result = 0;
+    if (getaddrinfo(hostName.str(), 0, &hints, &result) != 0)
+    {
+        // Could not resolve host name
+        return false;
+    }
+    if (!result)
+    {
+        // Could not resolve host name
+        return false;
+    }
+
+    // Get IP address
+    sockaddr_in addr;
+    addr.sin_family = 0;
+    addr.sin_port = 0;
+    addr.sin_addr.s_addr = 0;
+    addr.sin_zero[0] = 0;
+    addr.sin_zero[1] = 0;
+    addr.sin_zero[2] = 0;
+    addr.sin_zero[3] = 0;
+    addr.sin_zero[4] = 0;
+    addr.sin_zero[5] = 0;
+    addr.sin_zero[6] = 0;
+    addr.sin_zero[7] = 0;
+    memcpy(&addr, result->ai_addr, sizeof(addr));
+    freeaddrinfo(result);
+
+    // Set IP address
+    m_ipaddress.s_addr = addr.sin_addr.s_addr;
+
+    // Host name resolved
+    return true;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 //  Get IP address v4 string                                                  //

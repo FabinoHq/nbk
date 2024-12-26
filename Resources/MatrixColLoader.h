@@ -55,7 +55,6 @@
     #include <fstream>
     #include <cstdint>
     #include <cstring>
-    #include <new>
 
 
     ////////////////////////////////////////////////////////////////////////////

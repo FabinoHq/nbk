@@ -37,98 +37,97 @@
 //   For more information, please refer to <https://unlicense.org>            //
 ////////////////////////////////////////////////////////////////////////////////
 //    NBK : Network Backend                                                   //
-//     System/SysThread.cpp : System Thread management                        //
+//     System/SysMemory.cpp : System memory management                        //
 ////////////////////////////////////////////////////////////////////////////////
-#include "SysThread.h"
+#include "SysMemory.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
-//  SysThread default constructor                                             //
+//  SysMemory global instance                                                 //
 ////////////////////////////////////////////////////////////////////////////////
-SysThread::SysThread() :
-m_thread(),
-m_mutex(),
-m_running(false),
-m_standby(false)
+SysMemory GSysMemory = SysMemory();
+
+
+////////////////////////////////////////////////////////////////////////////////
+//  SysMemory default constructor                                             //
+////////////////////////////////////////////////////////////////////////////////
+SysMemory::SysMemory()
 {
-    
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//  SysThread virtual destructor                                              //
-////////////////////////////////////////////////////////////////////////////////
-SysThread::~SysThread()
-{
-    // Stop eventual running thread
-    stop();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//  Stop the thread                                                           //
-////////////////////////////////////////////////////////////////////////////////
-void SysThread::stop()
-{
-    // Request thread stop
-    m_mutex.lock();
-    m_running = false;
-    m_mutex.unlock();
-
-    // Wait for the thread to stop
-    m_thread.join();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//  Set the thread's standby mode                                             //
-////////////////////////////////////////////////////////////////////////////////
-void SysThread::standby(bool standbyMode)
-{
-    m_mutex.lock();
-    m_standby = standbyMode;
-    m_mutex.unlock();
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//  Thread virtual process                                                    //
-////////////////////////////////////////////////////////////////////////////////
-void SysThread::process()
-{
-    // Default process : Standby thread
-    SysSleep(SysThreadStandbySleepTime);
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-//  Thread subroutine                                                         //
-////////////////////////////////////////////////////////////////////////////////
-void SysThread::run()
-{
-    // Set running and standby state
-    bool running = false;
-    bool standby = false;
-
-    m_mutex.lock();
-    m_running = running = true;
-    m_standby = standby = false;
-    m_mutex.unlock();
-
-    // Run the thread
-    while (running)
+    // Reset memory arrays
+    for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
     {
-        if (standby)
-        {
-            // Thread standby mode
-            SysSleep(SysThreadStandbySleepTime);
-        }
-        else
-        {
-            // Thread process
-            process();
-        }
+        m_memory[i] = 0;
+        m_offset[i] = 0;
+        m_usage[i] = 0;
+    }
+}
 
-        // Update running and standby states
-        m_mutex.lock();
-        running = m_running;
-        standby = m_standby;
-        m_mutex.unlock();
+////////////////////////////////////////////////////////////////////////////////
+//  SysMemory destructor                                                      //
+////////////////////////////////////////////////////////////////////////////////
+SysMemory::~SysMemory()
+{
+    // Reset memory arrays
+    for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
+    {
+        m_memory[i] = 0;
+        m_offset[i] = 0;
+        m_usage[i] = 0;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+//  Init system memory                                                        //
+//  return : True if system memory is ready                                   //
+////////////////////////////////////////////////////////////////////////////////
+bool SysMemory::init()
+{
+    // Reset memory arrays
+    for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
+    {
+        m_memory[i] = 0;
+        m_offset[i] = 0;
+        m_usage[i] = 0;
+    }
+
+    // Allocate memory pools
+    for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
+    {
+        // Check memory pool size
+        if (SysMemoryArray[i].size <= 0) { continue; }
+
+        // Allocate system memory
+        m_memory[i] = std::malloc(SysMemoryArray[i].size);
+        if (!m_memory[i])
+        {
+            // Could not allocate system memory pool
+            GSysMessage << "[0x1000] Could not allocate system memory pool\n";
+            GSysMessage << "Please update your graphics drivers";
+            return false;
+        }
+    }
+
+    // System memory is ready
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//  Destroy system memory                                                     //
+////////////////////////////////////////////////////////////////////////////////
+void SysMemory::destroySysMemory()
+{
+    // Free memory arrays
+    for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
+    {
+        if (m_memory[i]) { std::free(m_memory[i]); }
+    }
+
+    // Reset memory arrays
+    for (int i = 0; i < SYSMEMORY_POOLSCOUNT; ++i)
+    {
+        m_memory[i] = 0;
+        m_offset[i] = 0;
+        m_usage[i] = 0;
     }
 }

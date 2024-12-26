@@ -43,11 +43,11 @@
 #define NBK_SYSTEM_SYSTHREAD_HEADER
 
     #include "System.h"
+    #include "SysMemory.h"
     #include "SysSleep.h"
     #include "SysMutex.h"
 
     #include <thread>
-    #include <new>
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,10 @@
             ////////////////////////////////////////////////////////////////////
             //  Start the thread                                              //
             ////////////////////////////////////////////////////////////////////
-            bool start();
+            inline void start()
+            {
+                m_thread = std::thread(&SysThread::run, this);
+            }
 
             ////////////////////////////////////////////////////////////////////
             //  Stop the thread                                               //
@@ -112,7 +115,7 @@
 
 
         private:
-            std::thread*    m_thread;       // System thread
+            std::thread     m_thread;       // System thread
             SysMutex        m_mutex;        // Thread states mutex
             bool            m_running;      // Thread running state
             bool            m_standby;      // Thread standby mode

@@ -227,6 +227,7 @@
     <ClCompile Include="Stdlib\Console.cpp" />
     <ClCompile Include="System\SysClock.cpp" />
     <ClCompile Include="System\SysCPU.cpp" />
+    <ClCompile Include="System\SysMemory.cpp" />
     <ClCompile Include="System\SysSettings.cpp" />
     <ClCompile Include="System\SysThread.cpp" />
     <ClCompile Include="System\Win\SysMessage.cpp" />
@@ -268,6 +269,7 @@
     <ClInclude Include="System\SysClock.h" />
     <ClInclude Include="System\SysCPU.h" />
     <ClInclude Include="System\SysCRC.h" />
+    <ClInclude Include="System\SysMemory.h" />
     <ClInclude Include="System\SysMessage.h" />
     <ClInclude Include="System\SysMutex.h" />
     <ClInclude Include="System\SysMutexLocker.h" />

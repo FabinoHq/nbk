@@ -49,7 +49,7 @@ all: NBK
 
 NBK: main.o \
 	Nbk.o \
-	System/SysThread.o System/SysClock.o System/SysCPU.o \
+	System/SysThread.o System/SysClock.o System/SysCPU.o System/SysMemory.o \
 	System/Lin/SysMessage.o System/SysSettings.o \
 	Stdlib/Console.o \
 	Network/IPAddress.o Network/TCPSocket.o Network/UDPSocket.o \
@@ -64,7 +64,7 @@ NBK: main.o \
 
 	$(CC) -o NBK \
 	Nbk.o \
-	System/SysThread.o System/SysClock.o System/SysCPU.o \
+	System/SysThread.o System/SysClock.o System/SysCPU.o System/SysMemory.o \
 	System/Lin/SysMessage.o System/SysSettings.o \
 	Stdlib/Console.o \
 	Network/IPAddress.o Network/TCPSocket.o Network/UDPSocket.o \
@@ -94,6 +94,9 @@ System/SysClock.o: System/SysClock.cpp
 
 System/SysCPU.o: System/SysCPU.cpp
 	$(CC) -o System/SysCPU.o -c System/SysCPU.cpp $(CFLAGS)
+
+System/SysMemory.o: System/SysMemory.cpp
+	$(CC) -o System/SysMemory.o -c System/SysMemory.cpp $(CFLAGS)
 
 System/Lin/SysMessage.o: System/Lin/SysMessage.cpp
 	$(CC) -o System/Lin/SysMessage.o -c System/Lin/SysMessage.cpp $(CFLAGS)
