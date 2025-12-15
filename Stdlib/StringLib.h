@@ -204,7 +204,7 @@
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Replace the first occurrence of a string by another string    //
+            //  Replace all occurrences of a string by another string         //
             ////////////////////////////////////////////////////////////////////
             inline void findAndReplaceAll(const StringLib& find,
                 const StringLib& string)
@@ -214,7 +214,7 @@
             }
 
             ////////////////////////////////////////////////////////////////////
-            //  Replace first occurrence of a character by another character  //
+            //  Replace all occurrences of a character by another character   //
             ////////////////////////////////////////////////////////////////////
             inline void findAndReplaceAll(const StringType find,
                 const StringType character)
