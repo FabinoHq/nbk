@@ -199,55 +199,131 @@
             ////////////////////////////////////////////////////////////////////
             //  File integer left shift operator                              //
             ////////////////////////////////////////////////////////////////////
-            inline File& operator<<(int32_t value)
+            File& operator<<(int8_t value)
             {
-                // String buffer
-                char buf[12];
-                unsigned int cur = 0;
-
-                // Negative number
-                if (value < 0)
+                // Convert integer value to buffer
+                char buf[6];
+                std::to_chars_result result = std::to_chars(buf, buf+5, value);
+                if (result.ec == std::errc())
                 {
-                    value = -value;
-                    buf[cur++] = '-';
-                }
-
-                // Store number digit by digit
-                for (int32_t i = Math::log10(value); i >= 0; --i)
-                {
-                    buf[cur++] = static_cast<char>(
-                        48 + ((value / Math::power10(i)) % 10)
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
                     );
                 }
-
-                // Write buffer
-                FILE_WRITE(m_handle, buf, cur);
                 return *this;
             }
 
-            inline File& operator<<(int64_t value)
+            File& operator<<(uint8_t value)
             {
-                // String buffer
-                char buf[22];
-                unsigned int cur = 0;
-
-                // Negative number
-                if (value < 0)
+                // Convert integer value to buffer
+                char buf[6];
+                std::to_chars_result result = std::to_chars(buf, buf+5, value);
+                if (result.ec == std::errc())
                 {
-                    value = -value;
-                    buf[cur++] = '-';
-                }
-
-                // Store number digit by digit
-                for (int64_t i = Math::log10(value); i >= 0; --i)
-                {
-                    buf[cur++] = static_cast<char>(
-                        48 + ((value / Math::power10(i)) % 10)
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
                     );
                 }
+                return *this;
+            }
 
-                // Write buffer
-                FILE_WRITE(m_handle, buf, cur);
+            File& operator<<(int16_t value)
+            {
+                // Convert integer value to buffer
+                char buf[8];
+                std::to_chars_result result = std::to_chars(buf, buf+7, value);
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+                return *this;
+            }
+
+            File& operator<<(uint16_t value)
+            {
+                // Convert integer value to buffer
+                char buf[8];
+                std::to_chars_result result = std::to_chars(buf, buf+7, value);
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+                return *this;
+            }
+
+            File& operator<<(int32_t value)
+            {
+                // Convert integer value to buffer
+                char buf[13];
+                std::to_chars_result result = std::to_chars(buf, buf+12, value);
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+                return *this;
+            }
+
+            File& operator<<(uint32_t value)
+            {
+                // Convert integer value to buffer
+                char buf[13];
+                std::to_chars_result result = std::to_chars(buf, buf+12, value);
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+                return *this;
+            }
+
+            File& operator<<(int64_t value)
+            {
+                // Convert integer value to buffer
+                char buf[22];
+                std::to_chars_result result = std::to_chars(buf, buf+21, value);
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+                return *this;
+            }
+
+            File& operator<<(uint64_t value)
+            {
+                // Convert integer value to buffer
+                char buf[22];
+                std::to_chars_result result = std::to_chars(buf, buf+21, value);
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
                 return *this;
             }
 

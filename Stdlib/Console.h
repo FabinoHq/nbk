@@ -48,6 +48,7 @@
     #include <cstddef>
     #include <cstdint>
     #include <cstring>
+    #include <charconv>
 
 
     #ifdef NBK_WINDOWS

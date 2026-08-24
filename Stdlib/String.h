@@ -87,7 +87,7 @@
     ////////////////////////////////////////////////////////////////////////////
     inline int32_t StringLength(const char* array)
     {
-        int i = -1;
+        int32_t i = -1;
         if (!array) { return 0; }
         while (array[++i]);
         return i;

@@ -47,6 +47,7 @@
     #include <cstddef>
     #include <cstdint>
     #include <cstring>
+    #include <charconv>
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -464,21 +465,16 @@
             ////////////////////////////////////////////////////////////////////
             StringLib& operator<<(int8_t value)
             {
-                // Negative number
-                if (value < 0)
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return *this; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value
+                );
+                if (result.ec == std::errc())
                 {
-                    value = -value;
-                    m_string[m_size] = '-';
-                    m_size = Math::min(m_size+1, (StringSize-1));
-                }
-
-                // Write number digit by digit
-                for (int8_t i = Math::log10(value); i >= 0; --i)
-                {
-                    m_string[m_size] = static_cast<StringType>(
-                        48 + ((value / Math::power10(i)) % 10)
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
                     );
-                    m_size = Math::min(m_size+1, (StringSize-1));
                 }
 
                 // Last nul character
@@ -488,13 +484,16 @@
 
             StringLib& operator<<(uint8_t value)
             {
-                // Write number digit by digit
-                for (int8_t i = Math::log10(value); i >= 0; --i)
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return *this; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value
+                );
+                if (result.ec == std::errc())
                 {
-                    m_string[m_size] = static_cast<StringType>(
-                        48 + ((value / Math::power10(uint8_t(i))) % 10)
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
                     );
-                    m_size = Math::min(m_size+1, (StringSize-1));
                 }
 
                 // Last nul character
@@ -504,21 +503,16 @@
 
             StringLib& operator<<(int16_t value)
             {
-                // Negative number
-                if (value < 0)
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return *this; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value
+                );
+                if (result.ec == std::errc())
                 {
-                    value = -value;
-                    m_string[m_size] = '-';
-                    m_size = Math::min(m_size+1, (StringSize-1));
-                }
-
-                // Write number digit by digit
-                for (int8_t i = Math::log10(value); i >= 0; --i)
-                {
-                    m_string[m_size] = static_cast<StringType>(
-                        48 + ((value / Math::power10(int16_t(i))) % 10)
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
                     );
-                    m_size = Math::min(m_size+1, (StringSize-1));
                 }
 
                 // Last nul character
@@ -528,13 +522,16 @@
 
             StringLib& operator<<(uint16_t value)
             {
-                // Write number digit by digit
-                for (int8_t i = Math::log10(value); i >= 0; --i)
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return *this; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value
+                );
+                if (result.ec == std::errc())
                 {
-                    m_string[m_size] = static_cast<StringType>(
-                        48 + ((value / Math::power10(uint16_t(i))) % 10)
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
                     );
-                    m_size = Math::min(m_size+1, (StringSize-1));
                 }
 
                 // Last nul character
@@ -544,21 +541,16 @@
 
             StringLib& operator<<(int32_t value)
             {
-                // Negative number
-                if (value < 0)
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return *this; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value
+                );
+                if (result.ec == std::errc())
                 {
-                    value = -value;
-                    m_string[m_size] = '-';
-                    m_size = Math::min(m_size+1, (StringSize-1));
-                }
-
-                // Write number digit by digit
-                for (int8_t i = Math::log10(value); i >= 0; --i)
-                {
-                    m_string[m_size] = static_cast<StringType>(
-                        48 + ((value / Math::power10(int32_t(i))) % 10)
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
                     );
-                    m_size = Math::min(m_size+1, (StringSize-1));
                 }
 
                 // Last nul character
@@ -568,13 +560,16 @@
 
             StringLib& operator<<(uint32_t value)
             {
-                // Write number digit by digit
-                for (int8_t i = Math::log10(value); i >= 0; --i)
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return *this; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value
+                );
+                if (result.ec == std::errc())
                 {
-                    m_string[m_size] = static_cast<StringType>(
-                        48 + ((value / Math::power10(uint32_t(i))) % 10)
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
                     );
-                    m_size = Math::min(m_size+1, (StringSize-1));
                 }
 
                 // Last nul character
@@ -584,21 +579,16 @@
 
             StringLib& operator<<(int64_t value)
             {
-                // Negative number
-                if (value < 0)
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return *this; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value
+                );
+                if (result.ec == std::errc())
                 {
-                    value = -value;
-                    m_string[m_size] = '-';
-                    m_size = Math::min(m_size+1, (StringSize-1));
-                }
-
-                // Write number digit by digit
-                for (int8_t i = Math::log10(value); i >= 0; --i)
-                {
-                    m_string[m_size] = static_cast<StringType>(
-                        48 + ((value / Math::power10(int64_t(i))) % 10)
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
                     );
-                    m_size = Math::min(m_size+1, (StringSize-1));
                 }
 
                 // Last nul character
@@ -608,13 +598,16 @@
 
             StringLib& operator<<(uint64_t value)
             {
-                // Write number digit by digit
-                for (int8_t i = Math::log10(value); i >= 0; --i)
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return *this; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value
+                );
+                if (result.ec == std::errc())
                 {
-                    m_string[m_size] = static_cast<StringType>(
-                        48 + ((value / Math::power10(uint64_t(i))) % 10)
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
                     );
-                    m_size = Math::min(m_size+1, (StringSize-1));
                 }
 
                 // Last nul character

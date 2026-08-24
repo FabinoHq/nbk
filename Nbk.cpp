@@ -221,61 +221,160 @@ void Nbk::run()
     GConsole << "------------------------------------\n\n";
     GConsole.flush();*/
 
-    /*File file;
-    if (file.open("test.txt"))
-    {
-        GConsole << "test.txt opened\n";
-    }
-    else
-    {
-        GConsole << "Could not open file\n";
-        return;
-    }
-
-    file << "test\n";
-    file.close();*/
-
     /*int8_t int8a = 8;
     int8_t int8b = 72;
-    int8_t int8c = 108;
-    int8_t int8d = -117;
+    int8_t int8c = 127;
+    int8_t int8d = -128;
 
     uint8_t uint8a = 8;
     uint8_t uint8b = 72;
     uint8_t uint8c = 108;
-    uint8_t uint8d = 249;
+    uint8_t uint8d = 255;
 
     int16_t int16a = 104;
     int16_t int16b = 3975;
-    int16_t int16c = 27347;
-    int16_t int16d = -28971;
+    int16_t int16c = 32767;
+    int16_t int16d = -32768;
 
     uint16_t uint16a = 104u;
     uint16_t uint16b = 3975u;
     uint16_t uint16c = 27347u;
-    uint16_t uint16d = 62378u;
+    uint16_t uint16d = 65535u;
 
     int32_t int32a = 14l;
     int32_t int32b = 7124l;
-    int32_t int32c = 1477945875l;
-    int32_t int32d = -2142342691l;
+    int32_t int32c = 2147483647l;
+    int32_t int32d = -2147483648l;
 
     uint32_t uint32a = 14ul;
     uint32_t uint32b = 7124ul;
     uint32_t uint32c = 1477945875ul;
-    uint32_t uint32d = 3942342691ul;
+    uint32_t uint32d = 4294967295ul;
 
     int64_t int64a = 21ll;
-    int64_t int64b = 786382ll;
-    int64_t int64c = 79477945875ll;
-    int64_t int64d = -7126742073207541612ll;
+    int64_t int64b = 54294967295ll;
+    int64_t int64c = 9223372036854775807ll;
+    int64_t int64d = -9223372036854775807ll; int64d -= 1;
 
     uint64_t uint64a = 21ull;
-    uint64_t uint64b = 786382ull;
-    uint64_t uint64c = 79477945875ull;
-    uint64_t uint64d = 15438218372394254211ull;
+    uint64_t uint64b = 54294967295ull;
+    uint64_t uint64c = 78729477945875ull;
+    uint64_t uint64d = 18446744073709551615ull;*/
 
+    /*String32 str;
+    str.clear();
+    str << "str : " << int8a;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int8b;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int8c;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int8d;
+    GConsole << str << '\n';
     GConsole << '\n';
+
+    str.clear();
+    str << "str : " << uint8a;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint8b;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint8c;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint8d;
+    GConsole << str << '\n';
+    GConsole << '\n';
+
+    str.clear();
+    str << "str : " << int16a;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int16b;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int16c;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int16d;
+    GConsole << str << '\n';
+    GConsole << '\n';
+
+    str.clear();
+    str << "str : " << uint16a;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint16b;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint16c;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint16d;
+    GConsole << str << '\n';
+    GConsole << '\n';
+
+    str.clear();
+    str << "str : " << int32a;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int32b;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int32c;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int32d;
+    GConsole << str << '\n';
+    GConsole << '\n';
+
+    str.clear();
+    str << "str : " << uint32a;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint32b;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint32c;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint32d;
+    GConsole << str << '\n';
+    GConsole << '\n';
+
+    str.clear();
+    str << "str : " << int64a;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int64b;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int64c;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << int64d;
+    GConsole << str << '\n';
+    GConsole << '\n';
+
+    str.clear();
+    str << "str : " << uint64a;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint64b;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint64c;
+    GConsole << str << '\n';
+    str.clear();
+    str << "str : " << uint64d;
+    GConsole << str << '\n';
+    GConsole << '\n';*/
+
+    /*GConsole << '\n';
     GConsole << int8a << '\n';
     GConsole << int8b << '\n';
     GConsole << int8c << '\n';
@@ -315,4 +414,60 @@ void Nbk::run()
     GConsole << uint64b << '\n';
     GConsole << uint64c << '\n';
     GConsole << uint64d << '\n';*/
+
+    // Open file
+    /*File file;
+    if (file.open("test.txt"))
+    {
+        GConsole << "test.txt opened\n";
+    }
+    else
+    {
+        GConsole << "Could not open file\n";
+        return;
+    }
+
+    file << "Test file\n";
+    file << int8a << '\n';
+    file << int8b << '\n';
+    file << int8c << '\n';
+    file << int8d << '\n';
+    file << '\n';
+    file << uint8a << '\n';
+    file << uint8b << '\n';
+    file << uint8c << '\n';
+    file << uint8d << '\n';
+    file << '\n';
+    file << int16a << '\n';
+    file << int16b << '\n';
+    file << int16c << '\n';
+    file << int16d << '\n';
+    file << '\n';
+    file << uint16a << '\n';
+    file << uint16b << '\n';
+    file << uint16c << '\n';
+    file << uint16d << '\n';
+    file << '\n';
+    file << int32a << '\n';
+    file << int32b << '\n';
+    file << int32c << '\n';
+    file << int32d << '\n';
+    file << '\n';
+    file << uint32a << '\n';
+    file << uint32b << '\n';
+    file << uint32c << '\n';
+    file << uint32d << '\n';
+    file << '\n';
+    file << int64a << '\n';
+    file << int64b << '\n';
+    file << int64c << '\n';
+    file << int64d << '\n';
+    file << '\n';
+    file << uint64a << '\n';
+    file << uint64b << '\n';
+    file << uint64c << '\n';
+    file << uint64d << '\n';
+
+    // Close file
+    file.close();*/
 }

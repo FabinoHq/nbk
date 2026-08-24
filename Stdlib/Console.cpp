@@ -53,180 +53,128 @@ Console GConsole = Console();
 ////////////////////////////////////////////////////////////////////////////////
 Console& Console::operator<<(int8_t value)
 {
-    // String buffer
-    char buf[5];
-    unsigned int cur = 0;
-
-    // Negative number
-    if (value < 0)
+    // Convert integer value to buffer
+    char buf[6];
+    std::to_chars_result result = std::to_chars(buf, buf+5, value);
+    if (result.ec == std::errc())
     {
-        value = -value;
-        buf[cur++] = '-';
-    }
-
-    // Store number digit by digit
-    for (int8_t i = Math::log10(value); i >= 0; --i)
-    {
-        buf[cur++] = static_cast<char>(
-            48 + ((value / Math::power10(i)) % 10)
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
         );
     }
-
-    // Write buffer
-    CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, buf, cur);
     return *this;
 }
 
 Console& Console::operator<<(uint8_t value)
 {
-    // String buffer
-    char buf[5];
-    unsigned int cur = 0;
-
-    // Store number digit by digit
-    for (int8_t i = Math::log10(value); i >= 0; --i)
+    // Convert integer value to buffer
+    char buf[6];
+    std::to_chars_result result = std::to_chars(buf, buf+5, value);
+    if (result.ec == std::errc())
     {
-        buf[cur++] = static_cast<char>(
-            48 + ((value / Math::power10(uint8_t(i))) % 10)
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
         );
     }
-
-    // Write buffer
-    CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, buf, cur);
     return *this;
 }
 
 Console& Console::operator<<(int16_t value)
 {
-    // String buffer
+    // Convert integer value to buffer
     char buf[8];
-    unsigned int cur = 0;
-
-    // Negative number
-    if (value < 0)
+    std::to_chars_result result = std::to_chars(buf, buf+7, value);
+    if (result.ec == std::errc())
     {
-        value = -value;
-        buf[cur++] = '-';
-    }
-
-    // Store number digit by digit
-    for (int8_t i = Math::log10(value); i >= 0; --i)
-    {
-        buf[cur++] = static_cast<char>(
-            48 + ((value / Math::power10(int16_t(i))) % 10)
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
         );
     }
-
-    // Write buffer
-    CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, buf, cur);
     return *this;
 }
 
 Console& Console::operator<<(uint16_t value)
 {
-    // String buffer
+    // Convert integer value to buffer
     char buf[8];
-    unsigned int cur = 0;
-
-    // Store number digit by digit
-    for (int8_t i = Math::log10(value); i >= 0; --i)
+    std::to_chars_result result = std::to_chars(buf, buf+7, value);
+    if (result.ec == std::errc())
     {
-        buf[cur++] = static_cast<char>(
-            48 + ((value / Math::power10(uint16_t(i))) % 10)
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
         );
     }
-
-    // Write buffer
-    CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, buf, cur);
     return *this;
 }
 
 Console& Console::operator<<(int32_t value)
 {
-    // String buffer
-    char buf[12];
-    unsigned int cur = 0;
-
-    // Negative number
-    if (value < 0)
+    // Convert integer value to buffer
+    char buf[13];
+    std::to_chars_result result = std::to_chars(buf, buf+12, value);
+    if (result.ec == std::errc())
     {
-        value = -value;
-        buf[cur++] = '-';
-    }
-
-    // Store number digit by digit
-    for (int8_t i = Math::log10(value); i >= 0; --i)
-    {
-        buf[cur++] = static_cast<char>(
-            48 + ((value / Math::power10(int32_t(i))) % 10)
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
         );
     }
-
-    // Write buffer
-    CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, buf, cur);
     return *this;
 }
 
 Console& Console::operator<<(uint32_t value)
 {
-    // String buffer
-    char buf[12];
-    unsigned int cur = 0;
-
-    // Store number digit by digit
-    for (int8_t i = Math::log10(value); i >= 0; --i)
+    // Convert integer value to buffer
+    char buf[13];
+    std::to_chars_result result = std::to_chars(buf, buf+12, value);
+    if (result.ec == std::errc())
     {
-        buf[cur++] = static_cast<char>(
-            48 + ((value / Math::power10(uint32_t(i))) % 10)
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
         );
     }
-
-    // Write buffer
-    CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, buf, cur);
     return *this;
 }
 
 Console& Console::operator<<(int64_t value)
 {
-    // String buffer
+    // Convert integer value to buffer
     char buf[22];
-    unsigned int cur = 0;
-
-    // Negative number
-    if (value < 0)
+    std::to_chars_result result = std::to_chars(buf, buf+21, value);
+    if (result.ec == std::errc())
     {
-        value = -value;
-        buf[cur++] = '-';
-    }
-
-    // Store number digit by digit
-    for (int8_t i = Math::log10(value); i >= 0; --i)
-    {
-        buf[cur++] = static_cast<char>(
-            48 + ((value / Math::power10(int64_t(i))) % 10)
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
         );
     }
-
-    // Write buffer
-    CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, buf, cur);
     return *this;
 }
 
 Console& Console::operator<<(uint64_t value)
 {
-    // String buffer
+    // Convert integer value to buffer
     char buf[22];
-    unsigned int cur = 0;
-
-    // Store number digit by digit
-    for (int8_t i = Math::log10(value); i >= 0; --i)
+    std::to_chars_result result = std::to_chars(buf, buf+21, value);
+    if (result.ec == std::errc())
     {
-        buf[cur++] = static_cast<char>(
-            48 + ((value / Math::power10(uint64_t(i))) % 10)
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
         );
     }
-
-    // Write buffer
-    CONSOLE_WRITE(CONSOLE_OUTPUT_FILEDESC, buf, cur);
     return *this;
 }
