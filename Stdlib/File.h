@@ -328,6 +328,45 @@
             }
 
             ////////////////////////////////////////////////////////////////////
+            //  File float left shift operator                                //
+            ////////////////////////////////////////////////////////////////////
+            File& operator<<(float value)
+            {
+                // Convert float value to buffer
+                char buf[64];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+63, value, std::chars_format::fixed
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+                return *this;
+            }
+
+            File& operator<<(double value)
+            {
+                // Convert double value to buffer
+                char buf[64];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+63, value, std::chars_format::fixed
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+                return *this;
+            }
+
+            ////////////////////////////////////////////////////////////////////
             //  File right shift operator                                     //
             ////////////////////////////////////////////////////////////////////
             inline File& operator>>(String32& string)

@@ -259,7 +259,17 @@ void Nbk::run()
     uint64_t uint64a = 21ull;
     uint64_t uint64b = 54294967295ull;
     uint64_t uint64c = 78729477945875ull;
-    uint64_t uint64d = 18446744073709551615ull;*/
+    uint64_t uint64d = 18446744073709551615ull;
+
+    float flta = 0.0f;
+    float fltb = 3.14159265358f;
+    float fltc = -1.41421356f;
+    float fltd = 707106781.18f;
+
+    double dbla = 0.0;
+    double dblb = 3.1415926535897932384626;
+    double dblc = -1.41421356237309504880;
+    double dbld = 707106781.18;*/
 
     /*String32 str;
     str.clear();
@@ -372,6 +382,34 @@ void Nbk::run()
     str.clear();
     str << "str : " << uint64d;
     GConsole << str << '\n';
+    GConsole << '\n';
+
+    str.clear();
+    str << "flt : " << flta;
+    GConsole << str << '\n';
+    str.clear();
+    str << "flt : " << fltb;
+    GConsole << str << '\n';
+    str.clear();
+    str << "flt : " << fltc;
+    GConsole << str << '\n';
+    str.clear();
+    str << "flt : " << fltd;
+    GConsole << str << '\n';
+    GConsole << '\n';
+
+    str.clear();
+    str << "dbl : " << dbla;
+    GConsole << str << '\n';
+    str.clear();
+    str << "dbl : " << dblb;
+    GConsole << str << '\n';
+    str.clear();
+    str << "dbl : " << dblc;
+    GConsole << str << '\n';
+    str.clear();
+    str << "dbl : " << dbld;
+    GConsole << str << '\n';
     GConsole << '\n';*/
 
     /*GConsole << '\n';
@@ -413,7 +451,18 @@ void Nbk::run()
     GConsole << uint64a << '\n';
     GConsole << uint64b << '\n';
     GConsole << uint64c << '\n';
-    GConsole << uint64d << '\n';*/
+    GConsole << uint64d << '\n';
+    GConsole << '\n';
+    GConsole << flta << '\n';
+    GConsole << fltb << '\n';
+    GConsole << fltc << '\n';
+    GConsole << fltd << '\n';
+    GConsole << '\n';
+    GConsole << dbla << '\n';
+    GConsole << dblb << '\n';
+    GConsole << dblc << '\n';
+    GConsole << dbld << '\n';
+    GConsole << '\n';*/
 
     // Open file
     /*File file;
@@ -467,6 +516,17 @@ void Nbk::run()
     file << uint64b << '\n';
     file << uint64c << '\n';
     file << uint64d << '\n';
+    file << '\n';
+    file << flta << '\n';
+    file << fltb << '\n';
+    file << fltc << '\n';
+    file << fltd << '\n';
+    file << '\n';
+    file << dbla << '\n';
+    file << dblb << '\n';
+    file << dblc << '\n';
+    file << dbld << '\n';
+    file << '\n';
 
     // Close file
     file.close();*/

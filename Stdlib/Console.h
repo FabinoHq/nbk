@@ -193,8 +193,8 @@
             ////////////////////////////////////////////////////////////////////
             //  Console float left shift operator                             //
             ////////////////////////////////////////////////////////////////////
-            /*Console& operator<<(float value);
-            Console& operator<<(double value);*/
+            Console& operator<<(float value);
+            Console& operator<<(double value);
 
 
             ////////////////////////////////////////////////////////////////////

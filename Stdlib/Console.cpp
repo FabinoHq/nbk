@@ -178,3 +178,43 @@ Console& Console::operator<<(uint64_t value)
     }
     return *this;
 }
+
+
+////////////////////////////////////////////////////////////////////////////////
+//  Console float left shift operator                                         //
+////////////////////////////////////////////////////////////////////////////////
+Console& Console::operator<<(float value)
+{
+    // Convert float value to buffer
+    char buf[64];
+    std::to_chars_result result = std::to_chars(
+        buf, buf+63, value, std::chars_format::fixed
+    );
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+    return *this;
+}
+
+Console& Console::operator<<(double value)
+{
+    // Convert double value to buffer
+    char buf[64];
+    std::to_chars_result result = std::to_chars(
+        buf, buf+63, value, std::chars_format::fixed
+    );
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+    return *this;
+}

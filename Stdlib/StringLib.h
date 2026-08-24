@@ -619,8 +619,21 @@
             ////////////////////////////////////////////////////////////////////
             //  StringLib float left shift operator                           //
             ////////////////////////////////////////////////////////////////////
-            /*StringLib& operator<<(float value)
+            StringLib& operator<<(float value)
             {
+                // Convert float value to string
+                if (m_size >= (StringSize-2)) { return *this; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value,
+                    std::chars_format::fixed
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+
                 // Last nul character
                 m_string[m_size] = 0;
                 return *this;
@@ -628,10 +641,23 @@
 
             StringLib& operator<<(double value)
             {
+                // Convert double value to string
+                if (m_size >= (StringSize-2)) { return *this; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value,
+                    std::chars_format::fixed
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+
                 // Last nul character
                 m_string[m_size] = 0;
                 return *this;
-            }*/
+            }
 
 
             ////////////////////////////////////////////////////////////////////
