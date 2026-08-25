@@ -353,6 +353,185 @@
 
 
             ////////////////////////////////////////////////////////////////////
+            //  Append integer to string                                      //
+            ////////////////////////////////////////////////////////////////////
+            void appendInteger(int8_t value, int base = 10)
+            {
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+                // Last nul character
+                m_string[m_size] = 0;
+            }
+
+            void appendInteger(uint8_t value, int base = 10)
+            {
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+                // Last nul character
+                m_string[m_size] = 0;
+            }
+
+            void appendInteger(int16_t value, int base = 10)
+            {
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+                // Last nul character
+                m_string[m_size] = 0;
+            }
+
+            void appendInteger(uint16_t value, int base = 10)
+            {
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+                // Last nul character
+                m_string[m_size] = 0;
+            }
+
+            void appendInteger(int32_t value, int base = 10)
+            {
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+                // Last nul character
+                m_string[m_size] = 0;
+            }
+
+            void appendInteger(uint32_t value, int base = 10)
+            {
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+                // Last nul character
+                m_string[m_size] = 0;
+            }
+
+            void appendInteger(int64_t value, int base = 10)
+            {
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+                // Last nul character
+                m_string[m_size] = 0;
+            }
+
+            void appendInteger(uint64_t value, int base = 10)
+            {
+                // Convert integer value to string
+                if (m_size >= (StringSize-2)) { return; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+                // Last nul character
+                m_string[m_size] = 0;
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Append float to string                                        //
+            ////////////////////////////////////////////////////////////////////
+            void appendFloat(float value, int precision = 3)
+            {
+                // Convert float value to string
+                if (m_size >= (StringSize-2)) { return; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value,
+                    std::chars_format::fixed, precision
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+                // Last nul character
+                m_string[m_size] = 0;
+            }
+
+            void appendDouble(double value, int precision = 3)
+            {
+                // Convert double value to string
+                if (m_size >= (StringSize-2)) { return; }
+                std::to_chars_result result = std::to_chars(
+                    &m_string[m_size], &m_string[StringSize-2], value,
+                    std::chars_format::fixed, precision
+                );
+                if (result.ec == std::errc())
+                {
+                    m_size += static_cast<int32_t>(
+                        result.ptr - &m_string[m_size]
+                    );
+                }
+                // Last nul character
+                m_string[m_size] = 0;
+            }
+
+
+            ////////////////////////////////////////////////////////////////////
             //  StringLib copy operator                                       //
             ////////////////////////////////////////////////////////////////////
             inline StringLib& operator=(const StringLib& string)
@@ -614,7 +793,6 @@
                 m_string[m_size] = 0;
                 return *this;
             }
-
 
             ////////////////////////////////////////////////////////////////////
             //  StringLib float left shift operator                           //

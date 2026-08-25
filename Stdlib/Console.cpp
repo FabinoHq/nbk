@@ -49,6 +49,167 @@ Console GConsole = Console();
 
 
 ////////////////////////////////////////////////////////////////////////////////
+//  Write integer to console                                                  //
+////////////////////////////////////////////////////////////////////////////////
+void Console::writeInteger(int8_t value, int base)
+{
+    // Convert integer value to buffer
+    char buf[11];
+    std::to_chars_result result = std::to_chars(buf, buf+10, value, base);
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+}
+
+void Console::writeInteger(uint8_t value, int base)
+{
+    // Convert integer value to buffer
+    char buf[11];
+    std::to_chars_result result = std::to_chars(buf, buf+10, value, base);
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+}
+
+void Console::writeInteger(int16_t value, int base)
+{
+    // Convert integer value to buffer
+    char buf[19];
+    std::to_chars_result result = std::to_chars(buf, buf+18, value, base);
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+}
+
+void Console::writeInteger(uint16_t value, int base)
+{
+    // Convert integer value to buffer
+    char buf[19];
+    std::to_chars_result result = std::to_chars(buf, buf+18, value, base);
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+}
+
+void Console::writeInteger(int32_t value, int base)
+{
+    // Convert integer value to buffer
+    char buf[35];
+    std::to_chars_result result = std::to_chars(buf, buf+34, value, base);
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+}
+
+void Console::writeInteger(uint32_t value, int base)
+{
+    // Convert integer value to buffer
+    char buf[35];
+    std::to_chars_result result = std::to_chars(buf, buf+34, value, base);
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+}
+
+void Console::writeInteger(int64_t value, int base)
+{
+    // Convert integer value to buffer
+    char buf[67];
+    std::to_chars_result result = std::to_chars(buf, buf+66, value, base);
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+}
+
+void Console::writeInteger(uint64_t value, int base)
+{
+    // Convert integer value to buffer
+    char buf[67];
+    std::to_chars_result result = std::to_chars(buf, buf+66, value, base);
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//  Write float to console                                                    //
+////////////////////////////////////////////////////////////////////////////////
+void Console::writeFloat(float value, int precision)
+{
+    // Convert float value to buffer
+    char buf[64];
+    std::to_chars_result result = std::to_chars(
+        buf, buf+63, value, std::chars_format::fixed, precision
+    );
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+}
+
+void Console::writeDouble(double value, int precision)
+{
+    // Convert double value to buffer
+    char buf[64];
+    std::to_chars_result result = std::to_chars(
+        buf, buf+63, value, std::chars_format::fixed, precision
+    );
+    if (result.ec == std::errc())
+    {
+        // Write buffer
+        CONSOLE_WRITE(
+            CONSOLE_OUTPUT_FILEDESC, buf,
+            static_cast<unsigned int>(result.ptr - buf)
+        );
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
 //  Console integer left shift operator                                       //
 ////////////////////////////////////////////////////////////////////////////////
 Console& Console::operator<<(int8_t value)
@@ -178,7 +339,6 @@ Console& Console::operator<<(uint64_t value)
     }
     return *this;
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //  Console float left shift operator                                         //

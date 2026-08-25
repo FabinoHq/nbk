@@ -158,6 +158,183 @@
 
 
             ////////////////////////////////////////////////////////////////////
+            //  Write integer to file                                         //
+            ////////////////////////////////////////////////////////////////////
+            void writeInteger(int8_t value, int base = 10)
+            {
+                // Convert integer value to buffer
+                char buf[11];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+10, value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+            }
+
+            void writeInteger(uint8_t value, int base = 10)
+            {
+                // Convert integer value to buffer
+                char buf[11];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+10, value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+            }
+
+            void writeInteger(int16_t value, int base = 10)
+            {
+                // Convert integer value to buffer
+                char buf[19];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+18, value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+            }
+
+            void writeInteger(uint16_t value, int base = 10)
+            {
+                // Convert integer value to buffer
+                char buf[19];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+18, value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+            }
+
+            void writeInteger(int32_t value, int base = 10)
+            {
+                // Convert integer value to buffer
+                char buf[35];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+34, value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+            }
+
+            void writeInteger(uint32_t value, int base = 10)
+            {
+                // Convert integer value to buffer
+                char buf[35];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+34, value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+            }
+
+            void writeInteger(int64_t value, int base = 10)
+            {
+                // Convert integer value to buffer
+                char buf[67];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+66, value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+            }
+
+            void writeInteger(uint64_t value, int base = 10)
+            {
+                // Convert integer value to buffer
+                char buf[67];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+66, value, base
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            //  Write float to file                                           //
+            ////////////////////////////////////////////////////////////////////
+            void writeFloat(float value, int precision = 3)
+            {
+                // Convert float value to buffer
+                char buf[64];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+63, value, std::chars_format::fixed, precision
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+            }
+
+            void writeDouble(double value, int precision = 3)
+            {
+                // Convert double value to buffer
+                char buf[64];
+                std::to_chars_result result = std::to_chars(
+                    buf, buf+63, value, std::chars_format::fixed, precision
+                );
+                if (result.ec == std::errc())
+                {
+                    // Write buffer
+                    FILE_WRITE(
+                        m_handle, buf,
+                        static_cast<unsigned int>(result.ptr - buf)
+                    );
+                }
+            }
+
+
+            ////////////////////////////////////////////////////////////////////
             //  File string left shift operator                               //
             ////////////////////////////////////////////////////////////////////
             inline File& operator<<(String32& string)

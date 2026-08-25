@@ -132,6 +132,25 @@
 
 
             ////////////////////////////////////////////////////////////////////
+            //  Write integer to console                                      //
+            ////////////////////////////////////////////////////////////////////
+            void writeInteger(int8_t value, int base = 10);
+            void writeInteger(uint8_t value, int base = 10);
+            void writeInteger(int16_t value, int base = 10);
+            void writeInteger(uint16_t value, int base = 10);
+            void writeInteger(int32_t value, int base = 10);
+            void writeInteger(uint32_t value, int base = 10);
+            void writeInteger(int64_t value, int base = 10);
+            void writeInteger(uint64_t value, int base = 10);
+
+            ////////////////////////////////////////////////////////////////////
+            //  Write float to console                                        //
+            ////////////////////////////////////////////////////////////////////
+            void writeFloat(float value, int precision = 3);
+            void writeDouble(double value, int precision = 3);
+
+
+            ////////////////////////////////////////////////////////////////////
             //  Console string left shift operator                            //
             ////////////////////////////////////////////////////////////////////
             inline Console& operator<<(String32& string)
