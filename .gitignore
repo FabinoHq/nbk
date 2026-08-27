@@ -55,14 +55,6 @@
 !System/Win/SysMessage.cpp
 !System/Win/SysCPU.h
 
-# Stdlib
-!Stdlib/
-!Stdlib/String.h
-!Stdlib/StringLib.h
-!Stdlib/Console.h
-!Stdlib/Console.cpp
-!Stdlib/File.h
-
 # Network
 !Network/
 !Network/Network.h
