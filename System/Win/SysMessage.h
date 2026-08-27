@@ -44,8 +44,10 @@
 
     #include "../System.h"
     #include "../SysMutex.h"
-    #include "../../Stdlib/String.h"
-    #include "../../Stdlib/Console.h"
+
+    #include <iostream>
+    #include <string>
+    #include <sstream>
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -98,9 +100,9 @@
 
 
         private:
-            SysMutex            m_mutex;        // System message mutex
-            bool                m_display;      // Message display state
-            String256           m_message;      // Message to display
+            SysMutex                m_mutex;    // System message mutex
+            bool                    m_display;  // Display the system message
+            std::ostringstream      m_message;  // Message to display
     };
 
 

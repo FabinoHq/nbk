@@ -43,10 +43,10 @@
 #define NBK_NETWORK_IPADDRESS_HEADER
 
     #include "Network.h"
-    #include "../Stdlib/String.h"
 
     #include <cstdint>
     #include <cstring>
+    #include <string>
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -90,26 +90,16 @@
             ////////////////////////////////////////////////////////////////////
             //  Set IP address v4 string                                      //
             ////////////////////////////////////////////////////////////////////
-            inline bool setString(const String32& ipaddress)
+            inline bool setString(const std::string& ipaddress)
             {
-                return (inet_pton(AF_INET, ipaddress.str(), &m_ipaddress) == 1);
-            }
-            inline bool setString(const String256& ipaddress)
-            {
-                return (inet_pton(AF_INET, ipaddress.str(), &m_ipaddress) == 1);
-            }
-            inline bool setString(const String4096& ipaddress)
-            {
-                return (inet_pton(AF_INET, ipaddress.str(), &m_ipaddress) == 1);
+                return (inet_pton(AF_INET,ipaddress.c_str(),&m_ipaddress) == 1);
             }
 
 
             ////////////////////////////////////////////////////////////////////
             //  Resolve host name into IP address                             //
             ////////////////////////////////////////////////////////////////////
-            bool resolveHostName(const String32& hostName);
-            bool resolveHostName(const String256& hostName);
-            bool resolveHostName(const String4096& hostName);
+            bool resolveHostName(const std::string& hostName);
 
 
             ////////////////////////////////////////////////////////////////////
@@ -131,7 +121,7 @@
             ////////////////////////////////////////////////////////////////////
             //  Get IP address v4 string                                      //
             ////////////////////////////////////////////////////////////////////
-            String32 getString() const;
+            std::string getString() const;
 
 
             ////////////////////////////////////////////////////////////////////

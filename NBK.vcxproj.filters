@@ -30,9 +30,6 @@
     <ClCompile Include="Network\UDPSocket.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="Stdlib\Console.cpp">
-      <Filter>Stdlib</Filter>
-    </ClCompile>
     <ClCompile Include="Physics\Collision2.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
@@ -156,18 +153,6 @@
     <ClInclude Include="Network\UDPSocket.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="Stdlib\String.h">
-      <Filter>Stdlib</Filter>
-    </ClInclude>
-    <ClInclude Include="Stdlib\StringLib.h">
-      <Filter>Stdlib</Filter>
-    </ClInclude>
-    <ClInclude Include="Stdlib\Console.h">
-      <Filter>Stdlib</Filter>
-    </ClInclude>
-    <ClInclude Include="Stdlib\File.h">
-      <Filter>Stdlib</Filter>
-    </ClInclude>
     <ClInclude Include="Physics\Collision2.h">
       <Filter>Physics</Filter>
     </ClInclude>
@@ -223,9 +208,6 @@
     </Filter>
     <Filter Include="Network">
       <UniqueIdentifier>{ca6d8d56-2aee-4680-ac95-e30b591d6fee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Stdlib">
-      <UniqueIdentifier>{142f4ec3-28e7-43eb-9999-2e5cea98cfa9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Physics">
       <UniqueIdentifier>{fd628d81-9b59-4909-b85a-c763108e8ac3}</UniqueIdentifier>

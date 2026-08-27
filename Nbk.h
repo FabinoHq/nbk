@@ -49,9 +49,6 @@
     #include "System/SysClock.h"
     #include "System/SysSleep.h"
     #include "System/SysSettings.h"
-    #include "Stdlib/String.h"
-    #include "Stdlib/Console.h"
-    #include "Stdlib/File.h"
 
     #include "Resources/Resources.h"
     #include "Physics/Physics.h"

@@ -76,8 +76,7 @@ void SysMessage::display()
     m_mutex.lock();
     if (m_display)
     {
-        m_message << '\n';
-        GConsole << m_message;
+        std::cout << m_message.str() << '\n';
     }
     m_mutex.unlock();
 }

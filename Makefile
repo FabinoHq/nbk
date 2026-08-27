@@ -51,7 +51,6 @@ NBK: main.o \
 	Nbk.o \
 	System/SysThread.o System/SysClock.o System/SysCPU.o System/SysMemory.o \
 	System/Lin/SysMessage.o System/SysSettings.o \
-	Stdlib/Console.o \
 	Network/IPAddress.o Network/TCPSocket.o Network/UDPSocket.o \
 	Physics/Physics.o \
 	Physics/PhysicsTransform2.o Physics/PhysicsTransform3.o \
@@ -66,7 +65,6 @@ NBK: main.o \
 	Nbk.o \
 	System/SysThread.o System/SysClock.o System/SysCPU.o System/SysMemory.o \
 	System/Lin/SysMessage.o System/SysSettings.o \
-	Stdlib/Console.o \
 	Network/IPAddress.o Network/TCPSocket.o Network/UDPSocket.o \
 	Physics/Physics.o \
 	Physics/PhysicsTransform2.o Physics/PhysicsTransform3.o \
@@ -103,10 +101,6 @@ System/Lin/SysMessage.o: System/Lin/SysMessage.cpp
 
 System/SysSettings.o: System/SysSettings.cpp
 	$(CC) -o System/SysSettings.o -c System/SysSettings.cpp $(CFLAGS)
-
-
-Stdlib/Console.o: Stdlib/Console.cpp
-	$(CC) -o Stdlib/Console.o -c Stdlib/Console.cpp $(CFLAGS)
 
 
 Network/IPAddress.o: Network/IPAddress.cpp
@@ -166,7 +160,6 @@ clean:
 	rm -rf *.o
 	rm -rf System/*.o
 	rm -rf System/Lin/*.o
-	rm -rf Stdlib/*.o
 	rm -rf Network/*.o
 	rm -rf Physics/*.o
 	rm -rf Physics/BoundingSurfaces/*.o

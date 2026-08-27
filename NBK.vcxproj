@@ -224,7 +224,6 @@
     <ClCompile Include="Resources\MatrixColLoader.cpp" />
     <ClCompile Include="Resources\Resources.cpp" />
     <ClCompile Include="Softwares\Softwares.cpp" />
-    <ClCompile Include="Stdlib\Console.cpp" />
     <ClCompile Include="System\SysClock.cpp" />
     <ClCompile Include="System\SysCPU.cpp" />
     <ClCompile Include="System\SysMemory.cpp" />
@@ -262,10 +261,6 @@
     <ClInclude Include="Resources\MatrixColLoader.h" />
     <ClInclude Include="Resources\Resources.h" />
     <ClInclude Include="Softwares\Softwares.h" />
-    <ClInclude Include="Stdlib\Console.h" />
-    <ClInclude Include="Stdlib\File.h" />
-    <ClInclude Include="Stdlib\String.h" />
-    <ClInclude Include="Stdlib\StringLib.h" />
     <ClInclude Include="System\SysClock.h" />
     <ClInclude Include="System\SysCPU.h" />
     <ClInclude Include="System\SysCRC.h" />
